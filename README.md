@@ -2,6 +2,6 @@
 
 Sito creato per appassionati di volo, con animazioni e notizie live.  
 
-🔗 **Visitalo qui**: [https://techerath.github.io/sonoherath.github.io/)  ]
+🔗 **Visitalo qui**: [https://sonoherath.github.io/sonoherath.github.io/)  ]
 
 Creato con HTML, CSS e JavaScript.  
