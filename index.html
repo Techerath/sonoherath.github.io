@@ -7,51 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <style>
-        /* AGGIUNTA: Stili per il player musicale */
-        .music-player {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 50px;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--gold);
-            transition: all 0.3s ease;
-        }
-        
-        .music-player:hover {
-            background: rgba(0, 102, 204, 0.8);
-            transform: scale(1.05);
-        }
-        
-        .music-toggle {
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 18px;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .music-icon {
-            color: var(--gold);
-            font-size: 20px;
-        }
-        
-        #youtube-player {
-            display: none; /* Nasconde il player reale */
-        }
-        
-        /* Resto del tuo CSS esistente rimane invariato */
+        /* TUTTI I TUOI STILI ESISTENTI (NESSUNA MODIFICA) */
         :root {
             --accent: #0066cc;
             --dark: #0a2e6d;
@@ -67,51 +23,101 @@
             overflow-x: hidden;
         }
         
-        /* ... (tutto il resto del tuo CSS rimane identico) ... */
+        .hero-nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* ... (TUTTO IL RESTO DEL TUO CSS ESISTENTE RIMANE IDENTICO) ... */
+
+        /* AGGIUNTA: Player musicale nascosto */
+        #youtube-music {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
-    <!-- NAVIGAZIONE (rimane identica) -->
+    <!-- NAVIGAZIONE (IDENTICA ALLA TUA VERSIONE) -->
     <nav class="hero-nav">
-        <!-- ... il tuo menu esistente ... -->
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Voli con <span>Herath</span></a>
+            <div class="nav-menu">
+                <a href="#" class="nav-link home-link">Home</a>
+                <a href="#" class="nav-link story-link">Storia</a>
+                <a href="#" class="nav-link">Navigazione</a>
+                <a href="#" class="nav-link">Sicurezza</a>
+                <a href="#" class="nav-link">Tecnologie</a>
+                <a href="#" class="nav-link">Galleria</a>
+                <a href="#" class="nav-link">Notizie</a>
+                <a href="#" class="nav-link">Glossario</a>
+            </div>
+        </div>
     </nav>
     
-    <!-- HERO SECTION (rimane identica) -->
+    <!-- HERO SECTION (IDENTICA ALLA TUA VERSIONE) -->
     <section class="hero-section" id="home-page">
-        <!-- ... il tuo hero content esistente ... -->
+        <div class="animated-plane" style="top: 20%; left: -200px;"></div>
+        <div class="animated-plane" style="top: 70%; left: -200px; animation-delay: 5s;"></div>
+        <div class="animated-plane" style="top: 40%; left: -200px; animation-delay: 8s; width: 200px; height: 200px;"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Esplora il Mondo dell'Aviazione</h1>
+            <p class="hero-subtitle">Scopri la magia del volo attraverso storia, tecnologia e avventure incredibili</p>
+            <a href="#history" class="btn">Inizia il Viaggio</a>
+        </div>
     </section>
     
-    <!-- PAGINA STORIA (rimane identica) -->
+    <!-- PAGINA STORIA (IDENTICA ALLA TUA VERSIONE) -->
     <section class="story-page" id="story-page">
-        <!-- ... la tua sezione about me esistente ... -->
+        <div class="story-container">
+            <div class="story-header">
+                <h2 class="story-title">La Mia Storia</h2>
+                <p>Chi sono e la mia passione per l'aviazione</p>
+            </div>
+            
+            <div class="story-content">
+                <div class="story-image">
+                    <img src="Immagini/IMG-20250815-WA0008(1).jpg" alt="Herath - Studente di Aeronautica">
+                </div>
+                <div class="story-text">
+                    <p>Ciao, sono <strong>Herath</strong>, un giovane appassionato di aviazione di 23 anni che attualmente studia dipartimento di scienze e tecnologia per corso di laurea scienze Nautica Aeronautica Meteo-Oceanograpico e specializzazione in "gestione sicurezza a volo" all'Università Partenope di Napoli.</p>
+                    <p>Vivo a Napoli da oltre 10 anni e il mio sogno è diventare un pilota di linea. La mia passione per il volo è nata quando ero bambino e da allora non ho mai smesso di coltivare questo interesse.</p>
+                    <p>Fin da piccolo ero affascinato dagli aerei, collezionavo modellini e passavo ore a osservare i voli all'aeroporto. Questa passione mi ha portato a scegliere di studiare ingegneria aeronautica per comprendere a fondo la scienza che rende possibile il volo.</p>
+                    <p>Il mio obiettivo è condividere questa passione con altri attraverso questo sito, mostrando la bellezza e la complessità del mondo dell'aviazione.</p>
+                </div>
+            </div>
+            
+            <a href="#" class="back-home-btn">Torna alla Home</a>
+        </div>
     </section>
 
-    <!-- AGGIUNTA: Player musicale YouTube -->
-    <div class="music-player" id="musicPlayer">
-        <button class="music-toggle" id="musicToggle">▶</button>
-        <span class="music-icon">♫</span>
+    <!-- AGGIUNTA: Player YouTube (completamente nascosto) -->
+    <div id="youtube-music">
         <iframe 
             id="youtube-player"
-            width="0" 
-            height="0" 
-            src="https://www.youtube.com/embed/6OhGIif_-R8?enablejsapi=1&autoplay=0&loop=1&playlist=6OhGIif_-R8" 
-            frameborder="0" 
-            allow="autoplay; encrypted-media" 
-            allowfullscreen>
+            src="https://www.youtube.com/embed/6OhGIif_-R8?enablejsapi=1&autoplay=1&loop=1&playlist=6OhGIif_-R8&controls=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media">
         </iframe>
     </div>
 
     <script>
-        // 1. Carica l'API YouTube
+        // 1. Carica API YouTube
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         const firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        // 2. Variabili globali
+        // 2. Variabili player
         let player;
-        let isPlaying = false;
-
+        
         // 3. Quando l'API è pronta
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
@@ -122,42 +128,27 @@
             });
         }
 
-        // 4. Quando il player è pronto
+        // 4. Player pronto
         function onPlayerReady(event) {
             event.target.setVolume(30); // Volume al 30%
-            
-            // Attiva al primo click (per policy autoplay)
-            document.addEventListener('click', function initMusic() {
-                player.playVideo();
-                isPlaying = true;
-                document.getElementById('musicToggle').textContent = "❚❚";
-                document.removeEventListener('click', initMusic);
-            }, { once: true });
+            event.target.playVideo(); // Parte automaticamente
         }
 
-        // 5. Gestisci cambiamenti di stato
-        function onPlayerStateChange(event) {
-            const toggleBtn = document.getElementById('musicToggle');
-            if (event.data === YT.PlayerState.PLAYING) {
-                toggleBtn.textContent = "❚❚";
-                isPlaying = true;
-            } else {
-                toggleBtn.textContent = "▶";
-                isPlaying = false;
-            }
+        // 5. Ferma musica quando si va su altre pagine
+        function showStoryPage() {
+            if(player) player.pauseVideo();
+            // ... (il resto del tuo codice esistente per la pagina storia)
         }
 
-        // 6. Controllo manuale
-        document.getElementById('musicToggle').addEventListener('click', function() {
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
+        // 6. Riproduci musica quando si torna alla Home
+        document.querySelector('.back-home-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if(player) player.playVideo();
+            // ... (il resto del tuo codice esistente)
         });
 
-        /* RESTA DEL TUO SCRIPT ESISTENTE (GSAP, animazioni ecc.) RIMANE IDENTICO */
-        // ... (tutte le tue funzioni GSAP esistenti) ...
+        /* TUTTO IL RESTO DEL TUO SCRIPT ESISTENTE RIMANE IDENTICO */
+        // ... (tutte le tue funzioni GSAP e animazioni esistenti) ...
     </script>
 </body>
 </html>
