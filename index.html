@@ -4,151 +4,238 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voli con Herath - Aviazione Premium</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <style>
-        /* TUTTI I TUOI STILI ESISTENTI (NESSUNA MODIFICA) */
-        :root {
-            --accent: #0066cc;
-            --dark: #0a2e6d;
-            --light: #e6f2ff;
-            --gold: #ffd700;
-        }
-        
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
-            color: #333;
-            overflow-x: hidden;
-        }
-        
-        .hero-nav {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+        /* AGGIORNAMENTO STILE PER IL PLAYER */
+        #music-container {
             position: fixed;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
         }
         
-        /* ... (TUTTO IL RESTO DEL TUO CSS ESISTENTE RIMANE IDENTICO) ... */
-
-        /* AGGIUNTA: Player musicale nascosto */
-        #youtube-music {
-            position: absolute;
-            width: 0;
-            height: 0;
+        #music-toggle {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #ffd700;
+            transition: all 0.3s;
+        }
+        
+        #music-toggle.active {
+            background: #0066cc;
+        }
+        
+        #music-status {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0 15px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+            transform: translateX(20px);
             opacity: 0;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        #music-container:hover #music-status {
+            transform: translateX(0);
+            opacity: 1;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- NAVIGAZIONE (IDENTICA ALLA TUA VERSIONE) -->
-    <nav class="hero-nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">Voli con <span>Herath</span></a>
-            <div class="nav-menu">
-                <a href="#" class="nav-link home-link">Home</a>
-                <a href="#" class="nav-link story-link">Storia</a>
-                <a href="#" class="nav-link">Navigazione</a>
-                <a href="#" class="nav-link">Sicurezza</a>
-                <a href="#" class="nav-link">Tecnologie</a>
-                <a href="#" class="nav-link">Galleria</a>
-                <a href="#" class="nav-link">Notizie</a>
-                <a href="#" class="nav-link">Glossario</a>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- HERO SECTION (IDENTICA ALLA TUA VERSIONE) -->
-    <section class="hero-section" id="home-page">
-        <div class="animated-plane" style="top: 20%; left: -200px;"></div>
-        <div class="animated-plane" style="top: 70%; left: -200px; animation-delay: 5s;"></div>
-        <div class="animated-plane" style="top: 40%; left: -200px; animation-delay: 8s; width: 200px; height: 200px;"></div>
-        
-        <div class="hero-content">
-            <h1 class="hero-title">Esplora il Mondo dell'Aviazione</h1>
-            <p class="hero-subtitle">Scopri la magia del volo attraverso storia, tecnologia e avventure incredibili</p>
-            <a href="#history" class="btn">Inizia il Viaggio</a>
-        </div>
-    </section>
-    
-    <!-- PAGINA STORIA (IDENTICA ALLA TUA VERSIONE) -->
-    <section class="story-page" id="story-page">
-        <div class="story-container">
-            <div class="story-header">
-                <h2 class="story-title">La Mia Storia</h2>
-                <p>Chi sono e la mia passione per l'aviazione</p>
-            </div>
-            
-            <div class="story-content">
-                <div class="story-image">
-                    <img src="Immagini/IMG-20250815-WA0008(1).jpg" alt="Herath - Studente di Aeronautica">
-                </div>
-                <div class="story-text">
-                    <p>Ciao, sono <strong>Herath</strong>, un giovane appassionato di aviazione di 23 anni che attualmente studia dipartimento di scienze e tecnologia per corso di laurea scienze Nautica Aeronautica Meteo-Oceanograpico e specializzazione in "gestione sicurezza a volo" all'Università Partenope di Napoli.</p>
-                    <p>Vivo a Napoli da oltre 10 anni e il mio sogno è diventare un pilota di linea. La mia passione per il volo è nata quando ero bambino e da allora non ho mai smesso di coltivare questo interesse.</p>
-                    <p>Fin da piccolo ero affascinato dagli aerei, collezionavo modellini e passavo ore a osservare i voli all'aeroporto. Questa passione mi ha portato a scegliere di studiare ingegneria aeronautica per comprendere a fondo la scienza che rende possibile il volo.</p>
-                    <p>Il mio obiettivo è condividere questa passione con altri attraverso questo sito, mostrando la bellezza e la complessità del mondo dell'aviazione.</p>
-                </div>
-            </div>
-            
-            <a href="#" class="back-home-btn">Torna alla Home</a>
-        </div>
-    </section>
 
-    <!-- AGGIUNTA: Player YouTube (completamente nascosto) -->
-    <div id="youtube-music">
-        <iframe 
-            id="youtube-player"
-            src="https://www.youtube.com/embed/6OhGIif_-R8?enablejsapi=1&autoplay=1&loop=1&playlist=6OhGIif_-R8&controls=0"
-            frameborder="0"
-            allow="autoplay; encrypted-media">
-        </iframe>
+    <!-- AGGIUNGI QUESTO DIV PER IL CONTROLLO MUSICA -->
+    <div id="music-container">
+        <div id="music-toggle" title="Controllo musica">
+            <i class="fas fa-music"></i>
+        </div>
+        <div id="music-status">Musica: Disattivata</div>
     </div>
 
-    <script>
-        // 1. Carica API YouTube
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    <!-- IL RESTO DEL TUO HTML... -->
 
-        // 2. Variabili player
+    <!-- MODIFICA IL PLAYER YOUTUBE IN QUESTO MODO -->
+    <div id="youtube-music"></div>
+
+    <script>
+        // 1. VARIABILI GLOBALI AGGIORNATE
         let player;
+        let musicEnabled = false;
+        let playerReady = false;
+        let currentView = 'home';
         
-        // 3. Quando l'API è pronta
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
+        // 2. FUNZIONE PER CARICARE LO SCRIPT YOUTUBE
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+        
+        // 3. INIZIALIZZA IL PLAYER IN MODO PIÙ ROBUSTO
+        function initYouTubePlayer() {
+            player = new YT.Player('youtube-music', {
+                height: '0',
+                width: '0',
+                videoId: '6OhGIif_-R8',
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': '6OhGIif_-R8',
+                    'controls': 0,
+                    'disablekb': 1,
+                    'enablejsapi': 1,
+                    'fs': 0,
+                    'rel': 0
+                },
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
                 }
             });
         }
-
-        // 4. Player pronto
+        
+        // 4. GESTIONE EVENTI AGGIORNATA
         function onPlayerReady(event) {
-            event.target.setVolume(30); // Volume al 30%
-            event.target.playVideo(); // Parte automaticamente
+            playerReady = true;
+            event.target.setVolume(30);
+            updateMusicStatus();
+            
+            // Attiva la musica solo dopo interazione utente
+            document.addEventListener('click', firstUserInteraction, { once: true });
         }
-
-        // 5. Ferma musica quando si va su altre pagine
-        function showStoryPage() {
-            if(player) player.pauseVideo();
-            // ... (il resto del tuo codice esistente per la pagina storia)
+        
+        function firstUserInteraction() {
+            if (currentView === 'home') {
+                toggleMusic(true);
+            }
         }
-
-        // 6. Riproduci musica quando si torna alla Home
-        document.querySelector('.back-home-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            if(player) player.playVideo();
-            // ... (il resto del tuo codice esistente)
+        
+        function onPlayerStateChange(event) {
+            // Nuova gestione degli stati
+            if (event.data === YT.PlayerState.ENDED) {
+                player.playVideo(); // Riproduci di nuovo se finisce
+            }
+        }
+        
+        function onPlayerError(event) {
+            console.error('Errore YouTube Player:', event.data);
+            // Tentativo di ricaricare il player dopo 5 secondi
+            setTimeout(() => {
+                if (player) {
+                    player.destroy();
+                }
+                initYouTubePlayer();
+            }, 5000);
+        }
+        
+        // 5. FUNZIONI DI CONTROLLO MIGLIORATE
+        function toggleMusic(enable) {
+            if (!playerReady) return;
+            
+            musicEnabled = enable;
+            
+            try {
+                if (enable) {
+                    player.playVideo();
+                } else {
+                    player.pauseVideo();
+                }
+                updateMusicStatus();
+            } catch (e) {
+                console.error("Errore nel controllo musica:", e);
+                // Ripristina il player se c'è un errore
+                playerReady = false;
+                initYouTubePlayer();
+            }
+        }
+        
+        function updateMusicStatus() {
+            const toggleBtn = document.getElementById('music-toggle');
+            const statusText = document.getElementById('music-status');
+            
+            if (musicEnabled) {
+                toggleBtn.classList.add('active');
+                statusText.textContent = "Musica: Attiva";
+            } else {
+                toggleBtn.classList.remove('active');
+                statusText.textContent = "Musica: Disattivata";
+            }
+        }
+        
+        // 6. GESTIONE PAGINE CON CONTROLLO ERRORI
+        function showView(viewName) {
+            try {
+                // Nascondi tutte le view
+                document.querySelectorAll('[data-view]').forEach(view => {
+                    view.style.display = 'none';
+                });
+                
+                // Mostra la view richiesta
+                document.querySelector(`[data-view="${viewName}"]`).style.display = 'block';
+                currentView = viewName;
+                
+                // Gestisci la musica in base alla view
+                if (playerReady) {
+                    if (viewName === 'home') {
+                        toggleMusic(musicEnabled);
+                    } else {
+                        toggleMusic(false);
+                    }
+                }
+            } catch (e) {
+                console.error("Errore nel cambio view:", e);
+            }
+        }
+        
+        // 7. INIZIALIZZAZIONE AL CARICAMENTO
+        window.addEventListener('DOMContentLoaded', () => {
+            loadYouTubeAPI();
+            
+            // Controllo manuale musica
+            document.getElementById('music-toggle').addEventListener('click', () => {
+                toggleMusic(!musicEnabled);
+            });
+            
+            // Gestione navigazione (esempio)
+            document.querySelector('.story-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                showView('story');
+            });
+            
+            document.querySelector('.home-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                showView('home');
+            });
+            
+            document.querySelector('.back-home-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                showView('home');
+            });
         });
-
-        /* TUTTO IL RESTO DEL TUO SCRIPT ESISTENTE RIMANE IDENTICO */
-        // ... (tutte le tue funzioni GSAP e animazioni esistenti) ...
+        
+        // 8. RIPRISTINO AUTOMATICO IN CASO DI PROBLEMI
+        setInterval(() => {
+            if (playerReady && !player.getPlayerState) {
+                console.log("Player non risponde, reinizializzazione...");
+                playerReady = false;
+                initYouTubePlayer();
+            }
+        }, 30000); // Controlla ogni 30 secondi
     </script>
 </body>
 </html>
