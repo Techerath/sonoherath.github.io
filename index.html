@@ -119,6 +119,50 @@
             color: var(--accent);
         }
         
+        /* SEZIONE ABOUT ME */
+        .about-section {
+            min-height: 100vh;
+            padding: 8rem 2rem;
+            background: white;
+            display: none;
+        }
+        
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-title {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-content {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
         /* SEZIONE BLOG */
         .blog-section {
             min-height: 100vh;
@@ -186,8 +230,12 @@
                 gap: 1.5rem;
             }
             
-            .blog-title {
+            .blog-title, .about-title {
                 font-size: 2rem;
+            }
+            
+            .about-container {
+                flex-direction: column;
             }
         }
     </style>
@@ -200,13 +248,10 @@
             <a href="#" class="nav-logo">Voli con <span>Herath</span></a>
             <div class="nav-menu">
                 <a href="#" class="nav-link home-link">Home</a>
+                <a href="#" class="nav-link about-link">About Me</a>
                 <a href="#" class="nav-link story-link">Storia</a>
                 <a href="#" class="nav-link">Navigazione</a>
                 <a href="#" class="nav-link">Sicurezza</a>
-                <a href="#" class="nav-link">Tecnologie</a>
-                <a href="#" class="nav-link">Galleria</a>
-                <a href="#" class="nav-link">Notizie</a>
-                <a href="#" class="nav-link">Glossario</a>
             </div>
         </div>
     </nav>
@@ -220,7 +265,22 @@
         </div>
     </section>
     
-    <!-- SEZIONE BLOG (APPARE AL CLICK) -->
+    <!-- SEZIONE ABOUT ME -->
+    <section class="about-section" id="about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Herath">
+            </div>
+            <div class="about-text">
+                <h2 class="about-title">About Me</h2>
+                <p class="about-content">Ciao, sono Herath, appassionato di aviazione con oltre 10 anni di esperienza nel settore. La mia missione è condividere la bellezza del volo con tutti gli entusiasti come me.</p>
+                <p class="about-content">Attualmente studio Scienze Nautiche e Aeronautiche all'Università Partenope di Napoli, con specializzazione in gestione della sicurezza del volo.</p>
+                <a href="#" class="back-btn" id="back-home-btn-about">Torna alla Home</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SEZIONE BLOG -->
     <section class="blog-section" id="blog-section">
         <div class="blog-content">
             <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Aeroplano in volo" class="blog-image">
@@ -241,16 +301,31 @@
         // GESTIONE CLICK "INIZIA IL VIAGGIO" (MOSTRA BLOG)
         document.getElementById("start-journey-btn").addEventListener("click", function(e) {
             e.preventDefault();
-            document.getElementById("home-page").style.display = "none";
+            hideAllSections();
             document.getElementById("blog-section").style.display = "block";
-            document.getElementById("story-page").style.display = "none";
             window.scrollTo(0, 0);
         });
         
-        // GESTIONE CLICK "TORNA ALLA HOME"
+        // GESTIONE CLICK "ABOUT ME"
+        document.querySelector(".about-link").addEventListener("click", function(e) {
+            e.preventDefault();
+            hideAllSections();
+            document.getElementById("about-section").style.display = "block";
+            window.scrollTo(0, 0);
+        });
+        
+        // GESTIONE CLICK "TORNA ALLA HOME" (DA BLOG)
         document.getElementById("back-home-btn").addEventListener("click", function(e) {
             e.preventDefault();
-            document.getElementById("blog-section").style.display = "none";
+            hideAllSections();
+            document.getElementById("home-page").style.display = "flex";
+            window.scrollTo(0, 0);
+        });
+        
+        // GESTIONE CLICK "TORNA ALLA HOME" (DA ABOUT)
+        document.getElementById("back-home-btn-about").addEventListener("click", function(e) {
+            e.preventDefault();
+            hideAllSections();
             document.getElementById("home-page").style.display = "flex";
             window.scrollTo(0, 0);
         });
@@ -258,19 +333,25 @@
         // GESTIONE NAVIGAZIONE
         document.querySelector(".story-link").addEventListener("click", function(e) {
             e.preventDefault();
-            document.getElementById("home-page").style.display = "none";
-            document.getElementById("blog-section").style.display = "none";
+            hideAllSections();
             document.getElementById("story-page").style.display = "block";
             window.scrollTo(0, 0);
         });
         
         document.querySelector(".home-link").addEventListener("click", function(e) {
             e.preventDefault();
-            document.getElementById("story-page").style.display = "none";
-            document.getElementById("blog-section").style.display = "none";
+            hideAllSections();
             document.getElementById("home-page").style.display = "flex";
             window.scrollTo(0, 0);
         });
+        
+        // FUNZIONE PER NASCONDERE TUTTE LE SEZIONI
+        function hideAllSections() {
+            document.getElementById("home-page").style.display = "none";
+            document.getElementById("about-section").style.display = "none";
+            document.getElementById("blog-section").style.display = "none";
+            document.getElementById("story-page").style.display = "none";
+        }
     </script>
 </body>
 </html>
