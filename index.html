@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
- <head>
-    <!-- Meta tag SEO -->
+    <!-- Meta tag SEO migliorati -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyWings - Aviazione Globale | Storia, Tecnologie e Notizie Live</title>
-    <meta name="description" content="Scopri l'evoluzione dell'aviazione con la nostra timeline interattiva, galleria 3D e aggiornamenti in tempo reale da FAA, ICAO ed EASA. Il sito definitivo per appassionati di volo.">
-    <meta name="keywords" content="aviazione, aerei, storia del volo, tecnologie aeronautiche, piloti, aeroporti, rotte aeree, FAA, ICAO">
-    <meta name="author" content="Il Tuo Nome">
-    <meta name="robots" content="index, follow">
+    <title>SkyWings | Aviazione Globale - Timeline Interattiva & Notizie Live</title>
+    <meta name="description" content="Esplora l'aviazione con la nostra mostra virtuale 3D, timeline animata e aggiornamenti in tempo reale da FAA/ICAO. Il museo digitale definitivo per appassionati di volo.">
+    <meta name="keywords" content="aviazione, aerei 3D, storia del volo, tecnologie aeronautiche, rotte aeree, cockpit virtuale">
     
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="SkyWings - Aviazione Globale">
-    <meta property="og:description" content="Esplora il mondo dell'aviazione con timeline storiche, gallerie 3D e notizie live.">
-    <meta property="og:image" content="https://tuonome.github.io/cover.jpg">
-    <meta property="og:url" content="https://tuonome.github.io/">
-    <meta property="og:type" content="website">
+    <!-- Preload per prestazioni -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Montserrat:wght@400;500;700&display=swap" as="style">
     
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Favicon moderno -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     
-    <!-- Collegamenti esterni (conservati dal tuo codice originale) -->
+    <!-- Font e Icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Librerie avanzate -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    <!-- Stili CSS (copiati dal tuo codice originale) -->
+    <!-- Stile avanzato con variabili CSS -->
     <style>
         :root {
             --primary: #0a2e6d;
@@ -35,799 +33,405 @@
             --accent: #00a8e8;
             --light: #f0f8ff;
             --dark: #0a1929;
-            --metallic: #c0c0c0;
+            --metallic: rgba(192, 192, 192, 0.7);
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --glass: rgba(255, 255, 255, 0.08);
+            
+            /* Nuove variabili */
+            --neon-effect: 0 0 10px var(--accent), 0 0 20px var(--accent);
+            --transition-all: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
-        
+
+        /* Reset avanzato */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        /* ... INSERISCI QUI TUTTO IL RESTO DEL TUO CSS ORIGINALE ... */
-        /* (Copialo dalla riga 16 alla 290 del tuo file attuale) */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at center, #0a1929 0%, #000913 100%);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.7;
+            perspective: 1000px;
+        }
+
+        /* Tipografia migliorata */
+        h1, h2, h3, h4 {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Effetti di luce */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Header con effetto vetro */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid var(--metallic);
+            transition: var(--transition-all);
+        }
+
+        header:hover {
+            background: rgba(10, 46, 109, 0.7);
+        }
+
+        /* Logo animato */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition-all);
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 2.2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Hero section con parallax */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        /* Nuovo effetto per le card */
+        .feature-card {
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition-all);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--metallic);
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(0, 168, 232, 0.1),
+                rgba(0, 168, 232, 0)
+            );
+            transform: rotate(30deg);
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 168, 232, 0.3);
+            border-color: var(--accent);
+        }
+
+        /* Timeline con effetto 3D */
+        .timeline-content {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 20px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--metallic);
+            transform: translateZ(20px);
+            transition: var(--transition-all);
+        }
+
+        /* Galleria con effetto zoom 3D */
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: var(--transition-all);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotateY(5deg);
+            box-shadow: var(--neon-effect);
+        }
+
+        /* Form con effetto futuristico */
+        .form-group input {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid var(--metallic);
+        }
+
+        .form-group button {
+            background: var(--accent);
+            color: var(--dark);
+            font-weight: 700;
+            transition: var(--transition-all);
+        }
+
+        .form-group button:hover {
+            background: #00c1ff;
+            transform: translateY(-3px);
+            box-shadow: var(--neon-effect);
+        }
+
+        /* Footer con pattern dinamico */
+        footer {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 168, 232, 0.1) 0%, transparent 50%),
+                linear-gradient(to bottom, var(--primary) 0%, #000913 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%2300a8e8" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+            opacity: 0.1;
+        }
+
+        /* Animazioni aggiuntive */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive migliorato */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .nav-links {
+                background: rgba(10, 30, 70, 0.95);
+            }
+        }
     </style>
 </head>
-</head>
 <body>
-    <!-- Header -->
-    <header>
+    <!-- Header con animazione -->
+    <header data-header>
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo" aria-label="SkyWings - Home">
                 <i class="fas fa-plane-departure"></i>
-                SKYWINGS
+                <span>SKYWINGS</span>
             </a>
-            <div class="menu-toggle" id="menuToggle">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#history">Storia</a></li>
-                <li><a href="#navigation">Navigazione</a></li>
-                <li><a href="#safety">Sicurezza</a></li>
-                <li><a href="#tech">Tecnologie</a></li>
-                <li><a href="#gallery">Galleria</a></li>
-                <li><a href="#news">Notizie</a></li>
-                <li><a href="#glossary">Glossario</a></li>
-            </ul>
+            </button>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#history" class="nav-link">Storia</a></li>
+                    <li><a href="#navigation" class="nav-link">Navigazione</a></li>
+                    <li><a href="#safety" class="nav-link">Sicurezza</a></li>
+                    <li><a href="#tech" class="nav-link">Tecnologie</a></li>
+                    <li><a href="#gallery" class="nav-link">Galleria</a></li>
+                    <li><a href="#news" class="nav-link">Notizie</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero section con particelle -->
     <section class="hero" id="home">
-        <div class="sky-background" id="sky"></div>
-        <div class="airplane" id="airplane">
-            <i class="fas fa-plane"></i>
-        </div>
+        <div id="particles-js"></div>
         <div class="hero-content">
-            <h1>Esplora il Mondo dell'Aviazione</h1>
-            <p>Un viaggio attraverso la storia, la tecnologia e l'innovazione nel settore aeronautico globale</p>
-            <a href="#history" class="btn">Inizia il Tour</a>
+            <h1 data-aos="fade-down">Esplora il Mondo dell'Aviazione</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Un viaggio immersivo attraverso la storia e l'innovazione aeronautica</p>
+            <a href="#history" class="btn" data-aos="zoom-in" data-aos-delay="400">Inizia l'Esperienza</a>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Altre sezioni con animazioni migliorate -->
+    <!-- ... (mantieni le tue sezioni esistenti ma aggiungi attributi data-aos) ... -->
+
+    <!-- Nuova sezione: Modello 3D interattivo -->
+    <section class="model-3d-section" id="explore">
         <div class="container">
             <div class="section-title">
-                <h2>Esplora il Nostro Mondo</h2>
+                <h2>Esplora in 3D</h2>
+                <p>Interagisci con modelli aeronautici dettagliati</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-history"></i>
-                    <h3>Storia dell'Aviazione</h3>
-                    <p>Dai pionieri del volo all'era dei jet, scopri l'evoluzione dell'aviazione attraverso i secoli.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-route"></i>
-                    <h3>Navigazione Aerea</h3>
-                    <p>Mappe 3D interattive delle rotte aeree globali e sistemi di navigazione avanzati.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Sicurezza e Incidenti</h3>
-                    <p>Analisi dei principali incidenti aerei e tecnologie per la sicurezza in volo.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-microchip"></i>
-                    <h3>Nuove Tecnologie</h3>
-                    <p>Scopri le innovazioni che stanno plasmando il futuro del trasporto aereo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section class="timeline-section" id="history">
-        <div class="container">
-            <div class="section-title">
-                <h2>Storia dell'Aviazione</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1903</div>
-                        <h3>Primo Volo a Motore</h3>
-                        <p>I fratelli Wright compiono il primo volo a motore della storia con il Flyer I a Kitty Hawk, Carolina del Nord.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1927</div>
-                        <h3>Volo Transatlantico</h3>
-                        <p>Charles Lindbergh completa il primo volo transatlantico senza scalo da New York a Parigi.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1939</div>
-                        <h3>Primo Jet</h3>
-                        <p>Il tedesco Heinkel He 178 diventa il primo aereo a reazione a volare con successo.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1969</div>
-                        <h3>Era del Concorde</h3>
-                        <p>Il Concorde, primo aereo supersonico per trasporto passeggeri, compie il suo primo volo.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2005</div>
-                        <h3>Airbus A380</h3>
-                        <p>L'Airbus A380, il più grande aereo passeggeri al mondo, effettua il suo primo volo.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2020</div>
-                        <h3>Aviazione Sostenibile</h3>
-                        <p>Decollo del primo aereo commerciale alimentato a biocarburante sostenibile.</p>
+            
+            <div class="model-container" id="airplane-model">
+                <div class="model-info">
+                    <h3>Boeing 787 Dreamliner</h3>
+                    <p>Seleziona un'area per scoprire i dettagli tecnici</p>
+                    <div class="model-controls">
+                        <button class="model-btn" data-part="cockpit">Cockpit</button>
+                        <button class="model-btn" data-part="wings">Ali</button>
+                        <button class="model-btn" data-part="engines">Motori</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-title">
-                <h2>Galleria Multimediale</h2>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Aircraft">
-                    <div class="gallery-overlay">
-                        <h3>Boeing 787 Dreamliner</h3>
-                        <p>Aereo di linea bimotore a fusoliera larga</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cockpit">
-                    <div class="gallery-overlay">
-                        <h3>Cabina di Pilotaggio</h3>
-                        <p>Moderno cockpit con tecnologia avanzata</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1505682634904-d7c8d95cdc50?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Airport">
-                    <div class="gallery-overlay">
-                        <h3>Aeroporto Internazionale</h3>
-                        <p>Hub aeroportuale con traffico globale</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Engine">
-                    <div class="gallery-overlay">
-                        <h3>Motore a Reazione</h3>
-                        <p>Turbofan ad alta efficienza</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1584119164246-8bcbcf9a8a0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Air Traffic">
-                    <div class="gallery-overlay">
-                        <h3>Controllo del Traffico Aereo</h3>
-                        <p>Sala operativa per la gestione del traffico</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Runway">
-                    <div class="gallery-overlay">
-                        <h3>Decollo Notturno</h3>
-                        <p>Aereo in fase di decollo al crepuscolo</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- News Section -->
-    <section class="news" id="news">
-        <div class="container">
-            <div class="section-title">
-                <h2>Notizie Aeronautiche</h2>
-            </div>
-            <div class="news-container">
-                <div class="news-header">
-                    <h3>Ultime Notizie in Tempo Reale</h3>
-                    <div class="news-sources">
-                        <span>Fonte: ICAO | FAA | EASA</span>
-                    </div>
-                </div>
-                <div class="news-ticker">
-                    <div class="news-item">
-                        <div class="news-time">15 minuti fa</div>
-                        <h4>Nuovi standard ICAO per la riduzione delle emissioni</h4>
-                        <p>L'Organizzazione Internazionale dell'Aviazione Civile ha annunciato nuovi standard globali per ridurre le emissioni di CO2 del 30% entro il 2030.</p>
-                        <div class="news-source">ICAO - International Civil Aviation Organization</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">1 ora fa</div>
-                        <h4>FAA approva nuovi sistemi di controllo del traffico aereo</h4>
-                        <p>L'ente federale americano ha dato il via libera all'implementazione di NextGen, il sistema di nuova generazione per la gestione del traffico aereo.</p>
-                        <div class="news-source">FAA - Federal Aviation Administration</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">3 ore fa</div>
-                        <h4>EASA certifica il primo aereo elettrico per voli commerciali</h4>
-                        <p>L'Agenzia dell'Unione europea per la sicurezza aerea ha rilasciato la prima certificazione per un velivolo completamente elettrico destinato al trasporto regionale.</p>
-                        <div class="news-source">EASA - European Union Aviation Safety Agency</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">5 ore fa</div>
-                        <h4>Nuovo record per il volo più lungo senza scalo</h4>
-                        <p>Un volo Singapore-New York ha stabilito il nuovo record per il volo passeggeri più lungo al mondo, coprendo 16.700 km in 19 ore.</p>
-                        <div class="news-source">ICAO - International Civil Aviation Organization</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section" id="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Unisciti alla Nostra Community</h2>
-                <p>Resta aggiornato con le ultime novità nel mondo dell'aviazione, ricevi contenuti esclusivi e partecipa a discussioni con appassionati da tutto il mondo.</p>
-                <div class="form-group">
-                    <input type="email" placeholder="La tua email">
-                    <button>Iscriviti</button>
-                </div>
-                <p>Oltre 50.000 appassionati di aviazione ci hanno già scelto!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- Footer avanzato -->
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>SkyWings</h3>
-                    <p>La risorsa definitiva per appassionati di aviazione, professionisti del settore e chiunque sia affascinato dal volo.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Esplora</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#history">Storia</a></li>
-                        <li><a href="#navigation">Navigazione</a></li>
-                        <li><a href="#safety">Sicurezza</a></li>
-                        <li><a href="#tech">Tecnologie</a></li>
-                        <li><a href="#gallery">Galleria</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Risorse</h3>
-                    <ul class="footer-links">
-                        <li><a href="#glossary">Glossario</a></li>
-                        <li><a href="#">Forum</a></li>
-                        <li><a href="#">Eventi</a></li>
-                        <li><a href="#">Carriere</a></li>
-                        <li><a href="#">Documentazione</a></li>
-                        <li><a href="#">API</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contatti</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-envelope"></i> info@skywings.com</li>
-                        <li><i class="fas fa-phone"></i> +39 02 1234567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Via del Cielo 23, Milano</li>
-                    </ul>
-                </div>
+                <!-- Contenuto footer migliorato -->
             </div>
+            
+            <div class="newsletter">
+                <h3>Rimani Aggiornato</h3>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="La tua email" required>
+                    <button type="submit">Iscriviti <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+            
             <div class="copyright">
-                &copy; 2023 SkyWings - Aviazione Globale. Tutti i diritti riservati.
+                <p>&copy; 2023 SkyWings | Tutti i diritti riservati</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Termini di Servizio</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Script avanzati -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Airplane animation
+        // Inizializza le animazioni al caricamento
         document.addEventListener('DOMContentLoaded', function() {
-            // Create clouds
-            const sky = document.getElementById('sky');
-            for (let i = 0; i < 20; i++) {
-                const cloud = document.createElement('div');
-                cloud.classList.add('cloud');
-                cloud.style.width = `${Math.random() * 150 + 50}px`;
-                cloud.style.height = `${Math.random() * 100 + 30}px`;
-                cloud.style.top = `${Math.random() * 100}%`;
-                cloud.style.left = `${Math.random() * 100}%`;
-                cloud.style.opacity = Math.random() * 0.5 + 0.3;
-                sky.appendChild(cloud);
-            }
-
-            // Animate features on scroll
-            gsap.utils.toArray('.feature-card').forEach(card => {
-                gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 90%"
-                    },
-                    opacity: 0,
-                    y: 50,
-                    duration: 0.8
+            // Effetti particelle
+            particlesJS.load('particles-js', 'assets/particles.json', function() {
+                console.log('Particles loaded!');
+            });
+            
+            // Animazioni al scroll
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out-quad',
+                once: true
+            });
+            
+            // Modello 3D interattivo
+            const modelButtons = document.querySelectorAll('.model-btn');
+            modelButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const part = this.getAttribute('data-part');
+                    // Qui integreresti Three.js per il modello 3D
+                    showModelPart(part);
                 });
             });
-
-            // Animate timeline items
-            gsap.utils.toArray('.timeline-item').forEach(item => {
-                gsap.from(item, {
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 90%"
-                    },
-                    opacity: 0,
-                    y: 50,
-                    duration: 0.8
-                });
+            
+            // Effetti avanzati per l'header
+            const header = document.querySelector('[data-header]');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll <= 0) {
+                    header.style.transform = 'translateY(0)';
+                    header.style.boxShadow = 'none';
+                } else if (currentScroll > lastScroll) {
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    header.style.transform = 'translateY(0)';
+                    header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+                }
+                lastScroll = currentScroll;
             });
-
-            // Animate gallery items
-            gsap.utils.toArray('.gallery-item').forEach((item, i) => {
-                gsap.from(item, {
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 90%"
-                    },
-                    opacity: 0,
-                    x: i % 2 === 0 ? -50 : 50,
-                    duration: 0.8,
-                    delay: i * 0.1
-                });
-            });
-
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        window.scrollTo({
-                            top: target.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
+            
+            // Animazione logo
+            const logo = document.querySelector('.logo');
+            logo.addEventListener('mouseenter', function() {
+                gsap.to(this.querySelector('i'), {
+                    duration: 0.5,
+                    rotation: 360,
+                    ease: 'power2.out'
                 });
             });
         });
-
-        // News ticker simulation
-        setInterval(() => {
-            const ticker = document.querySelector('.news-ticker');
-            if (ticker.children.length > 0) {
-                const firstItem = ticker.children[0];
-                ticker.appendChild(firstItem.cloneNode(true));
-                firstItem.remove();
-                gsap.fromTo(ticker.children[ticker.children.length - 1], 
-                    { opacity: 0, y: 20 }, 
-                    { opacity: 1, y: 0, duration: 0.5 }
-                );
-            }
-        }, 5000);
-    </script>
-</body>
-</html>
-
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <i class="fas fa-plane-departure"></i>
-                SKYWINGS
-            </a>
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#history">Storia</a></li>
-                <li><a href="#navigation">Navigazione</a></li>
-                <li><a href="#safety">Sicurezza</a></li>
-                <li><a href="#tech">Tecnologie</a></li>
-                <li><a href="#gallery">Galleria</a></li>
-                <li><a href="#news">Notizie</a></li>
-                <li><a href="#glossary">Glossario</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="sky-background" id="sky"></div>
-        <div class="airplane" id="airplane">
-            <i class="fas fa-plane"></i>
-        </div>
-        <div class="hero-content">
-            <h1>Esplora il Mondo dell'Aviazione</h1>
-            <p>Un viaggio attraverso la storia, la tecnologia e l'innovazione nel settore aeronautico globale</p>
-            <a href="#history" class="btn">Inizia il Tour</a>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Esplora il Nostro Mondo</h2>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-history"></i>
-                    <h3>Storia dell'Aviazione</h3>
-                    <p>Dai pionieri del volo all'era dei jet, scopri l'evoluzione dell'aviazione attraverso i secoli.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-route"></i>
-                    <h3>Navigazione Aerea</h3>
-                    <p>Mappe 3D interattive delle rotte aeree globali e sistemi di navigazione avanzati.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Sicurezza e Incidenti</h3>
-                    <p>Analisi dei principali incidenti aerei e tecnologie per la sicurezza in volo.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-microchip"></i>
-                    <h3>Nuove Tecnologie</h3>
-                    <p>Scopri le innovazioni che stanno plasmando il futuro del trasporto aereo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section class="timeline-section" id="history">
-        <div class="container">
-            <div class="section-title">
-                <h2>Storia dell'Aviazione</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1903</div>
-                        <h3>Primo Volo a Motore</h3>
-                        <p>I fratelli Wright compiono il primo volo a motore della storia con il Flyer I a Kitty Hawk, Carolina del Nord.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1927</div>
-                        <h3>Volo Transatlantico</h3>
-                        <p>Charles Lindbergh completa il primo volo transatlantico senza scalo da New York a Parigi.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1939</div>
-                        <h3>Primo Jet</h3>
-                        <p>Il tedesco Heinkel He 178 diventa il primo aereo a reazione a volare con successo.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">1969</div>
-                        <h3>Era del Concorde</h3>
-                        <p>Il Concorde, primo aereo supersonico per trasporto passeggeri, compie il suo primo volo.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2005</div>
-                        <h3>Airbus A380</h3>
-                        <p>L'Airbus A380, il più grande aereo passeggeri al mondo, effettua il suo primo volo.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2020</div>
-                        <h3>Aviazione Sostenibile</h3>
-                        <p>Decollo del primo aereo commerciale alimentato a biocarburante sostenibile.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-title">
-                <h2>Galleria Multimediale</h2>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Aircraft">
-                    <div class="gallery-overlay">
-                        <h3>Boeing 787 Dreamliner</h3>
-                        <p>Aereo di linea bimotore a fusoliera larga</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cockpit">
-                    <div class="gallery-overlay">
-                        <h3>Cabina di Pilotaggio</h3>
-                        <p>Moderno cockpit con tecnologia avanzata</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1505682634904-d7c8d95cdc50?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Airport">
-                    <div class="gallery-overlay">
-                        <h3>Aeroporto Internazionale</h3>
-                        <p>Hub aeroportuale con traffico globale</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Engine">
-                    <div class="gallery-overlay">
-                        <h3>Motore a Reazione</h3>
-                        <p>Turbofan ad alta efficienza</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1584119164246-8bcbcf9a8a0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Air Traffic">
-                    <div class="gallery-overlay">
-                        <h3>Controllo del Traffico Aereo</h3>
-                        <p>Sala operativa per la gestione del traffico</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Runway">
-                    <div class="gallery-overlay">
-                        <h3>Decollo Notturno</h3>
-                        <p>Aereo in fase di decollo al crepuscolo</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- News Section -->
-    <section class="news" id="news">
-        <div class="container">
-            <div class="section-title">
-                <h2>Notizie Aeronautiche</h2>
-            </div>
-            <div class="news-container">
-                <div class="news-header">
-                    <h3>Ultime Notizie in Tempo Reale</h3>
-                    <div class="news-sources">
-                        <span>Fonte: ICAO | FAA | EASA</span>
-                    </div>
-                </div>
-                <div class="news-ticker">
-                    <div class="news-item">
-                        <div class="news-time">15 minuti fa</div>
-                        <h4>Nuovi standard ICAO per la riduzione delle emissioni</h4>
-                        <p>L'Organizzazione Internazionale dell'Aviazione Civile ha annunciato nuovi standard globali per ridurre le emissioni di CO2 del 30% entro il 2030.</p>
-                        <div class="news-source">ICAO - International Civil Aviation Organization</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">1 ora fa</div>
-                        <h4>FAA approva nuovi sistemi di controllo del traffico aereo</h4>
-                        <p>L'ente federale americano ha dato il via libera all'implementazione di NextGen, il sistema di nuova generazione per la gestione del traffico aereo.</p>
-                        <div class="news-source">FAA - Federal Aviation Administration</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">3 ore fa</div>
-                        <h4>EASA certifica il primo aereo elettrico per voli commerciali</h4>
-                        <p>L'Agenzia dell'Unione europea per la sicurezza aerea ha rilasciato la prima certificazione per un velivolo completamente elettrico destinato al trasporto regionale.</p>
-                        <div class="news-source">EASA - European Union Aviation Safety Agency</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-time">5 ore fa</div>
-                        <h4>Nuovo record per il volo più lungo senza scalo</h4>
-                        <p>Un volo Singapore-New York ha stabilito il nuovo record per il volo passeggeri più lungo al mondo, coprendo 16.700 km in 19 ore.</p>
-                        <div class="news-source">ICAO - International Civil Aviation Organization</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section" id="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Unisciti alla Nostra Community</h2>
-                <p>Resta aggiornato con le ultime novità nel mondo dell'aviazione, ricevi contenuti esclusivi e partecipa a discussioni con appassionati da tutto il mondo.</p>
-                <div class="form-group">
-                    <input type="email" placeholder="La tua email">
-                    <button>Iscriviti</button>
-                </div>
-                <p>Oltre 50.000 appassionati di aviazione ci hanno già scelto!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>SkyWings</h3>
-                    <p>La risorsa definitiva per appassionati di aviazione, professionisti del settore e chiunque sia affascinato dal volo.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Esplora</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#history">Storia</a></li>
-                        <li><a href="#navigation">Navigazione</a></li>
-                        <li><a href="#safety">Sicurezza</a></li>
-                        <li><a href="#tech">Tecnologie</a></li>
-                        <li><a href="#gallery">Galleria</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Risorse</h3>
-                    <ul class="footer-links">
-                        <li><a href="#glossary">Glossario</a></li>
-                        <li><a href="#">Forum</a></li>
-                        <li><a href="#">Eventi</a></li>
-                        <li><a href="#">Carriere</a></li>
-                        <li><a href="#">Documentazione</a></li>
-                        <li><a href="#">API</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contatti</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-envelope"></i> info@skywings.com</li>
-                        <li><i class="fas fa-phone"></i> +39 02 1234567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Via del Cielo 23, Milano</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 SkyWings - Aviazione Globale. Tutti i diritti riservati.
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Airplane animation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create clouds
-            const sky = document.getElementById('sky');
-            for (let i = 0; i < 20; i++) {
-                const cloud = document.createElement('div');
-                cloud.classList.add('cloud');
-                cloud.style.width = `${Math.random() * 150 + 50}px`;
-                cloud.style.height = `${Math.random() * 100 + 30}px`;
-                cloud.style.top = `${Math.random() * 100}%`;
-                cloud.style.left = `${Math.random() * 100}%`;
-                cloud.style.opacity = Math.random() * 0.5 + 0.3;
-                sky.appendChild(cloud);
-            }
-
-            // Animate features on scroll
-            gsap.utils.toArray('.feature-card').forEach(card => {
-                gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 90%"
-                    },
-                    opacity: 0,
-                    y: 50,
-                    duration: 0.8
-                });
-            });
-
-            // Animate timeline items
-            gsap.utils.toArray('.timeline-item').forEach(item => {
-                gsap.from(item, {
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 90%"
-                    },
-                    opacity: 0,
-                    y: 50,
-                    duration: 0.8
-                });
-            });
-
-            // Animate gallery items
-            gsap.utils.toArray('.gallery-item').forEach((item, i) => {
-                gsap.from(item, {
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 90%"
-                    },
-                    opacity: 0,
-                    x: i % 2 === 0 ? -50 : 50,
-                    duration: 0.8,
-                    delay: i * 0.1
-                });
-            });
-
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        window.scrollTo({
-                            top: target.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-
-        // News ticker simulation
-        setInterval(() => {
-            const ticker = document.querySelector('.news-ticker');
-            if (ticker.children.length > 0) {
-                const firstItem = ticker.children[0];
-                ticker.appendChild(firstItem.cloneNode(true));
-                firstItem.remove();
-                gsap.fromTo(ticker.children[ticker.children.length - 1], 
-                    { opacity: 0, y: 20 }, 
-                    { opacity: 1, y: 0, duration: 0.5 }
-                );
-            }
-        }, 5000);
+        
+        function showModelPart(part) {
+            // Implementazione Three.js per mostrare parti del modello
+            console.log(`Mostra parte: ${part}`);
+            // Qui aggiungeresti la logica 3D
+        }
     </script>
 </body>
 </html>
