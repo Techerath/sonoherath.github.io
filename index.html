@@ -584,6 +584,15 @@
         .social-icons a:hover {
             background: var(--accent);
             transform: translateY(-5px);
+            /* Stile specifico per WhatsApp */
+.social-icons a .fa-whatsapp {
+    color: #25D366 !important; /* Verde WhatsApp */
+}
+
+.social-icons a:hover .fa-whatsapp {
+    background: #25D366;
+    color: white !important;
+}
         }
         
         .copyright {
@@ -1001,7 +1010,7 @@
                 });
                 
                 sky.appendChild(cloud);
-            }
+            }r
 
             // Enhanced airplane animation with GSAP
             const airplane = document.getElementById('airplane');
