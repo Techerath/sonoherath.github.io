@@ -4,238 +4,516 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voli con Herath - Aviazione Premium</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <style>
-        /* AGGIORNAMENTO STILE PER IL PLAYER */
-        #music-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1001;
-            display: flex;
-            gap: 10px;
+        :root {
+            --accent: #0066cc;
+            --dark: #0a2e6d;
+            --light: #e6f2ff;
+            --gold: #ffd700;
+            --cloud: rgba(255, 255, 255, 0.8);
         }
         
-        #music-toggle {
-            background: rgba(0,0,0,0.7);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* NAVIGAZIONE */
+        .hero-nav {
+            background: rgba(10, 46, 109, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
             color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--gold);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* SEZIONE HOME */
+        .hero-section {
+            position: relative;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            border: 1px solid #ffd700;
-            transition: all 0.3s;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #87CEEB 0%, #E0F7FA 100%);
         }
         
-        #music-toggle.active {
-            background: #0066cc;
-        }
-        
-        #music-status {
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 0 15px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            backdrop-filter: blur(5px);
-            transform: translateX(20px);
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 0 2rem;
+            max-width: 800px;
             opacity: 0;
-            transition: all 0.3s;
-            white-space: nowrap;
+            transform: translateY(20px);
         }
         
-        #music-container:hover #music-status {
-            transform: translateX(0);
-            opacity: 1;
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+        
+        /* AEREO ANIMATO */
+        .airplane {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%230066CC" d="M511.6 255.6c0 3.1-.6 6.1-1.6 9l-48 112c-3 7-10 11.4-17.4 11.4-1.7 0-3.4-.2-5.1-.7L288 344.3V424c0 13.3-10.7 24-24 24s-24-10.7-24-24V344.3L71.4 387.3c-1.7.5-3.4.7-5.1.7-7.4 0-14.4-4.4-17.4-11.4l-48-112c-1-2.9-1.6-5.9-1.6-9 0-1.9.2-3.8.5-5.6l48-128C52.3 114.6 63.4 108 75.2 108h361.6c11.8 0 22.9 6.6 28.7 17.9l48 128c.4 1.9.5 3.8.5 5.7z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 5;
+            opacity: 0.9;
+        }
+        
+        /* NUVOLE ANIMATE */
+        .cloud {
+            position: absolute;
+            background: var(--cloud);
+            border-radius: 50%;
+            filter: blur(15px);
+            z-index: 1;
+        }
+        
+        /* SEZIONE STORIA */
+        .story-page {
+            position: relative;
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+            background: white;
+            display: none;
+            z-index: 2;
+        }
+        
+        .story-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .story-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .story-title {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .story-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .story-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .story-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .story-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .story-text p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .story-text strong {
+            color: var(--accent);
+        }
+        
+        .back-home-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .back-home-btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+        
+        /* ANIMAZIONI */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .story-content {
+                flex-direction: column;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
-    <!-- AGGIUNGI QUESTO DIV PER IL CONTROLLO MUSICA -->
-    <div id="music-container">
-        <div id="music-toggle" title="Controllo musica">
-            <i class="fas fa-music"></i>
+    <!-- NAVIGAZIONE -->
+    <nav class="hero-nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Voli con <span>Herath</span></a>
+            <div class="nav-menu">
+                <a href="#" class="nav-link home-link">Home</a>
+                <a href="#" class="nav-link story-link">Storia</a>
+                <a href="#" class="nav-link">Navigazione</a>
+                <a href="#" class="nav-link">Sicurezza</a>
+                <a href="#" class="nav-link">Tecnologie</a>
+                <a href="#" class="nav-link">Galleria</a>
+                <a href="#" class="nav-link">Notizie</a>
+                <a href="#" class="nav-link">Glossario</a>
+            </div>
         </div>
-        <div id="music-status">Musica: Disattivata</div>
-    </div>
-
-    <!-- IL RESTO DEL TUO HTML... -->
-
-    <!-- MODIFICA IL PLAYER YOUTUBE IN QUESTO MODO -->
-    <div id="youtube-music"></div>
+    </nav>
+    
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home-page">
+        <!-- Aeroplani animati -->
+        <div class="airplane" id="airplane1"></div>
+        <div class="airplane" id="airplane2"></div>
+        <div class="airplane" id="airplane3"></div>
+        
+        <!-- Nuvole -->
+        <div class="cloud" id="cloud1"></div>
+        <div class="cloud" id="cloud2"></div>
+        <div class="cloud" id="cloud3"></div>
+        <div class="cloud" id="cloud4"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Esplora il Mondo dell'Aviazione</h1>
+            <p class="hero-subtitle">Scopri la magia del volo attraverso storia, tecnologia e avventure incredibili</p>
+            <a href="#history" class="btn">Inizia il Viaggio</a>
+        </div>
+    </section>
+    
+    <!-- PAGINA STORIA -->
+    <section class="story-page" id="story-page">
+        <div class="story-container">
+            <div class="story-header">
+                <h2 class="story-title">La Mia Storia</h2>
+                <p>Chi sono e la mia passione per l'aviazione</p>
+            </div>
+            
+            <div class="story-content">
+                <div class="story-image">
+                    <img src="Immagini/IMG-20250815-WA0008(1).jpg" alt="Herath - Studente di Aeronautica">
+                </div>
+                <div class="story-text">
+                    <p>Ciao, sono <strong>Herath</strong>, un giovane appassionato di aviazione di 23 anni che attualmente studia dipartimento di scienze e tecnologia per corso di laurea scienze Nautica Aeronautica Meteo-Oceanograpico e specializzazione in "gestione sicurezza a volo" all'Università Partenope di Napoli.</p>
+                    <p>Vivo a Napoli da oltre 10 anni e il mio sogno è diventare un pilota di linea. La mia passione per il volo è nata quando ero bambino e da allora non ho mai smesso di coltivare questo interesse.</p>
+                    <p>Fin da piccolo ero affascinato dagli aerei, collezionavo modellini e passavo ore a osservare i voli all'aeroporto. Questa passione mi ha portato a scegliere di studiare ingegneria aeronautica per comprendere a fondo la scienza che rende possibile il volo.</p>
+                    <p>Il mio obiettivo è condividere questa passione con altri attraverso questo sito, mostrando la bellezza e la complessità del mondo dell'aviazione.</p>
+                </div>
+            </div>
+            
+            <a href="#" class="back-home-btn">Torna alla Home</a>
+        </div>
+    </section>
 
     <script>
-        // 1. VARIABILI GLOBALI AGGIORNATE
-        let player;
-        let musicEnabled = false;
-        let playerReady = false;
-        let currentView = 'home';
+        // INIZIALIZZA GSAP
+        gsap.registerPlugin(ScrollTrigger);
         
-        // 2. FUNZIONE PER CARICARE LO SCRIPT YOUTUBE
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-        
-        // 3. INIZIALIZZA IL PLAYER IN MODO PIÙ ROBUSTO
-        function initYouTubePlayer() {
-            player = new YT.Player('youtube-music', {
-                height: '0',
-                width: '0',
-                videoId: '6OhGIif_-R8',
-                playerVars: {
-                    'autoplay': 0,
-                    'loop': 1,
-                    'playlist': '6OhGIif_-R8',
-                    'controls': 0,
-                    'disablekb': 1,
-                    'enablejsapi': 1,
-                    'fs': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange,
-                    'onError': onPlayerError
-                }
+        // ANIMAZIONI AEREI
+        function animateAirplanes() {
+            // Aereo 1 - Volo da sinistra a destra
+            gsap.to("#airplane1", {
+                x: "150vw",
+                y: "+=100",
+                rotation: 10,
+                duration: 40,
+                ease: "none",
+                repeat: -1,
+                delay: 0
+            });
+            
+            // Aereo 2 - Volo diagonale
+            gsap.to("#airplane2", {
+                x: "120vw",
+                y: "-=150",
+                rotation: -5,
+                duration: 35,
+                ease: "none",
+                repeat: -1,
+                delay: 5
+            });
+            
+            // Aereo 3 - Volo più lento e basso
+            gsap.to("#airplane3", {
+                x: "130vw",
+                y: "+=50",
+                rotation: 15,
+                duration: 50,
+                ease: "none",
+                repeat: -1,
+                delay: 10
             });
         }
         
-        // 4. GESTIONE EVENTI AGGIORNATA
-        function onPlayerReady(event) {
-            playerReady = true;
-            event.target.setVolume(30);
-            updateMusicStatus();
+        // ANIMAZIONI NUVOLE
+        function animateClouds() {
+            // Nuvola 1
+            gsap.to("#cloud1", {
+                x: "100vw",
+                duration: 60,
+                ease: "none",
+                repeat: -1
+            });
             
-            // Attiva la musica solo dopo interazione utente
-            document.addEventListener('click', firstUserInteraction, { once: true });
-        }
-        
-        function firstUserInteraction() {
-            if (currentView === 'home') {
-                toggleMusic(true);
-            }
-        }
-        
-        function onPlayerStateChange(event) {
-            // Nuova gestione degli stati
-            if (event.data === YT.PlayerState.ENDED) {
-                player.playVideo(); // Riproduci di nuovo se finisce
-            }
-        }
-        
-        function onPlayerError(event) {
-            console.error('Errore YouTube Player:', event.data);
-            // Tentativo di ricaricare il player dopo 5 secondi
-            setTimeout(() => {
-                if (player) {
-                    player.destroy();
-                }
-                initYouTubePlayer();
-            }, 5000);
-        }
-        
-        // 5. FUNZIONI DI CONTROLLO MIGLIORATE
-        function toggleMusic(enable) {
-            if (!playerReady) return;
+            // Nuvola 2
+            gsap.to("#cloud2", {
+                x: "100vw",
+                duration: 80,
+                ease: "none",
+                repeat: -1,
+                delay: 10
+            });
             
-            musicEnabled = enable;
+            // Nuvola 3
+            gsap.to("#cloud3", {
+                x: "100vw",
+                duration: 100,
+                ease: "none",
+                repeat: -1,
+                delay: 20
+            });
             
-            try {
-                if (enable) {
-                    player.playVideo();
-                } else {
-                    player.pauseVideo();
-                }
-                updateMusicStatus();
-            } catch (e) {
-                console.error("Errore nel controllo musica:", e);
-                // Ripristina il player se c'è un errore
-                playerReady = false;
-                initYouTubePlayer();
-            }
+            // Nuvola 4
+            gsap.to("#cloud4", {
+                x: "100vw",
+                duration: 120,
+                ease: "none",
+                repeat: -1,
+                delay: 30
+            });
         }
         
-        function updateMusicStatus() {
-            const toggleBtn = document.getElementById('music-toggle');
-            const statusText = document.getElementById('music-status');
+        // POSIZIONA AEREI E NUVOLE RANDOMICAMENTE
+        function positionElements() {
+            // Posiziona aeroplani
+            gsap.set("#airplane1", { x: -200, y: "20%" });
+            gsap.set("#airplane2", { x: -200, y: "50%" });
+            gsap.set("#airplane3", { x: -200, y: "70%" });
             
-            if (musicEnabled) {
-                toggleBtn.classList.add('active');
-                statusText.textContent = "Musica: Attiva";
-            } else {
-                toggleBtn.classList.remove('active');
-                statusText.textContent = "Musica: Disattivata";
-            }
-        }
-        
-        // 6. GESTIONE PAGINE CON CONTROLLO ERRORI
-        function showView(viewName) {
-            try {
-                // Nascondi tutte le view
-                document.querySelectorAll('[data-view]').forEach(view => {
-                    view.style.display = 'none';
+            // Posiziona nuvole con dimensioni random
+            const clouds = ["#cloud1", "#cloud2", "#cloud3", "#cloud4"];
+            clouds.forEach((cloud, i) => {
+                const size = gsap.utils.random(50, 150);
+                const yPos = gsap.utils.random(10, 90);
+                const xPos = gsap.utils.random(-200, -50);
+                const opacity = gsap.utils.random(0.5, 0.9);
+                
+                gsap.set(cloud, {
+                    width: size,
+                    height: size,
+                    y: `${yPos}%`,
+                    x: xPos,
+                    opacity: opacity
                 });
-                
-                // Mostra la view richiesta
-                document.querySelector(`[data-view="${viewName}"]`).style.display = 'block';
-                currentView = viewName;
-                
-                // Gestisci la musica in base alla view
-                if (playerReady) {
-                    if (viewName === 'home') {
-                        toggleMusic(musicEnabled);
-                    } else {
-                        toggleMusic(false);
-                    }
-                }
-            } catch (e) {
-                console.error("Errore nel cambio view:", e);
-            }
+            });
         }
         
-        // 7. INIZIALIZZAZIONE AL CARICAMENTO
-        window.addEventListener('DOMContentLoaded', () => {
-            loadYouTubeAPI();
-            
-            // Controllo manuale musica
-            document.getElementById('music-toggle').addEventListener('click', () => {
-                toggleMusic(!musicEnabled);
+        // ANIMAZIONE CONTENUTO HERO
+        function animateHeroContent() {
+            gsap.to(".hero-content", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
             });
-            
-            // Gestione navigazione (esempio)
-            document.querySelector('.story-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                showView('story');
-            });
-            
-            document.querySelector('.home-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                showView('home');
-            });
-            
-            document.querySelector('.back-home-btn').addEventListener('click', (e) => {
-                e.preventDefault();
-                showView('home');
-            });
-        });
+        }
         
-        // 8. RIPRISTINO AUTOMATICO IN CASO DI PROBLEMI
-        setInterval(() => {
-            if (playerReady && !player.getPlayerState) {
-                console.log("Player non risponde, reinizializzazione...");
-                playerReady = false;
-                initYouTubePlayer();
-            }
-        }, 30000); // Controlla ogni 30 secondi
+        // GESTIONE CAMBIO PAGINA
+        function setupPageTransitions() {
+            // Mostra home page all'inizio
+            gsap.set("#home-page", { display: "block" });
+            gsap.set("#story-page", { display: "none" });
+            
+            // Click su Storia
+            document.querySelector(".story-link").addEventListener("click", function(e) {
+                e.preventDefault();
+                
+                // Animazione uscita home page
+                gsap.to("#home-page", {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: function() {
+                        gsap.set("#home-page", { display: "none" });
+                        gsap.set("#story-page", { display: "block", opacity: 0 });
+                        
+                        // Animazione entrata story page
+                        gsap.to("#story-page", {
+                            opacity: 1,
+                            duration: 0.5
+                        });
+                    }
+                });
+            });
+            
+            // Click su Home o Torna alla Home
+            document.querySelector(".home-link").addEventListener("click", function(e) {
+                e.preventDefault();
+                showHomePage();
+            });
+            
+            document.querySelector(".back-home-btn").addEventListener("click", function(e) {
+                e.preventDefault();
+                showHomePage();
+            });
+        }
+        
+        function showHomePage() {
+            // Animazione uscita story page
+            gsap.to("#story-page", {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: function() {
+                    gsap.set("#story-page", { display: "none" });
+                    gsap.set("#home-page", { display: "block", opacity: 0 });
+                    
+                    // Animazione entrata home page
+                    gsap.to("#home-page", {
+                        opacity: 1,
+                        duration: 0.5
+                    });
+                }
+            });
+        }
+        
+        // INIZIALIZZA TUTTO AL CARICAMENTO
+        window.addEventListener("DOMContentLoaded", function() {
+            positionElements();
+            animateAirplanes();
+            animateClouds();
+            animateHeroContent();
+            setupPageTransitions();
+        });
     </script>
 </body>
 </html>
