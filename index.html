@@ -3,69 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voli con Herath - Aviazione Premium</title>
+    <title>Voli con Herath - Radar Aviazione</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <style>
         :root {
-            --accent: #E63946; /* Rosso corallo */
-            --dark: #1D3557; /* Blu navy */
-            --light: #F8F9FA; /* Bianco antico */
-            --text: #2B2D42; /* Blu scuro per testo */
+            --primary: #0F4C81; /* Blu profondo */
+            --secondary: #4CAF50; /* Verde radar */
+            --accent: #FFD166; /* Giallo dorato */
+            --light: #F7FFF7; /* Bianco crema */
+            --dark: #292F36; /* Nero bluastro */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
             font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text);
-            min-height: 100vh;
+            color: var(--dark);
             background-color: var(--light);
-            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
         
         /* NAVIGAZIONE */
         .hero-nav {
-            background: white;
             position: fixed;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #eee;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s;
         }
         
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 1.5rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .nav-logo {
-            color: var(--dark);
+            font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             font-weight: 700;
+            color: var(--primary);
             text-decoration: none;
         }
         
         .nav-logo span {
-            color: var(--accent);
+            color: var(--secondary);
         }
         
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
         }
         
         .nav-link {
             color: var(--dark);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            position: relative;
         }
         
-        .nav-link:hover {
-            color: var(--accent);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
         }
         
         /* HERO SECTION */
@@ -75,171 +96,131 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0 2rem;
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
-                        url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
             background-size: cover;
+            color: white;
         }
         
-        .welcome-container {
+        .hero-content {
             max-width: 800px;
-            padding: 3rem;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
         }
         
-        .welcome-title {
+        .hero-title {
+            font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            color: var(--dark);
-            line-height: 1.2;
         }
         
-        .welcome-subtitle {
-            font-size: 1.8rem;
+        .hero-subtitle {
+            font-size: 1.5rem;
             margin-bottom: 2rem;
-            color: var(--accent);
-            font-weight: 500;
         }
         
-        .btn {
+        .cta-btn {
             display: inline-block;
-            padding: 1rem 3rem;
-            background: var(--accent);
+            padding: 1rem 2.5rem;
+            background: var(--secondary);
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s;
-            margin-top: 1.5rem;
-            border: 2px solid var(--accent);
-            cursor: pointer;
         }
         
-        .btn:hover {
-            background: transparent;
-            color: var(--accent);
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
-        /* SEZIONE ABOUT ME */
-        .about-section {
+        /* SEZIONE RADAR */
+        .radar-section {
             min-height: 100vh;
-            padding: 8rem 2rem;
-            background: white;
             display: none;
+            position: relative;
+            background-color: #e8f5e9; /* Sfondo verde chiaro */
         }
         
-        .about-container {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 3rem;
-        }
-        
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .about-image img {
+        .radar-container {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 100%;
         }
         
-        .about-text {
-            flex: 1;
-            min-width: 300px;
+        .radar-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
-        .about-title {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-        }
-        
-        .about-content {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-        
-        /* SEZIONE BLOG */
-        .blog-section {
-            min-height: 100vh;
-            padding: 8rem 2rem;
-            background: white;
-            display: none;
-        }
-        
-        .blog-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .blog-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-        
-        .blog-title {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
+        .radar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
         }
         
         .back-btn {
             display: inline-block;
-            margin-top: 2rem;
             padding: 0.8rem 2rem;
-            background: var(--dark);
+            background: var(--primary);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: 600;
+            margin-top: 1rem;
+            align-self: flex-start;
             transition: all 0.3s;
         }
         
         .back-btn:hover {
-            background: var(--accent);
-            transform: translateY(-3px);
+            background: var(--secondary);
         }
         
-        /* SEZIONE STORIA */
-        .story-page {
+        /* ALTRE SEZIONI */
+        .section {
             min-height: 100vh;
-            padding: 8rem 2rem 4rem;
-            background: white;
+            padding: 6rem 2rem;
             display: none;
+        }
+        
+        /* ANIMAZIONI */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s forwards;
         }
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .welcome-title {
+            .hero-title {
                 font-size: 2.5rem;
             }
             
-            .welcome-subtitle {
-                font-size: 1.4rem;
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
             
             .nav-menu {
-                gap: 1.5rem;
-            }
-            
-            .blog-title, .about-title {
-                font-size: 2rem;
-            }
-            
-            .about-container {
-                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- NAVIGAZIONE -->
@@ -248,110 +229,139 @@
             <a href="#" class="nav-logo">Voli con <span>Herath</span></a>
             <div class="nav-menu">
                 <a href="#" class="nav-link home-link">Home</a>
+                <a href="#" class="nav-link radar-link">Navigazione</a>
                 <a href="#" class="nav-link about-link">About Me</a>
                 <a href="#" class="nav-link story-link">Storia</a>
-                <a href="#" class="nav-link">Navigazione</a>
-                <a href="#" class="nav-link">Sicurezza</a>
             </div>
         </div>
     </nav>
     
     <!-- HERO SECTION -->
     <section class="hero-section" id="home-page">
-        <div class="welcome-container">
-            <h1 class="welcome-title">Benvenuto su Voli con Herath</h1>
-            <p class="welcome-subtitle">Esplora il Mondo dell'Aviazione</p>
-            <a href="#" class="btn" id="start-journey-btn">Inizia il Viaggio</a>
+        <div class="hero-content">
+            <h1 class="hero-title">Benvenuto su Voli con Herath</h1>
+            <p class="hero-subtitle">Monitora il traffico aereo in tempo reale</p>
+            <a href="#" class="cta-btn" id="radar-btn">Apri Radar</a>
         </div>
     </section>
     
-    <!-- SEZIONE ABOUT ME -->
-    <section class="about-section" id="about-section">
-        <div class="about-container">
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Herath">
-            </div>
-            <div class="about-text">
-                <h2 class="about-title">About Me</h2>
-                <p class="about-content">Ciao, sono Herath, appassionato di aviazione con oltre 10 anni di esperienza nel settore. La mia missione è condividere la bellezza del volo con tutti gli entusiasti come me.</p>
-                <p class="about-content">Attualmente studio Scienze Nautiche e Aeronautiche all'Università Partenope di Napoli, con specializzazione in gestione della sicurezza del volo.</p>
-                <a href="#" class="back-btn" id="back-home-btn-about">Torna alla Home</a>
+    <!-- SEZIONE RADAR -->
+    <section class="radar-section" id="radar-section">
+        <div class="radar-container">
+            <iframe src="https://www.airnavradar.com/@43.14790,12.10970,z6?vhf=EXTVHF000692" class="radar-frame" frameborder="0"></iframe>
+            <div class="radar-overlay">
+                <h2>Radar Live - Traffico Aereo</h2>
+                <p>Visualizza in tempo reale tutti i voli nella zona selezionata</p>
+                <a href="#" class="back-btn" id="back-home-btn">Torna alla Home</a>
             </div>
         </div>
     </section>
     
-    <!-- SEZIONE BLOG -->
-    <section class="blog-section" id="blog-section">
-        <div class="blog-content">
-            <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Aeroplano in volo" class="blog-image">
-            <h2 class="blog-title">Il Mio Ultimo Blog sull'Aviazione</h2>
-            <p>Questa è una preview della sezione blog. Potrai sostituire questa immagine con il contenuto del tuo ultimo post.</p>
-            <a href="#" class="back-btn" id="back-home-btn">Torna alla Home</a>
-        </div>
+    <!-- ALTRE SEZIONI -->
+    <section class="section" id="about-section">
+        <!-- Contenuto About Me -->
     </section>
     
-    <!-- PAGINA STORIA -->
-    <section class="story-page" id="story-page">
-        <div class="story-container">
-            <!-- ... (contenuto storia) ... -->
-        </div>
+    <section class="section" id="story-section">
+        <!-- Contenuto Storia -->
     </section>
 
     <script>
-        // GESTIONE CLICK "INIZIA IL VIAGGIO" (MOSTRA BLOG)
-        document.getElementById("start-journey-btn").addEventListener("click", function(e) {
-            e.preventDefault();
-            hideAllSections();
-            document.getElementById("blog-section").style.display = "block";
-            window.scrollTo(0, 0);
-        });
-        
-        // GESTIONE CLICK "ABOUT ME"
-        document.querySelector(".about-link").addEventListener("click", function(e) {
-            e.preventDefault();
-            hideAllSections();
-            document.getElementById("about-section").style.display = "block";
-            window.scrollTo(0, 0);
-        });
-        
-        // GESTIONE CLICK "TORNA ALLA HOME" (DA BLOG)
-        document.getElementById("back-home-btn").addEventListener("click", function(e) {
-            e.preventDefault();
-            hideAllSections();
-            document.getElementById("home-page").style.display = "flex";
-            window.scrollTo(0, 0);
-        });
-        
-        // GESTIONE CLICK "TORNA ALLA HOME" (DA ABOUT)
-        document.getElementById("back-home-btn-about").addEventListener("click", function(e) {
-            e.preventDefault();
-            hideAllSections();
-            document.getElementById("home-page").style.display = "flex";
-            window.scrollTo(0, 0);
+        // INIZIALIZZA ANIMAZIONI
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animazione hero section
+            gsap.to(".hero-content", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.3
+            });
+            
+            // Animazione overlay radar
+            gsap.to(".radar-overlay", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.5
+            });
         });
         
         // GESTIONE NAVIGAZIONE
-        document.querySelector(".story-link").addEventListener("click", function(e) {
-            e.preventDefault();
-            hideAllSections();
-            document.getElementById("story-page").style.display = "block";
-            window.scrollTo(0, 0);
-        });
-        
-        document.querySelector(".home-link").addEventListener("click", function(e) {
-            e.preventDefault();
-            hideAllSections();
-            document.getElementById("home-page").style.display = "flex";
-            window.scrollTo(0, 0);
-        });
-        
-        // FUNZIONE PER NASCONDERE TUTTE LE SEZIONI
         function hideAllSections() {
-            document.getElementById("home-page").style.display = "none";
-            document.getElementById("about-section").style.display = "none";
-            document.getElementById("blog-section").style.display = "none";
-            document.getElementById("story-page").style.display = "none";
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
         }
+        
+        function showSection(sectionId) {
+            hideAllSections();
+            const section = document.getElementById(sectionId);
+            section.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Animazione specifica per il radar
+            if(sectionId === 'radar-section') {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // EVENT LISTENERS
+        document.querySelector('.home-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('home-page');
+        });
+        
+        document.querySelector('.radar-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('radar-section');
+        });
+        
+        document.querySelector('.about-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('about-section');
+        });
+        
+        document.querySelector('.story-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('story-section');
+        });
+        
+        document.getElementById('radar-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('radar-section');
+        });
+        
+        document.getElementById('back-home-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('home-page');
+        });
+        
+        // NASCONDI NAVBAR AL SCROLL
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            const navbar = document.querySelector('.hero-nav');
+            
+            if (currentScroll <= 0) {
+                navbar.style.transform = 'translateY(0)';
+                return;
+            }
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                // Scroll down
+                navbar.style.transform = 'translateY(-100%)';
+            } else if (currentScroll < lastScroll) {
+                // Scroll up
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
     </script>
 </body>
 </html>
