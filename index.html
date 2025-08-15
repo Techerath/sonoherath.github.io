@@ -174,7 +174,7 @@
             0% {
                 transform: translateX(-100px) translateY(0) rotate(0deg);
             }
-            10% {
+            10% { 
                 transform: translateX(10vw) translateY(-30px) rotate(5deg);
             }
             20% {
@@ -584,36 +584,73 @@
         .social-icons a:hover {
             background: var(--accent);
             transform: translateY(-5px);
-            /* Stile specifico per WhatsApp */
-.social-icons a .fa-whatsapp {
-    color: #25D366 !important; /* Verde WhatsApp */
-}
+        }
+        
+        /* Stile specifico per WhatsApp */
+        .social-icons a .fa-whatsapp {
+            color: #25D366 !important; /* Verde WhatsApp */
+        }
 
-.social-icons a:hover .fa-whatsapp {
-    background: #25D366;
-    color: white !important;
-}
-            /* Stile Instagram */
-.social-icons a .fa-instagram {
-    color: #E1306C; /* Viola-rosso Instagram */
-}
-.social-icons a:hover .fa-instagram {
-    background: radial-gradient(circle at 30% 107%, 
+        .social-icons a:hover .fa-whatsapp {
+            background: #25D366;
+            color: white !important;
+        }
+        /* Stile Instagram */
+        .social-icons a .fa-instagram {
+            color: #E1306C; /* Viola-rosso Instagram */
+        }
+        .social-icons a:hover .fa-instagram {
+            background: radial-gradient(circle at 30% 107%, 
                 #fdf497 0%, #fdf497 5%, 
                 #fd5949 45%, #d6249f 60%, 
                 #285AEB 90%);
-    color: white;
-}
-            /* Stile Facebook */
-.social-icons a .fa-facebook-f {
-    color: #1877F2 !important; /* Blu Facebook */
-}
+            color: white;
+        }
+        /* Stile Facebook */
+        .social-icons a .fa-facebook-f {
+            color: #1877F2 !important; /* Blu Facebook */
+        }
 
-.social-icons a:hover .fa-facebook-f {
-    background: #1877F2;
-    color: white !important;
-}
-            
+        .social-icons a:hover .fa-facebook-f {
+            background: #1877F2;
+            color: white !important;
+        }
+
+        /* Stile aggiuntivi per nuovi social */
+        .social-icons a .fa-twitter {
+            color: #1DA1F2; /* Blu Twitter/X */
+        }
+        .social-icons a:hover .fa-twitter {
+            background: #1DA1F2;
+            color: white;
+        }
+        .social-icons a .fa-tiktok {
+            color: #000000; /* Nero TikTok */
+        }
+        .social-icons a:hover .fa-tiktok {
+            background: linear-gradient(45deg, #EE1D52, #69C9D0);
+            color: white;
+        }
+        .social-icons a .fa-snapchat {
+            color: #FFFC00; /* Giallo Snapchat */
+        }
+        .social-icons a:hover .fa-snapchat {
+            background: #FFFC00;
+            color: black;
+        }
+        .social-icons a .fa-reddit {
+            color: #FF4500; /* Arancione Reddit */
+        }
+        .social-icons a:hover .fa-reddit {
+            background: #FF4500;
+            color: white;
+        }
+        .social-icons a .fa-threads {
+            color: #000000; /* Nero Threads */
+        }
+        .social-icons a:hover .fa-threads {
+            background: #000000;
+            color: white;
         }
         
         .copyright {
@@ -934,17 +971,30 @@
                     <h3>voli con Herath</h3>
                     <p>La risorsa definitiva per appassionati di aviazione, professionisti del settore e chiunque sia affascinato dal volo.</p>
                     <div class="social-icons">
-                    </a><a href="https://www.facebook.com/sonoherath"
-                            title="Facebook">
-                          <i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/sonoherath?igsh=ZnY2MDRvNXZjdWJr" 
-                            target="_blank" 
-                            title="Instagram">
-                        <i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="https://whatsapp.com/channel/0029Vb4ms4t9Bb5yQrdafB42" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/sonoherath?igsh=ZnY2MDRvNXZjdWJr" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1C93DyWLAk/" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029Vb4ms4t9Bb5yQrdafB42" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://x.com/thisisherath?t=6sRApN_35zu8FmfVookNsw&s=09" target="_blank" title="X (Twitter)">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@sonoherath?_t=ZN-8ytxhTIoOMo&_r=1" target="_blank" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.snapchat.com/add/spotted.herath?share_id=vDkUFjQSegU&locale=it-IT" target="_blank" title="Snapchat">
+                            <i class="fab fa-snapchat"></i>
+                        </a>
+                        <a href="https://www.reddit.com/r/voli_con_herath/s/qvwK9kd1PX" target="_blank" title="Reddit">
+                            <i class="fab fa-reddit"></i>
+                        </a>
+                        <a href="https://www.threads.com/@sonoherath" target="_blank" title="Threads">
+                            <i class="fab fa-threads"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -1036,7 +1086,7 @@
                 });
                 
                 sky.appendChild(cloud);
-            }r
+            }
 
             // Enhanced airplane animation with GSAP
             const airplane = document.getElementById('airplane');
