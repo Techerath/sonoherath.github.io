@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voli con Herath - Aviazione Premium</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <style>
         :root {
             --accent: #0066cc;
             --dark: #0a2e6d;
             --light: #e6f2ff;
             --gold: #ffd700;
-            --cloud: rgba(255, 255, 255, 0.8);
         }
         
         body {
@@ -24,43 +22,17 @@
             min-height: 100vh;
         }
         
-        /* SFONDO AEROPORTUALE */
-        .airport-background {
+        /* SFONDO PANORAMICO AEREO */
+        .sky-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, 
-                #87CEEB 0%, 
-                #1E90FF 30%, 
-                #0066CC 70%, 
-                #0a2e6d 100%);
+            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
             z-index: -2;
-        }
-        
-        .runway {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: linear-gradient(to bottom, 
-                rgba(50, 50, 50, 0.8) 0%, 
-                rgba(30, 30, 30, 0.9) 100%);
-            z-index: -1;
-        }
-        
-        .runway-lines {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: repeating-linear-gradient(to right, 
-                white, white 50px, 
-                transparent 50px, transparent 100px);
-            transform: translateY(-50%);
+            filter: brightness(0.9);
         }
         
         /* NAVIGAZIONE */
@@ -71,7 +43,6 @@
             width: 100%;
             z-index: 1000;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.5s ease;
         }
         
         .nav-container {
@@ -104,7 +75,6 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
-            position: relative;
         }
         
         /* SEZIONE HOME */
@@ -117,31 +87,36 @@
             overflow: hidden;
         }
         
-        .welcome-container {
+        .welcome-box {
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.85);
             padding: 3rem;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             max-width: 800px;
-            margin: 0 auto;
-            transform: translateY(20px);
-            opacity: 0;
+            margin: 0 2rem;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
         }
         
         .welcome-title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             color: var(--dark);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         
         .welcome-subtitle {
             font-size: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: var(--dark);
+        }
+        
+        .welcome-text {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
         
         .btn {
@@ -156,26 +131,23 @@
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
         }
         
+        .btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+        
         /* AEREO ANIMATO */
         .airplane {
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%230066CC" d="M511.6 255.6c0 3.1-.6 6.1-1.6 9l-48 112c-3 7-10 11.4-17.4 11.4-1.7 0-3.4-.2-5.1-.7L288 344.3V424c0 13.3-10.7 24-24 24s-24-10.7-24-24V344.3L71.4 387.3c-1.7.5-3.4.7-5.1.7-7.4 0-14.4-4.4-17.4-11.4l-48-112c-1-2.9-1.6-5.9-1.6-9 0-1.9.2-3.8.5-5.6l48-128C52.3 114.6 63.4 108 75.2 108h361.6c11.8 0 22.9 6.6 28.7 17.9l48 128c.4 1.9.5 3.8.5 5.7z"/></svg>');
             background-size: contain;
             background-repeat: no-repeat;
-            z-index: 5;
+            z-index: -1;
             opacity: 0.9;
-            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
-        }
-        
-        /* NUVOLE */
-        .cloud {
-            position: absolute;
-            background: var(--cloud);
-            border-radius: 50%;
-            filter: blur(15px);
-            z-index: 1;
+            filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
         }
         
         /* SEZIONE STORIA */
@@ -185,39 +157,32 @@
             padding: 6rem 2rem 4rem;
             background: white;
             display: none;
-            z-index: 2;
-        }
-        
-        /* ANIMAZIONI */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
         }
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .welcome-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
             
             .welcome-subtitle {
                 font-size: 1.2rem;
             }
             
-            .welcome-container {
+            .welcome-box {
                 padding: 2rem;
-                margin: 0 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- SFONDO AEROPORTUALE -->
-    <div class="airport-background">
-        <div class="runway">
-            <div class="runway-lines"></div>
-        </div>
-    </div>
+    <!-- SFONDO PANORAMICO AEREO -->
+    <div class="sky-background"></div>
+    
+    <!-- AEROPLANI ANIMATI -->
+    <div class="airplane" id="airplane1"></div>
+    <div class="airplane" id="airplane2"></div>
+    <div class="airplane" id="airplane3"></div>
     
     <!-- NAVIGAZIONE -->
     <nav class="hero-nav">
@@ -238,22 +203,10 @@
     
     <!-- HERO SECTION -->
     <section class="hero-section" id="home-page">
-        <!-- Aeroplani animati -->
-        <div class="airplane" id="airplane1"></div>
-        <div class="airplane" id="airplane2"></div>
-        <div class="airplane" id="airplane3"></div>
-        
-        <!-- Nuvole -->
-        <div class="cloud" id="cloud1"></div>
-        <div class="cloud" id="cloud2"></div>
-        <div class="cloud" id="cloud3"></div>
-        <div class="cloud" id="cloud4"></div>
-        
-        <!-- BENVENUTO CENTRALE -->
-        <div class="welcome-container">
+        <div class="welcome-box">
             <h1 class="welcome-title">Benvenuto su Voli con Herath</h1>
             <p class="welcome-subtitle">Esplora il Mondo dell'Aviazione</p>
-            <p>Scopri la magia del volo attraverso storia, tecnologia e avventure incredibili</p>
+            <p class="welcome-text">Scopri la magia del volo attraverso storia, tecnologia e avventure incredibili</p>
             <a href="#history" class="btn">Inizia il Viaggio</a>
         </div>
     </section>
@@ -261,109 +214,59 @@
     <!-- PAGINA STORIA -->
     <section class="story-page" id="story-page">
         <div class="story-container">
-            <!-- ... (contenuto storia esistente) ... -->
+            <!-- ... (contenuto storia) ... -->
         </div>
     </section>
 
     <script>
         // INIZIALIZZA ANIMAZIONI
-        function initAnimations() {
-            // Posiziona elementi
-            positionElements();
+        function init() {
+            // Posiziona aeroplani
+            gsap.set("#airplane1", { x: -200, y: "30%", scale: 0.8 });
+            gsap.set("#airplane2", { x: -200, y: "50%", scale: 1.1 });
+            gsap.set("#airplane3", { x: -200, y: "70%", scale: 0.6 });
             
-            // Anima aeroplani
-            animateAirplanes();
+            // Anima aeroplani (da sinistra a destra)
+            gsap.to("#airplane1", {
+                x: "150vw",
+                duration: 40,
+                ease: "none",
+                repeat: -1
+            });
             
-            // Anima nuvole
-            animateClouds();
+            gsap.to("#airplane2", {
+                x: "150vw",
+                duration: 30,
+                ease: "none",
+                repeat: -1,
+                delay: 5
+            });
             
-            // Mostra benvenuto
-            gsap.to(".welcome-container", {
+            gsap.to("#airplane3", {
+                x: "150vw",
+                duration: 50,
+                ease: "none",
+                repeat: -1,
+                delay: 10
+            });
+            
+            // Mostra box benvenuto
+            gsap.to(".welcome-box", {
                 opacity: 1,
                 y: 0,
                 duration: 1,
                 delay: 0.5,
                 ease: "back.out"
             });
-        }
-        
-        // POSIZIONA ELEMENTI
-        function positionElements() {
-            // Aeroplani
-            gsap.set("#airplane1", { x: -200, y: "30%", scale: 0.8 });
-            gsap.set("#airplane2", { x: -200, y: "60%", scale: 1.1 });
-            gsap.set("#airplane3", { x: -200, y: "20%", scale: 0.7 });
             
-            // Nuvole
-            const clouds = ["#cloud1", "#cloud2", "#cloud3", "#cloud4"];
-            clouds.forEach((cloud, i) => {
-                const size = gsap.utils.random(80, 180);
-                const yPos = gsap.utils.random(10, 70);
-                const xPos = gsap.utils.random(-200, -50);
-                
-                gsap.set(cloud, {
-                    width: size,
-                    height: size/1.5,
-                    y: `${yPos}%`,
-                    x: xPos,
-                    opacity: gsap.utils.random(0.6, 0.9)
-                });
-            });
-        }
-        
-        // ANIMA AEROPLANI
-        function animateAirplanes() {
-            // Aereo 1 - Volo lento
-            gsap.to("#airplane1", {
-                x: "150vw",
-                y: "+=50",
-                rotation: 5,
-                duration: 50,
-                ease: "none",
-                repeat: -1
-            });
-            
-            // Aereo 2 - Volo veloce
-            gsap.to("#airplane2", {
-                x: "150vw",
-                y: "-=30",
-                rotation: -8,
-                duration: 30,
-                ease: "none",
-                repeat: -1,
-                delay: 3
-            });
-            
-            // Aereo 3 - Volo ondulato
-            gsap.to("#airplane3", {
-                x: "150vw",
-                y: "+=20",
-                rotation: 3,
-                duration: 45,
-                ease: "none",
-                repeat: -1,
-                delay: 7
-            });
-        }
-        
-        // ANIMA NUVOLE
-        function animateClouds() {
-            const clouds = ["#cloud1", "#cloud2", "#cloud3", "#cloud4"];
-            clouds.forEach((cloud, i) => {
-                gsap.to(cloud, {
-                    x: "150vw",
-                    duration: gsap.utils.random(60, 120),
-                    ease: "none",
-                    repeat: -1,
-                    delay: i * 10
-                });
-            });
+            // Setup navigazione
+            setupNavigation();
         }
         
         // GESTIONE NAVIGAZIONE
         function setupNavigation() {
             // Mostra home all'inizio
-            gsap.set("#home-page", { display: "block" });
+            gsap.set("#home-page", { display: "flex" });
             gsap.set("#story-page", { display: "none" });
             
             // Click su Storia
@@ -388,7 +291,7 @@
                 duration: 0.5,
                 onComplete: () => {
                     gsap.set(currentPage, { display: "none" });
-                    gsap.set(nextPage, { display: "block", opacity: 0 });
+                    gsap.set(nextPage, { display: page === "home" ? "flex" : "block", opacity: 0 });
                     gsap.to(nextPage, {
                         opacity: 1,
                         duration: 0.5
@@ -397,11 +300,8 @@
             });
         }
         
-        // INIZIALIZZA TUTTO
-        window.addEventListener("DOMContentLoaded", function() {
-            initAnimations();
-            setupNavigation();
-        });
+        // AVVIA TUTTO
+        window.addEventListener("DOMContentLoaded", init);
     </script>
 </body>
 </html>
