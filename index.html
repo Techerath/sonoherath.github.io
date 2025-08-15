@@ -4,39 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voli con Herath - Aviazione Premium</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <style>
         :root {
-            --accent: #0066cc;
-            --dark: #0a2e6d;
-            --light: #e6f2ff;
-            --gold: #ffd700;
+            --accent: #E63946; /* Rosso corallo */
+            --dark: #1D3557; /* Blu navy */
+            --light: #F8F9FA; /* Bianco antico */
+            --text: #2B2D42; /* Blu scuro per testo */
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            color: #333;
-            overflow-x: hidden;
+            color: var(--text);
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-color: var(--light);
+            line-height: 1.6;
         }
         
-        /* NAVIGAZIONE PULITA */
+        /* NAVIGAZIONE */
         .hero-nav {
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             position: fixed;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #eee;
         }
         
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -44,8 +43,8 @@
         
         .nav-logo {
             color: var(--dark);
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 700;
             text-decoration: none;
         }
         
@@ -55,7 +54,7 @@
         
         .nav-menu {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
         }
         
         .nav-link {
@@ -63,135 +62,88 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
-            position: relative;
         }
         
         .nav-link:hover {
             color: var(--accent);
         }
         
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        /* SEZIONE HOME */
+        /* HERO SECTION */
         .hero-section {
-            position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            background-color: #ffffff;
+            text-align: center;
+            padding: 0 2rem;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
         }
         
         .welcome-container {
-            text-align: center;
             max-width: 800px;
-            padding: 2rem;
-            position: relative;
-            z-index: 10;
+            padding: 3rem;
         }
         
         .welcome-title {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             color: var(--dark);
-            opacity: 0;
-            transform: translateY(30px);
+            line-height: 1.2;
         }
         
         .welcome-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .welcome-text {
-            font-size: 1.1rem;
+            font-size: 1.8rem;
             margin-bottom: 2rem;
-            color: #555;
-            opacity: 0;
-            transform: translateY(30px);
+            color: var(--accent);
+            font-weight: 500;
         }
         
         .btn {
             display: inline-block;
-            padding: 0.8rem 2.5rem;
+            padding: 1rem 3rem;
             background: var(--accent);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s;
-            opacity: 0;
-            transform: translateY(30px);
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.2);
+            margin-top: 1.5rem;
+            border: 2px solid var(--accent);
         }
         
         .btn:hover {
-            background: var(--dark);
-            transform: translateY(-3px) translateY(30px);
-            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.3);
-        }
-        
-        /* AEREO ANIMATO */
-        .airplane {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%230066CC" d="M511.6 255.6c0 3.1-.6 6.1-1.6 9l-48 112c-3 7-10 11.4-17.4 11.4-1.7 0-3.4-.2-5.1-.7L288 344.3V424c0 13.3-10.7 24-24 24s-24-10.7-24-24V344.3L71.4 387.3c-1.7.5-3.4.7-5.1.7-7.4 0-14.4-4.4-17.4-11.4l-48-112c-1-2.9-1.6-5.9-1.6-9 0-1.9.2-3.8.5-5.6l48-128C52.3 114.6 63.4 108 75.2 108h361.6c11.8 0 22.9 6.6 28.7 17.9l48 128c.4 1.9.5 3.8.5 5.7z"/></svg>');
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 5;
-            opacity: 0.9;
-            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+            background: transparent;
+            color: var(--accent);
         }
         
         /* SEZIONE STORIA */
         .story-page {
-            position: relative;
             min-height: 100vh;
             padding: 8rem 2rem 4rem;
-            background: #f8f9fa;
+            background: white;
             display: none;
         }
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .welcome-title {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .welcome-subtitle {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
             
             .nav-menu {
-                gap: 1rem;
+                gap: 1.5rem;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- AEROPLANI ANIMATI -->
-    <div class="airplane" id="airplane1"></div>
-    <div class="airplane" id="airplane2"></div>
-    <div class="airplane" id="airplane3"></div>
-    
     <!-- NAVIGAZIONE -->
     <nav class="hero-nav">
         <div class="nav-container">
@@ -214,7 +166,6 @@
         <div class="welcome-container">
             <h1 class="welcome-title">Benvenuto su Voli con Herath</h1>
             <p class="welcome-subtitle">Esplora il Mondo dell'Aviazione</p>
-            <p class="welcome-text">Scopri la magia del volo attraverso storia, tecnologia e avventure incredibili</p>
             <a href="#history" class="btn">Inizia il Viaggio</a>
         </div>
     </section>
@@ -227,133 +178,18 @@
     </section>
 
     <script>
-        // INIZIALIZZA ANIMAZIONI
-        function init() {
-            // Posiziona aeroplani
-            positionAirplanes();
-            
-            // Anima aeroplani (da sinistra a destra)
-            animateAirplanes();
-            
-            // Animazione contenuto
-            animateContent();
-            
-            // Setup navigazione
-            setupNavigation();
-        }
+        // SEMPLICE GESTIONE NAVIGAZIONE
+        document.querySelector(".story-link").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("home-page").style.display = "none";
+            document.getElementById("story-page").style.display = "block";
+        });
         
-        function positionAirplanes() {
-            gsap.set("#airplane1", { x: -200, y: "30%", scale: 0.8 });
-            gsap.set("#airplane2", { x: -200, y: "50%", scale: 1.1 });
-            gsap.set("#airplane3", { x: -200, y: "70%", scale: 0.6 });
-        }
-        
-        function animateAirplanes() {
-            // Aereo 1 - Volo lento
-            gsap.to("#airplane1", {
-                x: "150vw",
-                duration: 50,
-                ease: "none",
-                repeat: -1
-            });
-            
-            // Aereo 2 - Volo medio
-            gsap.to("#airplane2", {
-                x: "150vw",
-                duration: 40,
-                ease: "none",
-                repeat: -1,
-                delay: 3
-            });
-            
-            // Aereo 3 - Volo veloce
-            gsap.to("#airplane3", {
-                x: "150vw",
-                duration: 30,
-                ease: "none",
-                repeat: -1,
-                delay: 6
-            });
-        }
-        
-        function animateContent() {
-            gsap.to(".welcome-title", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.3,
-                ease: "power2.out"
-            });
-            
-            gsap.to(".welcome-subtitle", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.6,
-                ease: "power2.out"
-            });
-            
-            gsap.to(".welcome-text", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.9,
-                ease: "power2.out"
-            });
-            
-            gsap.to(".btn", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 1.2,
-                ease: "power2.out"
-            });
-        }
-        
-        // GESTIONE NAVIGAZIONE
-        function setupNavigation() {
-            // Mostra home all'inizio
-            gsap.set("#home-page", { display: "flex" });
-            gsap.set("#story-page", { display: "none" });
-            
-            // Click su Storia
-            document.querySelector(".story-link").addEventListener("click", function(e) {
-                e.preventDefault();
-                showPage("story");
-            });
-            
-            // Click su Home
-            document.querySelector(".home-link").addEventListener("click", function(e) {
-                e.preventDefault();
-                showPage("home");
-            });
-        }
-        
-        function showPage(page) {
-            const currentPage = page === "home" ? "#story-page" : "#home-page";
-            const nextPage = page === "home" ? "#home-page" : "#story-page";
-            
-            gsap.to(currentPage, {
-                opacity: 0,
-                duration: 0.5,
-                onComplete: () => {
-                    gsap.set(currentPage, { display: "none" });
-                    gsap.set(nextPage, { display: page === "home" ? "flex" : "block", opacity: 0 });
-                    gsap.to(nextPage, {
-                        opacity: 1,
-                        duration: 0.5
-                    });
-                    
-                    // Riposiziona aeroplani quando si torna alla home
-                    if (page === "home") {
-                        positionAirplanes();
-                    }
-                }
-            });
-        }
-        
-        // AVVIA TUTTO
-        window.addEventListener("DOMContentLoaded", init);
+        document.querySelector(".home-link").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("story-page").style.display = "none";
+            document.getElementById("home-page").style.display = "flex";
+        });
     </script>
 </body>
 </html>
