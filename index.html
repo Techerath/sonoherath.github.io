@@ -3,74 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voli con Herath - Esperienza di Volo</title>
+    <title>Voli con Herath - Aviazione Premium</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <style>
         :root {
             --accent: #0066cc;
             --dark: #0a2e6d;
             --light: #e6f2ff;
             --gold: #ffd700;
-            --neon: #00f7ff;
         }
         
         body {
-            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            color: white;
+            color: #333;
             overflow-x: hidden;
             min-height: 100vh;
-            background: #000;
+            background-color: #f8f9fa;
         }
         
-        /* SFONDO 3D INTERATTIVO */
-        .space-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
-        
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-        }
-        
-        /* EFFETTO NEON */
-        .neon-text {
-            text-shadow: 0 0 10px var(--neon), 
-                         0 0 20px var(--neon), 
-                         0 0 30px rgba(0, 247, 255, 0.5);
-            animation: flicker 3s infinite alternate;
-        }
-        
-        @keyframes flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 0 0 10px var(--neon), 
-                             0 0 20px var(--neon), 
-                             0 0 30px rgba(0, 247, 255, 0.5);
-            }
-            20%, 24%, 55% {
-                text-shadow: none;
-            }
-        }
-        
-        /* NAVIGAZIONE FUTURISTICA */
+        /* NAVIGAZIONE PULITA */
         .hero-nav {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.95);
             position: fixed;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
-            border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e0e0e0;
         }
         
         .nav-container {
@@ -83,40 +43,42 @@
         }
         
         .nav-logo {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: bold;
             text-decoration: none;
-            letter-spacing: 2px;
         }
         
         .nav-logo span {
-            color: var(--neon);
+            color: var(--accent);
         }
         
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
         }
         
         .nav-link {
-            color: white;
+            color: var(--dark);
             text-decoration: none;
             font-weight: 500;
+            transition: color 0.3s;
             position: relative;
-            padding: 0.5rem 0;
-            overflow: hidden;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
         }
         
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--neon);
-            transition: width 0.4s ease;
+            background: var(--accent);
+            transition: width 0.3s;
         }
         
         .nav-link:hover::after {
@@ -131,99 +93,72 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background-color: #ffffff;
         }
         
         .welcome-container {
             text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
+            max-width: 800px;
             padding: 2rem;
             position: relative;
             z-index: 10;
         }
         
         .welcome-title {
-            font-size: 4.5rem;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            line-height: 1.1;
+            color: var(--dark);
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
         }
         
         .welcome-subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
         }
         
         .welcome-text {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #555;
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
         }
         
         .btn {
             display: inline-block;
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--neon);
+            padding: 0.8rem 2.5rem;
+            background: var(--accent);
+            color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            border: 2px solid var(--neon);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s;
+            transition: all 0.3s;
             opacity: 0;
-            transform: translateY(50px);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
-            transition: 0.5s;
+            transform: translateY(30px);
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.2);
         }
         
         .btn:hover {
-            background: rgba(0, 247, 255, 0.1);
-            box-shadow: 0 0 25px rgba(0, 247, 255, 0.5);
+            background: var(--dark);
+            transform: translateY(-3px) translateY(30px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.3);
         }
         
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        /* AEREO ANIMATO 3D */
-        .airplane-3d {
+        /* AEREO ANIMATO */
+        .airplane {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%2300f7ff" d="M511.6 255.6c0 3.1-.6 6.1-1.6 9l-48 112c-3 7-10 11.4-17.4 11.4-1.7 0-3.4-.2-5.1-.7L288 344.3V424c0 13.3-10.7 24-24 24s-24-10.7-24-24V344.3L71.4 387.3c-1.7.5-3.4.7-5.1.7-7.4 0-14.4-4.4-17.4-11.4l-48-112c-1-2.9-1.6-5.9-1.6-9 0-1.9.2-3.8.5-5.6l48-128C52.3 114.6 63.4 108 75.2 108h361.6c11.8 0 22.9 6.6 28.7 17.9l48 128c.4 1.9.5 3.8.5 5.7z"/></svg>');
+            width: 120px;
+            height: 120px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%230066CC" d="M511.6 255.6c0 3.1-.6 6.1-1.6 9l-48 112c-3 7-10 11.4-17.4 11.4-1.7 0-3.4-.2-5.1-.7L288 344.3V424c0 13.3-10.7 24-24 24s-24-10.7-24-24V344.3L71.4 387.3c-1.7.5-3.4.7-5.1.7-7.4 0-14.4-4.4-17.4-11.4l-48-112c-1-2.9-1.6-5.9-1.6-9 0-1.9.2-3.8.5-5.6l48-128C52.3 114.6 63.4 108 75.2 108h361.6c11.8 0 22.9 6.6 28.7 17.9l48 128c.4 1.9.5 3.8.5 5.7z"/></svg>');
             background-size: contain;
             background-repeat: no-repeat;
             z-index: 5;
-            filter: drop-shadow(0 0 15px var(--neon));
-            opacity: 0;
-        }
-        
-        /* EFFETTI SPECIALI */
-        .particle {
-            position: absolute;
-            background: var(--neon);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
         }
         
         /* SEZIONE STORIA */
@@ -231,20 +166,18 @@
             position: relative;
             min-height: 100vh;
             padding: 8rem 2rem 4rem;
-            background: rgba(0, 0, 0, 0.9);
+            background: #f8f9fa;
             display: none;
-            z-index: 2;
-            backdrop-filter: blur(10px);
         }
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .welcome-title {
-                font-size: 2.8rem;
+                font-size: 2.2rem;
             }
             
             .welcome-subtitle {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
             
             .nav-menu {
@@ -252,22 +185,17 @@
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- SFONDO 3D CON STELLE -->
-    <div class="space-background" id="space"></div>
-    
-    <!-- AEREO 3D ANIMATO -->
-    <div class="airplane-3d" id="airplane3d"></div>
-    
-    <!-- PARTICOLINE INTERATTIVE -->
-    <div id="particles"></div>
+    <!-- AEROPLANI ANIMATI -->
+    <div class="airplane" id="airplane1"></div>
+    <div class="airplane" id="airplane2"></div>
+    <div class="airplane" id="airplane3"></div>
     
     <!-- NAVIGAZIONE -->
     <nav class="hero-nav">
         <div class="nav-container">
-            <a href="#" class="nav-logo neon-text">Voli con <span>Herath</span></a>
+            <a href="#" class="nav-logo">Voli con <span>Herath</span></a>
             <div class="nav-menu">
                 <a href="#" class="nav-link home-link">Home</a>
                 <a href="#" class="nav-link story-link">Storia</a>
@@ -284,10 +212,10 @@
     <!-- HERO SECTION -->
     <section class="hero-section" id="home-page">
         <div class="welcome-container">
-            <h1 class="welcome-title neon-text">Benvenuto su Voli con Herath</h1>
+            <h1 class="welcome-title">Benvenuto su Voli con Herath</h1>
             <p class="welcome-subtitle">Esplora il Mondo dell'Aviazione</p>
             <p class="welcome-text">Scopri la magia del volo attraverso storia, tecnologia e avventure incredibili</p>
-            <a href="#history" class="btn neon-text">Inizia il Viaggio</a>
+            <a href="#history" class="btn">Inizia il Viaggio</a>
         </div>
     </section>
     
@@ -299,150 +227,86 @@
     </section>
 
     <script>
-        // INIZIALIZZA SFONDO SPAZIALE
-        function createStars() {
-            const space = document.getElementById('space');
-            const starCount = 200;
+        // INIZIALIZZA ANIMAZIONI
+        function init() {
+            // Posiziona aeroplani
+            positionAirplanes();
             
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                const size = Math.random() * 3;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const delay = Math.random() * 5;
-                const duration = 5 + Math.random() * 10;
-                
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${posX}%`;
-                star.style.top = `${posY}%`;
-                star.style.animationDelay = `${delay}s`;
-                
-                space.appendChild(star);
-                
-                // Animazione stelle tremolanti
-                gsap.to(star, {
-                    opacity: 0.8,
-                    duration: duration,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "power1.inOut"
-                });
-            }
+            // Anima aeroplani (da sinistra a destra)
+            animateAirplanes();
+            
+            // Animazione contenuto
+            animateContent();
+            
+            // Setup navigazione
+            setupNavigation();
         }
         
-        // ANIMAZIONE AEREO 3D
-        function animate3DAirplane() {
-            const airplane = document.getElementById('airplane3d');
-            
-            // Posizione iniziale
-            gsap.set(airplane, {
-                x: -400,
-                y: "50%",
-                rotation: -20,
-                opacity: 0
+        function positionAirplanes() {
+            gsap.set("#airplane1", { x: -200, y: "30%", scale: 0.8 });
+            gsap.set("#airplane2", { x: -200, y: "50%", scale: 1.1 });
+            gsap.set("#airplane3", { x: -200, y: "70%", scale: 0.6 });
+        }
+        
+        function animateAirplanes() {
+            // Aereo 1 - Volo lento
+            gsap.to("#airplane1", {
+                x: "150vw",
+                duration: 50,
+                ease: "none",
+                repeat: -1
             });
             
-            // Animazione di entrata
-            gsap.to(airplane, {
-                x: "50%",
-                y: "50%",
-                rotation: 0,
-                opacity: 1,
-                duration: 2,
-                ease: "power3.out"
-            });
-            
-            // Animazione continua
-            gsap.to(airplane, {
-                rotation: 5,
-                y: "+=20",
-                duration: 3,
+            // Aereo 2 - Volo medio
+            gsap.to("#airplane2", {
+                x: "150vw",
+                duration: 40,
+                ease: "none",
                 repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
+                delay: 3
             });
             
-            // Effetto pulsante
-            gsap.to(airplane, {
-                scale: 1.05,
-                duration: 2,
+            // Aereo 3 - Volo veloce
+            gsap.to("#airplane3", {
+                x: "150vw",
+                duration: 30,
+                ease: "none",
                 repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut"
+                delay: 6
             });
         }
         
-        // PARTICOLINE INTERATTIVE
-        function createParticles() {
-            const container = document.getElementById('particles');
-            
-            document.addEventListener('mousemove', (e) => {
-                for (let i = 0; i < 3; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    
-                    const size = Math.random() * 10 + 5;
-                    const posX = e.clientX + (Math.random() - 0.5) * 50;
-                    const posY = e.clientY + (Math.random() - 0.5) * 50;
-                    
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.left = `${posX}px`;
-                    particle.style.top = `${posY}px`;
-                    particle.style.opacity = 0.7;
-                    
-                    container.appendChild(particle);
-                    
-                    // Animazione particella
-                    gsap.to(particle, {
-                        x: (Math.random() - 0.5) * 100,
-                        y: (Math.random() - 0.5) * 100,
-                        opacity: 0,
-                        scale: 0,
-                        duration: 1.5,
-                        onComplete: () => {
-                            particle.remove();
-                        }
-                    });
-                }
-            });
-        }
-        
-        // ANIMAZIONE TESTO
-        function animateText() {
+        function animateContent() {
             gsap.to(".welcome-title", {
                 opacity: 1,
                 y: 0,
-                duration: 1.5,
-                delay: 0.5,
-                ease: "elastic.out(1, 0.5)"
+                duration: 1,
+                delay: 0.3,
+                ease: "power2.out"
             });
             
             gsap.to(".welcome-subtitle", {
                 opacity: 1,
                 y: 0,
                 duration: 1,
-                delay: 1,
-                ease: "power3.out"
+                delay: 0.6,
+                ease: "power2.out"
             });
             
             gsap.to(".welcome-text", {
                 opacity: 1,
                 y: 0,
                 duration: 1,
-                delay: 1.3,
-                ease: "power3.out"
+                delay: 0.9,
+                ease: "power2.out"
             });
             
             gsap.to(".btn", {
                 opacity: 1,
                 y: 0,
                 duration: 1,
-                delay: 1.6,
-                ease: "power3.out"
+                delay: 1.2,
+                ease: "power2.out"
             });
         }
         
@@ -469,36 +333,27 @@
             const currentPage = page === "home" ? "#story-page" : "#home-page";
             const nextPage = page === "home" ? "#home-page" : "#story-page";
             
-            // Animazione aereo quando si torna alla home
-            if (page === "home") {
-                gsap.fromTo("#airplane3d",
-                    { x: "-50%", opacity: 0 },
-                    { x: "50%", opacity: 1, duration: 1.5, ease: "power3.out" }
-                );
-            }
-            
             gsap.to(currentPage, {
                 opacity: 0,
-                duration: 0.8,
+                duration: 0.5,
                 onComplete: () => {
                     gsap.set(currentPage, { display: "none" });
                     gsap.set(nextPage, { display: page === "home" ? "flex" : "block", opacity: 0 });
                     gsap.to(nextPage, {
                         opacity: 1,
-                        duration: 0.8
+                        duration: 0.5
                     });
+                    
+                    // Riposiziona aeroplani quando si torna alla home
+                    if (page === "home") {
+                        positionAirplanes();
+                    }
                 }
             });
         }
         
         // AVVIA TUTTO
-        window.addEventListener("DOMContentLoaded", () => {
-            createStars();
-            animate3DAirplane();
-            createParticles();
-            animateText();
-            setupNavigation();
-        });
+        window.addEventListener("DOMContentLoaded", init);
     </script>
 </body>
 </html>
