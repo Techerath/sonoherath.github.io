@@ -1,8 +1,8 @@
 // ================================
 // 1️⃣ Inizializzazione Supabase
 // ================================
-const supabaseUrl = 'LA_TUA_SUPABASE_URL'; // sostituisci con il tuo URL
-const supabaseKey = 'LA_TUA_ANON_KEY';     // sostituisci con la tua ANON KEY
+const supabaseUrl = 'https://afiayjdmoorsmsrlslks.supabase.co'; // sostituisci con il tuo URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmaWF5amRtb29yc21zcmxzbGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUzMzg1NzIsImV4cCI6MjA3MDkxNDU3Mn0.ULv1VVohSZozvi-ardEjpTfjrkzYsO4Pi2FbuUCPZrk';     // sostituisci con la tua ANON KEY
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // ================================
