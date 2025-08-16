@@ -31,17 +31,17 @@ body, html {
 
 /* === Sfondi diversi per ogni sezione === */
 #home {
-  background-image: url("https://wallpapers.com/images/hd/parked-airplane-4k-ultra-hd-3qt0d4fxr3hdcgg6.jpg");
+  background-image: url("https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=1600&q=80");
 }
 
 #news {
-  background-image: url("https://wallpapers.com/images/hd/airplane-parked-at-gate-4k-5s8ah9efp0tv4h7r.jpg");
+  background-image: url("https://images.unsplash.com/photo-1473187983305-f615310e7daa?auto=format&fit=crop&w=1600&q=80");
 }
 
 #tech {
-  background-image: url("https://wallpapers.com/images/hd/airport-runway-night-4k-1a9q5azjcdx3zpbv.jpg");
+  background-image: url("https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1600&q=80");
 }
 
 #about {
-  background-image: url("https://wallpapers.com/images/hd/parked-plane-at-sunset-4k-1e4bvsfwlhsxx98t.jpg");
+  background-image: url("https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80");
 }
