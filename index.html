@@ -46,9 +46,10 @@
 
   <main>
     <!-- HERO / HOME -->
-    <section id="home" class="section h-screen flex items-center justify-center bg-cover bg-center" data-bg="assets/home.jpg">
-      <div class="overlay"></div>
-      <div class="section-content text-center text-white" data-aos="zoom-in" data-aos-duration="800">
+    <section id="home" class="section h-screen flex items-center justify-center bg-cover bg-center relative"
+      style="background-image: url('https://wallpapers.com/images/hd/parked-airplane-4k-ultra-hd-3qt0d4fxr3hdcgg6.jpg');">
+      <div class="overlay absolute inset-0 bg-black bg-opacity-40"></div>
+      <div class="section-content text-center text-white relative z-10" data-aos="zoom-in" data-aos-duration="800">
         <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Benvenuto su Voli con Herath</h1>
         <p class="text-lg md:text-xl mb-6">Monitora il traffico aereo in tempo reale</p>
         <a href="#nav" class="btn-primary">Apri Radar</a>
@@ -56,12 +57,13 @@
     </section>
 
     <!-- NEWS -->
-    <section id="news" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/news.jpg">
-      <div class="overlay"></div>
+    <section id="news" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
+      style="background-image: url('https://wallpapers.com/images/hd/airplane-parked-at-gate-4k-5s8ah9efp0tv4h7r.jpg');">
+      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
         <div class="section-content" data-animate>
-          <h2 class="section-title">📰 Ultime Notizie</h2>
-          <p class="section-subtitle">Aggiornamenti aeronautici da fonti affidabili</p>
+          <h2 class="section-title text-white">📰 Ultime Notizie</h2>
+          <p class="section-subtitle text-gray-200">Aggiornamenti aeronautici da fonti affidabili</p>
           <div id="news-container" class="grid gap-6 md:grid-cols-3"></div>
           <p id="news-error" class="text-center text-sm text-red-200 mt-6 hidden">Impossibile caricare le notizie al momento.</p>
         </div>
@@ -69,10 +71,11 @@
     </section>
 
     <!-- TECNOLOGIA -->
-    <section id="tech" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/tech.jpg">
-      <div class="overlay"></div>
+    <section id="tech" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
+      style="background-image: url('https://wallpapers.com/images/hd/airport-runway-night-4k-1a9q5azjcdx3zpbv.jpg');">
+      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
-        <div class="section-content" data-animate>
+        <div class="section-content text-white" data-animate>
           <h2 class="section-title">⚙️ Tecnologia Aeronautica</h2>
           <p class="section-subtitle">Video e approfondimenti su innovazioni e sistemi avionici</p>
           <!-- Video YouTube -->
@@ -83,13 +86,14 @@
     </section>
 
     <!-- NAVIGAZIONE -->
-    <section id="nav" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/nav.jpg">
-      <div class="overlay"></div>
+    <section id="nav" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
+      style="background-image: url('https://wallpapers.com/images/hd/airplane-terminal-4k-sunset-2m6yyquq9dx7khkg.jpg');">
+      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
-        <div class="section-content" data-animate>
+        <div class="section-content text-white" data-animate>
           <h2 class="section-title">🗺️ Navigazione Aerea</h2>
           <p class="section-subtitle">Integra radar e mappe per seguire i voli</p>
-          <div class="bg-white bg-opacity-90 rounded-2xl shadow p-6">
+          <div class="bg-white bg-opacity-90 rounded-2xl shadow p-6 text-gray-800">
             <p class="mb-2">👉 In questa sezione puoi incorporare un radar (es. Flightradar24) o mappe personalizzate.</p>
             <p class="text-sm text-gray-600">Suggerimento: usa un <em>iframe</em> o SDK ufficiali quando disponibili.</p>
           </div>
@@ -98,10 +102,11 @@
     </section>
 
     <!-- ABOUT ME -->
-    <section id="about" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/about.jpg">
-      <div class="overlay"></div>
+    <section id="about" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
+      style="background-image: url('https://wallpapers.com/images/hd/parked-plane-at-sunset-4k-1e4bvsfwlhsxx98t.jpg');">
+      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
-        <div class="section-content" data-animate>
+        <div class="section-content text-white" data-animate>
           <h2 class="section-title">👨‍✈️ About Me</h2>
           <p class="section-subtitle max-w-3xl mx-auto">
             Ciao! Sono <strong>Herath Kavindu</strong>, appassionato di aviazione. Condivido notizie, tecnologia e strumenti
