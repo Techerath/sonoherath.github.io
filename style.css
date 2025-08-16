@@ -1,8 +1,39 @@
-/* Effetti personalizzati */
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
-}
+/* Reset di base migliorato per scroll fluido su iOS/Android */
+html { scroll-behavior: smooth; }
+
+/* Navbar */
+#navbar { transition: box-shadow .25s ease, background-color .25s ease; }
+#navbar.scrolled { box-shadow: 0 6px 20px rgba(0,0,0,.12); background-color: rgba(255,255,255,.98); }
+.nav-link { color: #111827; }
+.nav-link:hover { color: #1d4ed8; }
+
+/* Sezioni con background dinamico */
+.section { position: relative; background-repeat: no-repeat; }
+.section .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+.section .section-content { position: relative; z-index: 1; }
+
+/* Titoli e sottotitoli */
+.section-title { color: #fff; text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: .5rem; }
+.section-subtitle { color: #f3f4f6; text-align: center; margin-bottom: 2rem; }
+
+/* Card riutilizzabili */
+.card { background: #ffffff; border-radius: 1rem; padding: 1.25rem; box-shadow: 0 10px 25px rgba(0,0,0,.08); transition: transform .25s ease, box-shadow .25s ease; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 16px 35px rgba(0,0,0,.12); }
+.card-title { font-weight: 800; font-size: 1.125rem; margin-bottom: .5rem; }
+
+/* Pulsante primario */
+.btn-primary { display: inline-block; background: #16a34a; color: #fff; padding: .85rem 1.25rem; border-radius: .75rem; font-weight: 700; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.25); background: #15803d; }
+
+/* Animazioni di ingresso sezione (triggerate da JS) */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+.section.revealed [data-animate] { animation: fadeUp .6s ease forwards; }
+
+/* Mobile menu transition */
+#mobileMenu.open { max-height: 320px; }
+
+/* Utility per immagini di background responsive */
+.section { background-size: cover; background-position: center; }
+
+/* Spaziatura per compensare la navbar fixed */
+main > .section:first-of-type { padding-top: 4rem; }
