@@ -1,1 +1,192 @@
-H
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herath Aviazione</title>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { margin:0; font-family: 'Arial', sans-serif; background:#1e3c72; }
+  .section { padding: 100px 20px; position:relative; }
+  .timeline { border-left: 4px solid #00ffcc; margin-left: 20px; padding-left: 20px; }
+  .timeline-event { margin-bottom: 40px; position: relative; }
+  .timeline-event::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: #00ffcc;
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO ANIMATO -->
+<section id="home" class="section h-screen flex items-center justify-center relative overflow-hidden"
+  style="background: linear-gradient(to top, #1e3c72, #2a5298);">
+  <canvas id="skyCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+  <div class="text-center text-white relative z-10">
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-4" data-aos="fade-down" data-aos-duration="1500">
+      ✈️ Vivi il cielo con Herath
+    </h1>
+    <p class="text-xl md:text-2xl mb-6" data-aos="fade-up" data-aos-duration="1500">
+      Emozioni, avventura e curiosità dal mondo dell'aviazione
+    </p>
+    <a href="#galleria" class="inline-block bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg"
+       data-aos="zoom-in" data-aos-duration="1500">
+      Esplora la Galleria
+    </a>
+  </div>
+</section>
+
+<!-- GALLERIA AEREI -->
+<section id="galleria" class="section bg-gradient-to-b from-blue-800 to-blue-600 text-white">
+  <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">Galleria di Aerei</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+    <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-duration="1200">
+      <img src="https://source.unsplash.com/600x400/?airplane" alt="Aereo" class="w-full transform hover:scale-110 transition duration-500">
+    </div>
+    <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-duration="1400">
+      <img src="https://source.unsplash.com/600x400/?airplane,sky" alt="Aereo" class="w-full transform hover:scale-110 transition duration-500">
+    </div>
+    <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-duration="1600">
+      <img src="https://source.unsplash.com/600x400/?jet" alt="Aereo" class="w-full transform hover:scale-110 transition duration-500">
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE VOLI -->
+<section id="timeline" class="section text-white">
+  <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">Timeline dei Voli Storici</h2>
+  <div class="timeline max-w-4xl mx-auto">
+    <div class="timeline-event" data-aos="fade-right" data-aos-duration="1200">
+      <h3 class="text-2xl font-semibold">1903 - Primo Volo dei Fratelli Wright</h3>
+      <p>Il primo volo motorizzato controllato e sostenuto nella storia dell’umanità.</p>
+    </div>
+    <div class="timeline-event" data-aos="fade-left" data-aos-duration="1400">
+      <h3 class="text-2xl font-semibold">1939 - Primo Volo del B-29</h3>
+      <p>Un aereo da bombardamento strategico avanzato, simbolo dell’era moderna.</p>
+    </div>
+    <div class="timeline-event" data-aos="fade-right" data-aos-duration="1600">
+      <h3 class="text-2xl font-semibold">1969 - Primo Volo del Concorde</h3>
+      <p>Il volo supersonico commerciale che ha cambiato il trasporto aereo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news" class="section bg-gradient-to-b from-blue-600 to-blue-500 text-white">
+  <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">Ultime Notizie</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+    <div class="bg-blue-700 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-500" data-aos="flip-left" data-aos-duration="1200">
+      <h3 class="text-xl font-bold mb-2">Nuovo Airbus 350</h3>
+      <p>Scopri le innovazioni del nuovo aereo di linea ultra moderno e sostenibile.</p>
+    </div>
+    <div class="bg-blue-700 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-500" data-aos="flip-left" data-aos-duration="1400">
+      <h3 class="text-xl font-bold mb-2">Voli Eco-Friendly</h3>
+      <p>Le compagnie aeree adottano tecnologie green per ridurre le emissioni.</p>
+    </div>
+    <div class="bg-blue-700 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-500" data-aos="flip-left" data-aos-duration="1600">
+      <h3 class="text-xl font-bold mb-2">Scoperte Aerospaziali</h3>
+      <p>Nuovi prototipi di velivoli spaziali aprono la strada al turismo orbitale.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// ANIMAZIONE SKY HERO
+const canvas = document.getElementById('skyCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Cloud {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height/2;
+    this.size = 80 + Math.random() * 100;
+    this.speed = 0.2 + Math.random() * 0.3;
+    this.opacity = 0.3 + Math.random() * 0.4;
+  }
+  draw() {
+    const gradient = ctx.createRadialGradient(this.x, this.y, this.size*0.2, this.x, this.y, this.size);
+    gradient.addColorStop(0, `rgba(255,255,255,${this.opacity})`);
+    gradient.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fill();
+  }
+  update() {
+    this.x += this.speed;
+    if(this.x - this.size > canvas.width) this.x = -this.size;
+    this.draw();
+  }
+}
+
+class Plane {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height/2 + canvas.height/4;
+    this.speed = 2 + Math.random() * 2;
+    this.size = 20 + Math.random() * 10;
+    this.trail = [];
+  }
+  draw() {
+    this.trail.push({x:this.x, y:this.y});
+    if(this.trail.length > 30) this.trail.shift();
+    for(let i=0;i<this.trail.length;i++){
+      const t = this.trail[i];
+      ctx.fillStyle = `rgba(255,255,255,${i/this.trail.length*0.5})`;
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, 2, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(-this.size, this.size/2);
+    ctx.lineTo(-this.size, -this.size/2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+  update() {
+    this.x += this.speed;
+    if(this.x - this.size > canvas.width) {
+      this.x = -this.size;
+      this.trail = [];
+    }
+    this.draw();
+  }
+}
+
+const clouds = Array.from({length: 10}, () => new Cloud());
+const planes = Array.from({length: 4}, () => new Plane());
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  clouds.forEach(c => c.update());
+  planes.forEach(p => p.update());
+  requestAnimationFrame(animate);
+}
+
+animate();
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// AOS
+AOS.init();
+</script>
+
+</body>
+</html> 
