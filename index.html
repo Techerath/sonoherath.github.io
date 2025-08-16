@@ -22,6 +22,7 @@
       </a>
       <nav class="hidden md:flex items-center space-x-6 font-medium">
         <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#blog">Blog</a>
         <a class="nav-link" href="#news">News</a>
         <a class="nav-link" href="#tech">Tecnologia</a>
         <a class="nav-link" href="#nav">Navigazione</a>
@@ -36,6 +37,7 @@
     <div id="mobileMenu" class="md:hidden max-h-0 overflow-hidden transition-all">
       <nav class="px-6 pb-4 space-y-3">
         <a class="nav-link block" href="#home">Home</a>
+        <a class="nav-link block" href="#blog">Blog</a>
         <a class="nav-link block" href="#news">News</a>
         <a class="nav-link block" href="#tech">Tecnologia</a>
         <a class="nav-link block" href="#nav">Navigazione</a>
@@ -44,7 +46,7 @@
     </div>
   </header>
 
-  <main>
+  <main class="pt-24">
     <!-- HERO / HOME -->
     <section id="home" class="section h-screen flex items-center justify-center bg-cover bg-center relative"
       style="background-image: url('https://wallpapers.com/images/hd/parked-airplane-4k-ultra-hd-3qt0d4fxr3hdcgg6.jpg');">
@@ -54,6 +56,12 @@
         <p class="text-lg md:text-xl mb-6">Monitora il traffico aereo in tempo reale</p>
         <a href="#nav" class="btn-primary">Apri Radar</a>
       </div>
+    </section>
+
+    <!-- BLOG POSTS -->
+    <section id="blog" class="section min-h-screen py-20">
+      <h2 class="section-title text-2xl font-bold mb-6">Blog</h2>
+      <div id="blog-container" class="grid gap-6 md:grid-cols-3"></div>
     </section>
 
     <!-- NEWS -->
@@ -139,6 +147,7 @@
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init({ once: true });</script>
+  <!-- SCRIPT SUPABASE -->
   <script src="script.js"></script>
 </body>
 </html>
