@@ -1,59 +1,139 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviazione News</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voli con Herath</title>
+
+  <!-- TailwindCSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Stili personalizzati -->
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="text-gray-900">
+  <!-- Navbar -->
+  <header id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur shadow z-50 transition">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <a href="#home" class="flex items-center space-x-2 font-extrabold text-xl">
+        <span class="text-blue-700">Voli</span>
+        <span class="text-green-600">con Herath</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6 font-medium">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#news">News</a>
+        <a class="nav-link" href="#tech">Tecnologia</a>
+        <a class="nav-link" href="#nav">Navigazione</a>
+        <a class="nav-link" href="#about">About Me</a>
+      </nav>
+      <!-- Mobile menu button -->
+      <button id="menuBtn" class="md:hidden focus:outline-none" aria-label="Apri menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden max-h-0 overflow-hidden transition-all">
+      <nav class="px-6 pb-4 space-y-3">
+        <a class="nav-link block" href="#home">Home</a>
+        <a class="nav-link block" href="#news">News</a>
+        <a class="nav-link block" href="#tech">Tecnologia</a>
+        <a class="nav-link block" href="#nav">Navigazione</a>
+        <a class="nav-link block" href="#about">About Me</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Navbar -->
-    <header class="bg-blue-900 text-white shadow-lg">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6">
-            <h1 class="text-2xl font-bold">✈ Aviazione News</h1>
-            <nav>
-                <a href="#news" class="px-3 hover:underline">Notizie</a>
-                <a href="#video" class="px-3 hover:underline">Video</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="relative bg-cover bg-center h-96 flex items-center justify-center text-white" style="background-image: url('assets/bg.jpg');">
-        <div class="bg-black bg-opacity-50 p-6 rounded-lg text-center" data-aos="zoom-in">
-            <h2 class="text-4xl font-bold mb-4">Ultime Notizie dal Mondo dell’Aviazione</h2>
-            <p class="text-lg">Aggiornamenti in tempo reale su incidenti, innovazioni e viaggi.</p>
-        </div>
+  <main>
+    <!-- HERO / HOME -->
+    <section id="home" class="section h-screen flex items-center justify-center bg-cover bg-center" data-bg="assets/home.jpg">
+      <div class="overlay"></div>
+      <div class="section-content text-center text-white" data-aos="zoom-in" data-aos-duration="800">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Benvenuto su Voli con Herath</h1>
+        <p class="text-lg md:text-xl mb-6">Monitora il traffico aereo in tempo reale</p>
+        <a href="#nav" class="btn-primary">Apri Radar</a>
+      </div>
     </section>
 
-    <!-- Notizie -->
-    <section id="news" class="py-12 container mx-auto">
-        <h2 class="text-3xl font-bold mb-6 text-center">📰 Ultime Notizie</h2>
-        <div id="news-container" class="grid gap-6 md:grid-cols-3">
-            <!-- Notizie caricate da script.js -->
+    <!-- NEWS -->
+    <section id="news" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/news.jpg">
+      <div class="overlay"></div>
+      <div class="container mx-auto relative z-10">
+        <div class="section-content" data-animate>
+          <h2 class="section-title">📰 Ultime Notizie</h2>
+          <p class="section-subtitle">Aggiornamenti aeronautici da fonti affidabili</p>
+          <div id="news-container" class="grid gap-6 md:grid-cols-3"></div>
+          <p id="news-error" class="text-center text-sm text-red-200 mt-6 hidden">Impossibile caricare le notizie al momento.</p>
         </div>
+      </div>
     </section>
 
-    <!-- Video -->
-    <section id="video" class="py-12 bg-gray-200">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-6 text-center">🎥 Video Notizie</h2>
-            <div id="video-container" class="grid gap-6 md:grid-cols-3">
-                <!-- Video caricati da script.js -->
+    <!-- TECNOLOGIA -->
+    <section id="tech" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/tech.jpg">
+      <div class="overlay"></div>
+      <div class="container mx-auto relative z-10">
+        <div class="section-content" data-animate>
+          <h2 class="section-title">⚙️ Tecnologia Aeronautica</h2>
+          <p class="section-subtitle">Video e approfondimenti su innovazioni e sistemi avionici</p>
+          <!-- Video YouTube -->
+          <div id="video-container" class="grid gap-6 md:grid-cols-3"></div>
+          <p id="video-error" class="text-center text-sm text-yellow-100 mt-6 hidden">Aggiungi la tua YouTube API Key in <code>script.js</code> per mostrare i video.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGAZIONE -->
+    <section id="nav" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/nav.jpg">
+      <div class="overlay"></div>
+      <div class="container mx-auto relative z-10">
+        <div class="section-content" data-animate>
+          <h2 class="section-title">🗺️ Navigazione Aerea</h2>
+          <p class="section-subtitle">Integra radar e mappe per seguire i voli</p>
+          <div class="bg-white bg-opacity-90 rounded-2xl shadow p-6">
+            <p class="mb-2">👉 In questa sezione puoi incorporare un radar (es. Flightradar24) o mappe personalizzate.</p>
+            <p class="text-sm text-gray-600">Suggerimento: usa un <em>iframe</em> o SDK ufficiali quando disponibili.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT ME -->
+    <section id="about" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center" data-bg="assets/about.jpg">
+      <div class="overlay"></div>
+      <div class="container mx-auto relative z-10">
+        <div class="section-content" data-animate>
+          <h2 class="section-title">👨‍✈️ About Me</h2>
+          <p class="section-subtitle max-w-3xl mx-auto">
+            Ciao! Sono <strong>Herath Kavindu</strong>, appassionato di aviazione. Condivido notizie, tecnologia e strumenti
+            per vivere il cielo da vicino.
+          </p>
+          <div class="mt-8 grid gap-6 md:grid-cols-3">
+            <div class="card">
+              <h3 class="card-title">Formazione</h3>
+              <p>Scienze aeronautiche, gestione e sicurezza del volo.</p>
             </div>
+            <div class="card">
+              <h3 class="card-title">Obiettivo</h3>
+              <p>Lavorare in aeroporto e crescere nel settore aviation.</p>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Contatti</h3>
+              <p>Scrivimi per collaborazioni e progetti sull'aviazione.</p>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer class="bg-blue-900 text-white py-4 text-center">
-        <p>© 2025 Aviazione News - Creato da Capitano Herath</p>
-    </footer>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-5 text-center">
+    <p>© 2025 Tutti i diritti riservati — Herath Kavindu</p>
+  </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init();</script>
-    <script src="script.js"></script>
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ once: true });</script>
+  <script src="script.js"></script>
 </body>
 </html>
