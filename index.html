@@ -23,37 +23,29 @@
       <nav class="hidden md:flex items-center space-x-6 font-medium">
         <a class="nav-link" href="#home">Home</a>
         <a class="nav-link" href="#news">News</a>
-        <a class="nav-link" href="#blog">Blog</a>
         <a class="nav-link" href="#tech">Tecnologia</a>
         <a class="nav-link" href="#nav">Navigazione</a>
-        <a class="nav-link" href="#archive">Archivio Incidenti</a>
-        <a class="nav-link" href="#history">Storia Aviazione</a>
-        <a class="nav-link" href="#simulators">Simulatori</a>
         <a class="nav-link" href="#about">About Me</a>
       </nav>
+      <!-- Mobile menu button -->
       <button id="menuBtn" class="md:hidden focus:outline-none" aria-label="Apri menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
+    <!-- Mobile menu -->
     <div id="mobileMenu" class="md:hidden max-h-0 overflow-hidden transition-all">
       <nav class="px-6 pb-4 space-y-3">
         <a class="nav-link block" href="#home">Home</a>
         <a class="nav-link block" href="#news">News</a>
-        <a class="nav-link block" href="#blog">Blog</a>
         <a class="nav-link block" href="#tech">Tecnologia</a>
         <a class="nav-link block" href="#nav">Navigazione</a>
-        <a class="nav-link block" href="#archive">Archivio Incidenti</a>
-        <a class="nav-link block" href="#history">Storia Aviazione</a>
-        <a class="nav-link block" href="#simulators">Simulatori</a>
         <a class="nav-link block" href="#about">About Me</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
+    <!-- HERO / HOME -->
     <section id="home" class="section h-screen flex items-center justify-center bg-cover bg-center relative"
       style="background-image: url('https://wallpapers.com/images/hd/parked-airplane-4k-ultra-hd-3qt0d4fxr3hdcgg6.jpg');">
       <div class="overlay absolute inset-0 bg-black bg-opacity-40"></div>
@@ -69,21 +61,12 @@
       style="background-image: url('https://wallpapers.com/images/hd/airplane-parked-at-gate-4k-5s8ah9efp0tv4h7r.jpg');">
       <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">📰 Ultime Notizie</h2>
-        <p class="section-subtitle text-gray-200">Aggiornamenti aeronautici da fonti affidabili</p>
-        <div id="news-container" class="grid gap-6 md:grid-cols-3"></div>
-        <p id="news-error" class="text-center text-sm text-red-200 mt-6 hidden">Impossibile caricare le notizie.</p>
-      </div>
-    </section>
-
-    <!-- BLOG -->
-    <section id="blog" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
-      style="background-image: url('https://wallpapers.com/images/hd/airport-runway-night-4k-1a9q5azjcdx3zpbv.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
-      <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">✈️ Blog</h2>
-        <p class="section-subtitle text-gray-200">I miei articoli sull'aviazione</p>
-        <div id="blog-container" class="grid gap-6 md:grid-cols-3"></div>
+        <div class="section-content" data-aos="fade-up" data-aos-duration="800">
+          <h2 class="section-title text-white">📰 Ultime Notizie</h2>
+          <p class="section-subtitle text-gray-200">Aggiornamenti aeronautici da fonti affidabili</p>
+          <div id="news-container" class="grid gap-6 md:grid-cols-3"></div>
+          <p id="news-error" class="text-center text-sm text-red-200 mt-6 hidden">Impossibile caricare le notizie al momento.</p>
+        </div>
       </div>
     </section>
 
@@ -92,50 +75,39 @@
       style="background-image: url('https://wallpapers.com/images/hd/airport-runway-night-4k-1a9q5azjcdx3zpbv.jpg');">
       <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">⚙️ Tecnologia Aeronautica</h2>
-        <p class="section-subtitle text-gray-200">Video e approfondimenti su innovazioni e sistemi avionici</p>
-        <div id="video-container" class="grid gap-6 md:grid-cols-3"></div>
+        <div class="section-content text-white" data-aos="fade-up" data-aos-duration="800">
+          <h2 class="section-title">⚙️ Tecnologia Aeronautica</h2>
+          <p class="section-subtitle">Video e approfondimenti su innovazioni e sistemi avionici</p>
+          <!-- Video YouTube -->
+          <div id="video-container" class="grid gap-6 md:grid-cols-3"></div>
+          <p id="video-error" class="text-center text-sm text-yellow-100 mt-6 hidden">Aggiungi la tua YouTube API Key in <code>script.js</code> per mostrare i video.</p>
+        </div>
       </div>
     </section>
 
-    <!-- NAVIGAZIONE / RADAR -->
+    <!-- NAVIGAZIONE -->
     <section id="nav" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
       style="background-image: url('https://wallpapers.com/images/hd/airplane-terminal-4k-sunset-2m6yyquq9dx7khkg.jpg');">
       <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">🗺️ Navigazione Aerea</h2>
-        <p class="section-subtitle text-gray-200">Radar live integrato</p>
-        <iframe src="https://www.airnavradar.com/" class="w-full h-96 rounded-xl shadow-lg" frameborder="0"></iframe>
-      </div>
-    </section>
-
-    <!-- ARCHIVIO INCIDENTI -->
-    <section id="archive" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
-      style="background-image: url('https://wallpapers.com/images/hd/airplane-accident-4k-1a1abcd.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
-      <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">📜 Archivio Incidenti</h2>
-        <div id="archive-container" class="grid gap-6 md:grid-cols-3"></div>
-      </div>
-    </section>
-
-    <!-- STORIA DELL'AVIAZIONE -->
-    <section id="history" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
-      style="background-image: url('https://wallpapers.com/images/hd/aviation-history-4k-1abcde.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
-      <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">🛩️ Storia dell'Aviazione</h2>
-        <div id="history-container" class="timeline grid gap-6 md:grid-cols-3"></div>
-      </div>
-    </section>
-
-    <!-- SIMULATORI / GIOCHI -->
-    <section id="simulators" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
-      style="background-image: url('https://wallpapers.com/images/hd/flight-simulator-4k-1xyz.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
-      <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">🎮 Simulatori & Giochi</h2>
-        <div id="simulators-container" class="grid gap-6 md:grid-cols-3"></div>
+        <div class="section-content text-white" data-aos="fade-up" data-aos-duration="800">
+          <h2 class="section-title">🗺️ Navigazione Aerea</h2>
+          <p class="section-subtitle">Integra radar e mappe per seguire i voli</p>
+          <div class="bg-white bg-opacity-90 rounded-2xl shadow p-6 text-gray-800">
+            <h3 class="font-bold mb-4 text-lg">Radar Aereo Live</h3>
+            <iframe 
+              src="https://www.airnavradar.com/embed.html" 
+              width="100%" 
+              height="600" 
+              style="border:0; border-radius: 1rem;" 
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+            <p class="text-sm text-gray-600 mt-2">
+              Visualizza il traffico aereo in tempo reale con AirNavRadar.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -144,24 +116,29 @@
       style="background-image: url('https://wallpapers.com/images/hd/parked-plane-at-sunset-4k-1e4bvsfwlhsxx98t.jpg');">
       <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="container mx-auto relative z-10">
-        <h2 class="section-title text-white">👨‍✈️ About Me</h2>
-        <div class="mt-8 grid gap-6 md:grid-cols-3">
-          <div class="card">
-            <h3 class="card-title">Formazione</h3>
-            <p></p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Obiettivo</h3>
-            <p></p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Contatti</h3>
-            <p></p>
+        <div class="section-content text-white" data-aos="fade-up" data-aos-duration="800">
+          <h2 class="section-title">👨‍✈️ About Me</h2>
+          <p class="section-subtitle max-w-3xl mx-auto">
+            Ciao! Sono <strong>Herath Kavindu</strong>, appassionato di aviazione. Condivido notizie, tecnologia e strumenti
+            per vivere il cielo da vicino.
+          </p>
+          <div class="mt-8 grid gap-6 md:grid-cols-3">
+            <div class="card">
+              <h3 class="card-title">Formazione</h3>
+              <p>Scienze aeronautiche, gestione e sicurezza del volo.</p>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Obiettivo</h3>
+              <p>Lavorare in aeroporto e crescere nel settore aviation.</p>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Contatti</h3>
+              <p>Scrivimi per collaborazioni e progetti sull'aviazione.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
   </main>
 
   <!-- Footer -->
