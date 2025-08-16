@@ -3,365 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voli con Herath - Radar Aviazione</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <style>
-        :root {
-            --primary: #0F4C81; /* Blu profondo */
-            --secondary: #4CAF50; /* Verde radar */
-            --accent: #FFD166; /* Giallo dorato */
-            --light: #F7FFF7; /* Bianco crema */
-            --dark: #292F36; /* Nero bluastro */
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        
-        /* NAVIGAZIONE */
-        .hero-nav {
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s;
-        }
-        
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .nav-logo span {
-            color: var(--secondary);
-        }
-        
-        .nav-menu {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .nav-link {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: width 0.3s;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        /* HERO SECTION */
-        .hero-section {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
-            background-size: cover;
-            color: white;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .cta-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--secondary);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* SEZIONE RADAR */
-        .radar-section {
-            min-height: 100vh;
-            display: none;
-            position: relative;
-            background-color: #e8f5e9; /* Sfondo verde chiaro */
-        }
-        
-        .radar-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .radar-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .radar-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 2rem;
-            color: white;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        .back-btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            margin-top: 1rem;
-            align-self: flex-start;
-            transition: all 0.3s;
-        }
-        
-        .back-btn:hover {
-            background: var(--secondary);
-        }
-        
-        /* ALTRE SEZIONI */
-        .section {
-            min-height: 100vh;
-            padding: 6rem 2rem;
-            display: none;
-        }
-        
-        /* ANIMAZIONI */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s forwards;
-        }
-        
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .nav-menu {
-                gap: 1rem;
-            }
-        }
-    </style>
+    <title>Aviazione News</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- NAVIGAZIONE -->
-    <nav class="hero-nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">Voli con <span>Herath</span></a>
-            <div class="nav-menu">
-                <a href="#" class="nav-link home-link">Home</a>
-                <a href="#" class="nav-link radar-link">Navigazione</a>
-                <a href="#" class="nav-link about-link">About Me</a>
-                <a href="#" class="nav-link story-link">Storia</a>
-            </div>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Navbar -->
+    <header class="bg-blue-900 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <h1 class="text-2xl font-bold">✈ Aviazione News</h1>
+            <nav>
+                <a href="#news" class="px-3 hover:underline">Notizie</a>
+                <a href="#video" class="px-3 hover:underline">Video</a>
+            </nav>
         </div>
-    </nav>
-    
-    <!-- HERO SECTION -->
-    <section class="hero-section" id="home-page">
-        <div class="hero-content">
-            <h1 class="hero-title">Benvenuto su Voli con Herath</h1>
-            <p class="hero-subtitle">Monitora il traffico aereo in tempo reale</p>
-            <a href="#" class="cta-btn" id="radar-btn">Apri Radar</a>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative bg-cover bg-center h-96 flex items-center justify-center text-white" style="background-image: url('assets/bg.jpg');">
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg text-center" data-aos="zoom-in">
+            <h2 class="text-4xl font-bold mb-4">Ultime Notizie dal Mondo dell’Aviazione</h2>
+            <p class="text-lg">Aggiornamenti in tempo reale su incidenti, innovazioni e viaggi.</p>
         </div>
-    </section>
-    
-    <!-- SEZIONE RADAR -->
-    <section class="radar-section" id="radar-section">
-        <div class="radar-container">
-            <iframe src="https://www.airnavradar.com/@43.14790,12.10970,z6?vhf=EXTVHF000692" class="radar-frame" frameborder="0"></iframe>
-            <div class="radar-overlay">
-                <h2>Radar Live - Traffico Aereo</h2>
-                <p>Visualizza in tempo reale tutti i voli nella zona selezionata</p>
-                <a href="#" class="back-btn" id="back-home-btn">Torna alla Home</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- ALTRE SEZIONI -->
-    <section class="section" id="about-section">
-        <!-- Contenuto About Me -->
-    </section>
-    
-    <section class="section" id="story-section">
-        <!-- Contenuto Storia -->
     </section>
 
-    <script>
-        // INIZIALIZZA ANIMAZIONI
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animazione hero section
-            gsap.to(".hero-content", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.3
-            });
-            
-            // Animazione overlay radar
-            gsap.to(".radar-overlay", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.5
-            });
-        });
-        
-        // GESTIONE NAVIGAZIONE
-        function hideAllSections() {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
-        }
-        
-        function showSection(sectionId) {
-            hideAllSections();
-            const section = document.getElementById(sectionId);
-            section.style.display = 'block';
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-            
-            // Animazione specifica per il radar
-            if(sectionId === 'radar-section') {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        }
-        
-        // EVENT LISTENERS
-        document.querySelector('.home-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            showSection('home-page');
-        });
-        
-        document.querySelector('.radar-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            showSection('radar-section');
-        });
-        
-        document.querySelector('.about-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            showSection('about-section');
-        });
-        
-        document.querySelector('.story-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            showSection('story-section');
-        });
-        
-        document.getElementById('radar-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            showSection('radar-section');
-        });
-        
-        document.getElementById('back-home-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            showSection('home-page');
-        });
-        
-        // NASCONDI NAVBAR AL SCROLL
-        let lastScroll = 0;
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset;
-            const navbar = document.querySelector('.hero-nav');
-            
-            if (currentScroll <= 0) {
-                navbar.style.transform = 'translateY(0)';
-                return;
-            }
-            
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                // Scroll down
-                navbar.style.transform = 'translateY(-100%)';
-            } else if (currentScroll < lastScroll) {
-                // Scroll up
-                navbar.style.transform = 'translateY(0)';
-            }
-            
-            lastScroll = currentScroll;
-        });
-    </script>
+    <!-- Notizie -->
+    <section id="news" class="py-12 container mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-center">📰 Ultime Notizie</h2>
+        <div id="news-container" class="grid gap-6 md:grid-cols-3">
+            <!-- Notizie caricate da script.js -->
+        </div>
+    </section>
+
+    <!-- Video -->
+    <section id="video" class="py-12 bg-gray-200">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-center">🎥 Video Notizie</h2>
+            <div id="video-container" class="grid gap-6 md:grid-cols-3">
+                <!-- Video caricati da script.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-4 text-center">
+        <p>© 2025 Aviazione News - Creato da Capitano Herath</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+    <script src="script.js"></script>
 </body>
 </html>
