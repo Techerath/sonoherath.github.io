@@ -13,36 +13,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="text-gray-900">
+
   <!-- Navbar -->
   <header id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur shadow z-50 transition">
     <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <!-- Logo / Titolo -->
       <a href="#home" class="flex items-center space-x-2 font-extrabold text-xl">
         <span class="text-blue-700">Voli</span>
         <span class="text-green-600">con Herath</span>
       </a>
-      <nav class="hidden md:flex items-center space-x-6 font-medium">
-        <a class="nav-link" href="#home">Home</a>
-        <a class="nav-link" href="#news">News</a>
-        <a class="nav-link" href="#tech">Tecnologia</a>
-        <a class="nav-link" href="#nav">Navigazione</a>
-        <a class="nav-link" href="#about">About Me</a>
-      </nav> 
-      <a href="https://www.airnavradar.com/@40.90750,14.29300,z6" target="_blank">Apri Radar</a>
 
-      <!-- Mobile menu button -->
-      <button id="menuBtn" class="md:hidden focus:outline-none" aria-label="Apri menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden max-h-0 overflow-hidden transition-all">
-      <nav class="px-6 pb-4 space-y-3">
-        <a class="nav-link block" href="#home">Home</a>
-        <a class="nav-link block" href="#news">News</a>
-        <a class="nav-link block" href="#tech">Tecnologia</a>
-        <a class="nav-link block" href="#nav">Navigazione</a>
-        <a class="nav-link block" href="#about">About Me</a>
-      </nav>
+      <!-- Bottone Apri Radar -->
+      <a href="https://www.airnavradar.com/@40.90750,14.29300,z6" target="_blank"
+         class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+         Apri Radar
+      </a>
     </div>
   </header>
 
@@ -50,93 +35,57 @@
     <!-- HERO / HOME -->
     <section id="home" class="section h-screen flex items-center justify-center bg-cover bg-center relative"
       style="background-image: url('https://wallpapers.com/images/hd/parked-airplane-4k-ultra-hd-3qt0d4fxr3hdcgg6.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-40"></div>
+      <div class="overlay absolute inset-0 bg-black bg-opacity-20"></div> <!-- overlay leggero per trasparenza -->
       <div class="section-content text-center text-white relative z-10" data-aos="zoom-in" data-aos-duration="800">
         <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Benvenuto su Voli con Herath</h1>
-        <p class="text-lg md:text-xl mb-6">Monitora il traffico aereo in tempo reale</p>
-        <a href="#nav" class="btn-primary">Apri Radar</a>
+        <p class="text-lg md:text-xl mb-6">Scopri il mondo dell'aviazione e monitora il traffico aereo</p>
       </div>
     </section>
 
     <!-- NEWS -->
-    <section id="news" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
+    <section id="news" class="section min-h-screen py-20 relative bg-cover bg-center"
       style="background-image: url('https://wallpapers.com/images/hd/airplane-parked-at-gate-4k-5s8ah9efp0tv4h7r.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
+      <div class="overlay absolute inset-0 bg-black bg-opacity-20"></div>
       <div class="container mx-auto relative z-10">
-        <div class="section-content" data-aos="fade-up" data-aos-duration="800">
-          <h2 class="section-title text-white">📰 Ultime Notizie</h2>
-          <p class="section-subtitle text-gray-200">Aggiornamenti aeronautici da fonti affidabili</p>
-          <div id="news-container" class="grid gap-6 md:grid-cols-3"></div>
-          <p id="news-error" class="text-center text-sm text-red-200 mt-6 hidden">Impossibile caricare le notizie al momento.</p>
-        </div>
+        <h2 class="text-3xl font-bold text-white mb-4">📰 Ultime Notizie</h2>
+        <p class="text-gray-200 mb-6">Aggiornamenti aeronautici da fonti affidabili</p>
+        <div id="news-container" class="grid gap-6 md:grid-cols-3"></div>
       </div>
     </section>
 
     <!-- TECNOLOGIA -->
-    <section id="tech" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
+    <section id="tech" class="section min-h-screen py-20 relative bg-cover bg-center"
       style="background-image: url('https://wallpapers.com/images/hd/airport-runway-night-4k-1a9q5azjcdx3zpbv.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
+      <div class="overlay absolute inset-0 bg-black bg-opacity-20"></div>
       <div class="container mx-auto relative z-10">
-        <div class="section-content text-white" data-aos="fade-up" data-aos-duration="800">
-          <h2 class="section-title">⚙️ Tecnologia Aeronautica</h2>
-          <p class="section-subtitle">Video e approfondimenti su innovazioni e sistemi avionici</p>
-          <!-- Video YouTube -->
-          <div id="video-container" class="grid gap-6 md:grid-cols-3"></div>
-          <p id="video-error" class="text-center text-sm text-yellow-100 mt-6 hidden">Aggiungi la tua YouTube API Key in <code>script.js</code> per mostrare i video.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- NAVIGAZIONE -->
-    <section id="nav" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
-      style="background-image: url('https://wallpapers.com/images/hd/airplane-terminal-4k-sunset-2m6yyquq9dx7khkg.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
-      <div class="container mx-auto relative z-10">
-        <div class="section-content text-white" data-aos="fade-up" data-aos-duration="800">
-          <h2 class="section-title">🗺️ Navigazione Aerea</h2>
-          <p class="section-subtitle">Integra radar e mappe per seguire i voli</p>
-          <div class="bg-white bg-opacity-90 rounded-2xl shadow p-6 text-gray-800">
-            <h3 class="font-bold mb-4 text-lg">Radar Aereo Live</h3>
-            <iframe 
-              src="https://www.airnavradar.com./@40.90750,14.29300,z6" 
-              width="100%" 
-              height="600" 
-              style="border:0; border-radius: 1rem;" 
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-            <p class="text-sm text-gray-600 mt-2">
-              Visualizza il traffico aereo in tempo reale con AirNavRadar.
-            </p>
-          </div>
-        </div>
+        <h2 class="text-3xl font-bold text-white mb-4">⚙️ Tecnologia Aeronautica</h2>
+        <p class="text-gray-200 mb-6">Video e approfondimenti su innovazioni e sistemi avionici</p>
+        <div id="video-container" class="grid gap-6 md:grid-cols-3"></div>
       </div>
     </section>
 
     <!-- ABOUT ME -->
-    <section id="about" class="section min-h-screen py-20 relative bg-fixed bg-cover bg-center"
+    <section id="about" class="section min-h-screen py-20 relative bg-cover bg-center"
       style="background-image: url('https://wallpapers.com/images/hd/parked-plane-at-sunset-4k-1e4bvsfwlhsxx98t.jpg');">
-      <div class="overlay absolute inset-0 bg-black bg-opacity-60"></div>
+      <div class="overlay absolute inset-0 bg-black bg-opacity-20"></div>
       <div class="container mx-auto relative z-10">
-        <div class="section-content text-white" data-aos="fade-up" data-aos-duration="800">
-          <h2 class="section-title">👨‍✈️ About Me</h2>
-          <p class="section-subtitle max-w-3xl mx-auto">
-            Ciao! Sono <strong>Herath Kavindu</strong>, appassionato di aviazione. Condivido notizie, tecnologia e strumenti
-            per vivere il cielo da vicino.
-          </p>
-          <div class="mt-8 grid gap-6 md:grid-cols-3">
-            <div class="card">
-              <h3 class="card-title">Formazione</h3>
-              <p>Scienze aeronautiche, gestione e sicurezza del volo.</p>
-            </div>
-            <div class="card">
-              <h3 class="card-title">Obiettivo</h3>
-              <p>Lavorare in aeroporto e crescere nel settore aviation.</p>
-            </div>
-            <div class="card">
-              <h3 class="card-title">Contatti</h3>
-              <p>Scrivimi per collaborazioni e progetti sull'aviazione.</p>
-            </div>
+        <h2 class="text-3xl font-bold text-white mb-4">👨‍✈️ About Me</h2>
+        <p class="text-gray-200 max-w-3xl mx-auto mb-8">
+          Ciao! Sono <strong>Herath Kavindu</strong>, appassionato di aviazione. Condivido notizie, tecnologia e strumenti
+          per vivere il cielo da vicino.
+        </p>
+        <div class="grid gap-6 md:grid-cols-3 text-gray-900">
+          <div class="bg-white bg-opacity-80 rounded-lg p-4 shadow">
+            <h3 class="font-bold mb-2">Formazione</h3>
+            <p>Scienze aeronautiche, gestione e sicurezza del volo.</p>
+          </div>
+          <div class="bg-white bg-opacity-80 rounded-lg p-4 shadow">
+            <h3 class="font-bold mb-2">Obiettivo</h3>
+            <p>Lavorare in aeroporto e crescere nel settore aviation.</p>
+          </div>
+          <div class="bg-white bg-opacity-80 rounded-lg p-4 shadow">
+            <h3 class="font-bold mb-2">Contatti</h3>
+            <p>Scrivimi per collaborazioni e progetti sull'aviazione.</p>
           </div>
         </div>
       </div>
