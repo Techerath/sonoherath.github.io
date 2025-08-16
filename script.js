@@ -3,65 +3,116 @@ const supabaseUrl = 'https://afiayjdmoorsmsrlslks.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmaWF5amRtb29yc21zcmxzbGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUzMzg1NzIsImV4cCI6MjA3MDkxNDU3Mn0.ULv1VVohSZozvi-ardEjpTfjrkzYsO4Pi2FbuUCPZrk';     
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// ==== Funzioni per caricare le tabelle ====
-async function loadTable(tableName, containerId) {
-  const { data, error } = await supabase.from(tableName).select('*');
-  const container = document.getElementById(containerId);
-  if (error) {
-    console.error(`Errore caricamento ${tableName}:`, error);
-    if(container) container.innerHTML = `<p class="text-red-500">Impossibile caricare ${tableName}</p>`;
-    return;
-  }
-
-  container.innerHTML = '';
-  data.forEach((item, index) => {
-    const card = document.createElement('div');
-    card.className = 'card bg-white bg-opacity-90 rounded-xl shadow p-4 text-gray-900';
-    card.setAttribute('data-aos', 'fade-up');
-    card.setAttribute('data-aos-delay', `${index * 100}`);
-    card.setAttribute('data-aos-duration', '800');
-
-    let content = '';
-    switch(tableName) {
-      case 'blog_post':
-        content = `<h3 class="font-bold mb-2">${item.title}</h3>
-                   <p>${item.content}</p>`;
-        break;
-      case 'daily_news':
-        content = `<h3 class="font-bold mb-2">${item.title}</h3>
-                   <p>${item.summary}</p>
-                   <a href="${item.link}" target="_blank" class="text-blue-600">Leggi</a>`;
-        break;
-      case 'archive':
-        content = `<h3 class="font-bold mb-2">${item.incident_name}</h3>
-                   <p>${item.date}</p>
-                   <p>${item.details}</p>`;
-        break;
-      case 'history':
-        content = `<h3 class="font-bold mb-2">${item.event}</h3>
-                   <p>${item.year}</p>
-                   <p>${item.description}</p>`;
-        break;
-      case 'simulators':
-        content = `<h3 class="font-bold mb-2">${item.name}</h3>
-                   <p>${item.platform}</p>
-                   <a href="${item.link}" target="_blank" class="text-blue-600">Vai al gioco</a>`;
-        break;
-      default:
-        content = JSON.stringify(item);
-    }
-    card.innerHTML = content;
-    container.appendChild(card);
-  });
-
-  AOS.refresh();
+// ==== Funzione per inserire dati nel container ====
+function createCard(title, content) {
+  const div = document.createElement('div');
+  div.className = 'card bg-white bg-opacity-80 p-4 rounded-xl shadow hover:shadow-lg transition';
+  div.setAttribute('data-aos', 'fade-up');
+  div.innerHTML = `<h3 class="font-bold mb-2">${title}</h3><p>${content}</p>`;
+  return div;
 }
 
-// ==== Caricamento dati al load della pagina ====
-document.addEventListener('DOMContentLoaded', () => {
-  loadTable('blog_post', 'blog-container');
-  loadTable('daily_news', 'news-container');
-  loadTable('archive', 'archive-container');
-  loadTable('history', 'history-container');
-  loadTable('simulators', 'simulators-container');
+// ==== Blog Post ====
+async function loadBlogPosts() {
+  const { data, error } = await supabase.from('blog_post').select('*').order('id', { ascending: false });
+  const container = document.getElementById('news-container');
+  if (error) {
+    console.error(error);
+    document.getElementById('news-error').classList.remove('hidden');
+    return;
+  }
+  container.innerHTML = '';
+  data.forEach(post => {
+    const card = createCard(post.title, post.content);
+    container.appendChild(card);
+  });
+}
+
+// ==== About Me ====
+async function loadAboutMe() {
+  const { data, error } = await supabase.from('about_me').select('*');
+  const container = document.querySelector('#about .grid');
+  if (error) {
+    console.error(error);
+    return;
+  }
+  container.innerHTML = '';
+  data.forEach(item => {
+    const card = createCard(item.title, item.description);
+    container.appendChild(card);
+  });
+}
+
+// ==== Daily News ====
+async function loadDailyNews() {
+  const { data, error } = await supabase.from('daily_news').select('*').order('id', { ascending: false });
+  const container = document.getElementById('video-container');
+  if (error) {
+    console.error(error);
+    document.getElementById('video-error').classList.remove('hidden');
+    return;
+  }
+  container.innerHTML = '';
+  data.forEach(news => {
+    const card = createCard(news.title, news.content);
+    container.appendChild(card);
+  });
+}
+
+// ==== Archive ====
+async function loadArchive() {
+  const { data, error } = await supabase.from('archive').select('*').order('id', { ascending: false });
+  const container = document.getElementById('archive-container');
+  if (!container) return; // crea solo se presente
+  if (error) {
+    console.error(error);
+    return;
+  }
+  container.innerHTML = '';
+  data.forEach(item => {
+    const card = createCard(item.title, item.content);
+    container.appendChild(card);
+  });
+}
+
+// ==== History ====
+async function loadHistory() {
+  const { data, error } = await supabase.from('history').select('*').order('id', { ascending: false });
+  const container = document.getElementById('history-container');
+  if (!container) return;
+  if (error) {
+    console.error(error);
+    return;
+  }
+  container.innerHTML = '';
+  data.forEach(item => {
+    const card = createCard(item.title, item.content);
+    container.appendChild(card);
+  });
+}
+
+// ==== Simulators ====
+async function loadSimulators() {
+  const { data, error } = await supabase.from('simulators').select('*').order('id', { ascending: false });
+  const container = document.getElementById('simulators-container');
+  if (!container) return;
+  if (error) {
+    console.error(error);
+    return;
+  }
+  container.innerHTML = '';
+  data.forEach(item => {
+    const card = createCard(item.name, item.description);
+    container.appendChild(card);
+  });
+}
+
+// ==== Avvio caricamento dati ====
+window.addEventListener('DOMContentLoaded', () => {
+  loadBlogPosts();
+  loadAboutMe();
+  loadDailyNews();
+  loadArchive();
+  loadHistory();
+  loadSimulators();
 });
