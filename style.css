@@ -1,39 +1,46 @@
-/* Reset di base migliorato per scroll fluido su iOS/Android */
-html { scroll-behavior: smooth; }
+/* Background generici con overlay trasparente */
+section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 
-/* Navbar */
-#navbar { transition: box-shadow .25s ease, background-color .25s ease; }
-#navbar.scrolled { box-shadow: 0 6px 20px rgba(0,0,0,.12); background-color: rgba(255,255,255,.98); }
-.nav-link { color: #111827; }
-.nav-link:hover { color: #1d4ed8; }
+section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.55); /* overlay trasparente */
+  z-index: 1;
+}
 
-/* Sezioni con background dinamico */
-.section { position: relative; background-repeat: no-repeat; }
-.section .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
-.section .section-content { position: relative; z-index: 1; }
+section > * {
+  position: relative;
+  z-index: 2;
+}
 
-/* Titoli e sottotitoli */
-.section-title { color: #fff; text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: .5rem; }
-.section-subtitle { color: #f3f4f6; text-align: center; margin-bottom: 2rem; }
+/* Sfondi diversi per ogni sezione */
+#home {
+  background: url("https://images.unsplash.com/photo-1504196606672-aef5c9cefc92") no-repeat center center/cover;
+}
 
-/* Card riutilizzabili */
-.card { background: #ffffff; border-radius: 1rem; padding: 1.25rem; box-shadow: 0 10px 25px rgba(0,0,0,.08); transition: transform .25s ease, box-shadow .25s ease; }
-.card:hover { transform: translateY(-4px); box-shadow: 0 16px 35px rgba(0,0,0,.12); }
-.card-title { font-weight: 800; font-size: 1.125rem; margin-bottom: .5rem; }
+#news {
+  background: url("https://images.unsplash.com/photo-1473187983305-f615310e7daa") no-repeat center center/cover;
+}
 
-/* Pulsante primario */
-.btn-primary { display: inline-block; background: #16a34a; color: #fff; padding: .85rem 1.25rem; border-radius: .75rem; font-weight: 700; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.25); background: #15803d; }
+#tecnologia {
+  background: url("https://images.unsplash.com/photo-1518684079-3c830dcef090") no-repeat center center/cover;
+}
 
-/* Animazioni di ingresso sezione (triggerate da JS) */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-.section.revealed [data-animate] { animation: fadeUp .6s ease forwards; }
+#navigazione {
+  background: url("https://images.unsplash.com/photo-1529070538774-1843cb3265df") no-repeat center center/cover;
+}
 
-/* Mobile menu transition */
-#mobileMenu.open { max-height: 320px; }
-
-/* Utility per immagini di background responsive */
-.section { background-size: cover; background-position: center; }
-
-/* Spaziatura per compensare la navbar fixed */
-main > .section:first-of-type { padding-top: 4rem; }
+#about {
+  background: url("https://images.unsplash.com/photo-1483648969692-df5d6d5f72a4") no-repeat center center/cover;
+}
