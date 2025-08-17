@@ -77,6 +77,7 @@
       from { width: 0; }
       to { width: 80%; }
     }
+    /* Airbus plane SVG under title */
     #plane-svg-anim {
       position: absolute;
       left: 0; top: 42px;
@@ -86,13 +87,14 @@
       z-index: 5;
       overflow: visible;
     }
+    /* Timeline popover */
     .timeline-pop {
       display: none;
       position: absolute;
       left: 28px;
       top: 42px;
-      background: #14213d;
-      color: #fff;
+      background: #fff;
+      color: #183153;
       border-radius: 1rem;
       box-shadow: 0 2px 14px #0d2231aa;
       padding: 18px 24px;
@@ -101,7 +103,6 @@
       min-width: 220px;
       max-width: 320px;
       animation: popIn .25s cubic-bezier(.6,2,.2,1);
-      border: 1.5px solid #00d4ff;
     }
     @keyframes popIn {
       from { opacity:0; transform:translateY(-16px) scale(.9);}
@@ -109,8 +110,11 @@
     }
     .timeline-event { position: relative; }
     .timeline-pop.active { display:block;}
+    .flag-emoji { font-size:1.7rem; margin-right:6px; }
+    /* Social icons */
     .social-icons a { display:inline-block; margin:0 7px; transition:transform .15s; }
     .social-icons a:hover { transform:scale(1.2);}
+    /* Privacy policy popup */
     #privacy-popup-bg {
       display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
       background:rgba(10,22,38,0.74); z-index:9999;
@@ -127,196 +131,39 @@
     @media (max-width:700px) {
       #privacy-popup-content { width:96vw; font-size:.97rem;}
     }
+    /* Hide nav on scroll */
     .nav-hidden { transform:translateY(-120%); transition:transform .25s; }
     .nav-shown { transform:translateY(0); transition:transform .25s; }
-    .about-plane-box {
-      position: relative;
-      width: 100%;
-      height: 36px;
-      min-height: 36px;
-      margin-top: 20px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .about-plane-small {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 44px;
-      height: 36px;
-      opacity: 0.93;
-      animation: aboutPlaneFly 3.5s cubic-bezier(.7,1.5,.4,1) 1;
-    }
-    @keyframes aboutPlaneFly {
-      from { left: -50px; opacity: 0;}
-      25%  { opacity: 1;}
-      to { left: calc(100% - 60px); opacity: 0.95;}
-    }
-    .aviazione-bg {
-      background: linear-gradient(to bottom, rgba(33,50,94,0.83) 0%, rgba(39,68,114,0.95) 100%), url('https://images.unsplash.com/photo-1465101178521-c1a9136a37a4?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-    }
-    /* Weather popup styles */
-    #weather-popup-bg {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 50;
-      background: rgba(10,22,38,0.0);
-      pointer-events: none;
-    }
-    #weather-popup-bg.active {
-      display: block;
-      pointer-events: auto;
-    }
-    #weather-popup {
-      position: fixed;
-      right: 22px;
-      top: 55px;
-      width: 340px;
-      max-width: 95vw;
-      background: #14213d;
-      color: #fff;
-      border-radius: 1.2em;
-      box-shadow: 0 6px 36px #13294bcc, 0 1.5px 16px #00d4ff40;
-      padding: 1.3em 1.3em 1.6em 1.3em;
-      z-index: 100;
-      animation: popIn .18s cubic-bezier(.6,2,.2,1);
-      display: none;
-    }
-    #weather-popup.active { display: block; }
-    #weather-popup .close-btn {
-      position: absolute;
-      top: 10px; right: 16px;
-      font-size: 1.5em;
-      background: none;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      opacity: 0.64;
-      transition: opacity .2s;
-    }
-    #weather-popup .close-btn:hover { opacity: 1; }
-    #weather-popup .popup-title {
-      font-weight: bold;
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
-      color: #00d4ff;
-      letter-spacing: 0.02em;
-    }
-    #weather-popup .meteo-row {
-      margin-bottom: 1em;
-    }
-    #weather-popup select {
-      background: #20325e;
-      color: #fff;
-      border-radius: 8px;
-      border: 1px solid #00d4ff;
-      padding: 2px 8px;
-      font-size: 1em;
-      outline: none;
-      margin-bottom: 0.5em;
-    }
-    #weather-popup .clock-list {
-      margin-top: 6px;
-      margin-bottom: 0.6em;
-    }
-    #weather-popup .clock-list span {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-bottom: 6px;
-      font-size: 0.97em;
-    }
-    /* Weather button (vertical dots) */
-    #weather-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 36px; height: 36px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      margin-left: 8px;
-      margin-right: 0;
-      outline: none;
-      position: relative;
-      z-index: 100;
-    }
-    #weather-btn .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #b0d7ff;
-      margin: 2.2px 0;
-      transition: background .15s;
-      display: block;
-    }
-    #weather-btn:hover .dot {
-      background: #00d4ff;
-    }
-
-    /* Fix overlapping: position weather-btn lower on mobile */
-    @media (max-width: 700px) {
-      #weather-popup {
-        right: 4vw;
-        top: 56px;
-        width: 96vw;
-        max-width: 96vw;
-        padding: 1em 0.6em 1.2em 0.6em;
-      }
-      #weather-btn {
-        margin-top: 36px;
-      }
-    }
-
-    /* Make sure nav stays above everything except privacy popup */
-    #main-nav {
-      z-index: 20;
-    }
-    #main-nav.sticky {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-    }
   </style>
 </head>
 <body class="antialiased">
 
-<!-- WEATHER BUTTON (fixed, always visible, above nav but not overlapped) -->
-<div class="w-full flex flex-row items-center justify-end px-4 md:px-12 py-2 bg-[#13294b]/80 text-white text-sm z-30"
+<!-- METEO e FUSI ORARI -->
+<div class="w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-12 py-2 bg-[#13294b]/80 text-white text-sm z-30"
      style="position:relative;">
-  <button id="weather-btn" aria-label="Mostra meteo e orari" style="z-index:100;">
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  </button>
-</div>
-
-<!-- Weather/orari popup -->
-<div id="weather-popup-bg">
-  <div id="weather-popup">
-    <button class="close-btn" aria-label="Chiudi popup meteo" id="weather-popup-close">&times;</button>
-    <div class="popup-title">Meteo & Orari</div>
-    <div class="meteo-row">
-      <label for="weather-popup-location" style="font-weight:500;letter-spacing:0.03em;">Seleziona città:</label>
-      <select id="weather-popup-location">
-        <option value="Napoli">Napoli</option>
-        <option value="Roma">Roma</option>
-        <option value="Milano">Milano</option>
-        <option value="Washington">Washington DC</option>
-        <option value="Colombo">Colombo</option>
-        <option value="Beijing">Pechino</option>
-        <option value="Seoul">Seoul</option>
-        <option value="Oslo">Oslo</option>
-      </select>
-      <span id="weather-popup-output" style="margin-left:8px;"></span>
-    </div>
-    <div class="popup-title" style="font-size:1.08em;">Orari principali</div>
-    <div id="weather-popup-times" class="clock-list"></div>
+  <div class="flex items-center space-x-2">
+    <span class="font-bold">Meteo:</span>
+    <select id="weather-location" class="bg-[#13294b] border-none rounded px-2 py-1 text-white focus:outline-none">
+      <option value="Napoli">Napoli</option>
+      <option value="Roma">Roma</option>
+      <option value="Milano">Milano</option>
+      <option value="Washington">Washington DC</option>
+      <option value="Colombo">Colombo</option>
+      <option value="Beijing">Pechino</option>
+      <option value="Seoul">Seoul</option>
+      <option value="Oslo">Oslo</option>
+    </select>
+    <!-- Icona termometro digitale SVG -->
+    <span id="weather-icon" style="display:inline-block;width:22px;height:22px;vertical-align:middle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#66e0e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="2" width="6" height="14" rx="3" stroke="#66e0e2" fill="none"/>
+        <rect x="11" y="16" width="2" height="5" rx="1" stroke="#66e0e2" fill="#66e0e2"/>
+        <circle cx="12" cy="16" r="2" stroke="#66e0e2" fill="none"/>
+      </svg>
+    </span>
+    <span id="weather-output">Caricamento...</span>
   </div>
+  <div class="flex flex-wrap gap-4 mt-2 md:mt-0 md:gap-6" id="world-times"></div>
 </div>
 
 <!-- NAVBAR -->
@@ -326,9 +173,12 @@
       <span class="artistic-title relative" id="brand-name" style="padding-bottom:42px;">
         Voli con Herath
         <span class="underline"></span>
+        <!-- Airbus SVG path/animation under the title -->
         <span id="plane-svg-container" style="display:block;position:absolute;left:0;top:42px;width:100%;height:26px;pointer-events:none;">
           <svg id="plane-svg-anim" width="100%" height="26" viewBox="0 0 340 26" fill="none">
+            <!-- Traccia trasparente per effetto volo -->
             <line x1="14" y1="13" x2="326" y2="13" stroke="#b0d7ff" stroke-width="3" stroke-dasharray="5 7" />
+            <!-- Aeroplano: Airbus-style -->
             <g id="plane-icon" style="transform:translateX(0px);transition:transform 1.9s cubic-bezier(.4,1.8,.4,1);">
               <g>
                 <ellipse cx="14" cy="13" rx="7" ry="3.4" fill="#b0d7ff" stroke="#274472" stroke-width="1"/>
@@ -359,26 +209,252 @@
   </div>
 </nav>
 
-<!-- RESTO DEL SITO (UGUALE ALLA VERSIONE ORIGINALE) -->
-<!-- ... (il resto delle sezioni: home, about, galleria, blog, timeline, news, contatti, footer, privacy popup) ... -->
-<!-- COPIA QUI TUTTE LE SEZIONI DA index.html ORIGINALE (sono invariate) -->
+<!-- HERO SECTION -->
+<section id="home" class="section h-screen flex items-center justify-center relative overflow-hidden"
+  style="background: linear-gradient(to top, #183153, #274472); padding-top: 120px;">
+  <canvas id="skyCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+  <div class="text-center text-white relative z-10 max-w-2xl">
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight" data-aos="fade-down" data-aos-duration="1400" id="hero-title">
+      L’eccellenza nel cielo
+    </h1>
+    <p class="text-2xl md:text-2xl mb-8 text-blue-100" data-aos="fade-up" data-aos-duration="1400" id="hero-desc">
+      Soluzioni e storie dal mondo dell’aeronautica professionale, innovazione e passione dal 1903.
+    </p>
+    <a href="#contatti" class="inline-block bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold py-4 px-10 rounded-full shadow-xl text-lg transition" id="hero-cta">
+      Contattaci per collaborazioni
+    </a>
+  </div>
+</section>
 
-<!-- HOME, ABOUT, GALLERIA, BLOG, TIMELINE, NEWS, CONTATTI, FOOTER, PRIVACY (vedi file precedente) -->
+<!-- ABOUT SECTION -->
+<section id="about" class="section bg-gradient-to-b from-[#21325e] to-[#274472] text-white">
+  <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
+    <div class="flex-1" data-aos="fade-right" data-aos-duration="1200">
+      <img src="dp.jpg" alt="Herath Kavindu" class="rounded-3xl shadow-lg w-72 mx-auto md:mx-0">
+      <div class="mt-6 text-center">
+        <div class="flex items-center justify-center gap-4 text-lg mb-2">
+          <span class="flag-emoji">🇱🇰</span>
+          <span>Nato in Sri Lanka</span>
+        </div>
+        <div class="flex items-center justify-center gap-4 text-lg mb-2">
+          <span class="flag-emoji">🇮🇹</span>
+          <span>Vive in Italia</span>
+        </div>
+        <div class="flex flex-col justify-center items-center mt-3">
+          <span class="text-xs text-blue-200">Ora locale Sri Lanka:</span>
+          <span id="about-clock-colombo" class="font-mono text-lg"></span>
+        </div>
+        <div class="flex flex-col justify-center items-center mt-1">
+          <span class="text-xs text-blue-200">Ora locale Italia:</span>
+          <span id="about-clock-rome" class="font-mono text-lg"></span>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1" data-aos="fade-left" data-aos-duration="1200">
+      <h2 class="text-3xl font-bold mb-4" id="about-title">Chi siamo</h2>
+      <p class="text-lg text-blue-100 mb-4" id="about-desc">
+        Ciao, grazie per aver visitato il mio sito!<br><br>
+        Mi chiamo Herath Kavindu e sono uno studente dell’Università degli Studi di Napoli Parthenope, dove frequento il corso di laurea in Gestione e Sicurezza del Volo. Il mio sogno è diventare pilota di linea e ogni giorno lavoro per trasformare questa passione in realtà.<br><br>
+        Parlo diverse lingue: inglese come lingua madre, italiano a livello avanzato, sinhala come madrelingua e sto attualmente studiando anche il norvegese.<br><br>
+        In questo spazio condivido la mia passione per l’aviazione, la mia esperienza universitaria e i miei progetti personali, come la creazione di un blog dedicato al mondo del volo, con articoli, approfondimenti e notizie per appassionati e professionisti.<br><br>
+        Benvenuto a bordo! ✈️
+      </p>
+      <ul class="list-disc pl-6 text-blue-200" id="about-list">
+        <li>Consulenza tecnica e formazione</li>
+        <li>Eventi e divulgazione scientifica</li>
+        <li>Progetti su misura per il settore aeronautico</li>
+      </ul>
+      <div class="mt-8 social-icons flex justify-center gap-1 text-2xl">
+        <a href="https://www.instagram.com/sonoherath?igsh=ZnY2MDRvNXZjdWJr" target="_blank" aria-label="Instagram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" style="height:32px;width:32px;filter:invert(.7);"></a>
+        <a href="https://www.facebook.com/share/1C93DyWLAk/" target="_blank" aria-label="Facebook"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" alt="Facebook" style="height:32px;width:32px;filter:invert(.7);"></a>
+        <a href="https://whatsapp.com/channel/0029Vb4ms4t9Bb5yQrdafB42" target="_blank" aria-label="WhatsApp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/whatsapp.svg" alt="WhatsApp" style="height:32px;width:32px;filter:invert(.7);"></a>
+        <a href="https://x.com/thisisherath?t=6sRApN_35zu8FmfVookNsw&s=09" target="_blank" aria-label="X"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg" alt="X" style="height:32px;width:32px;filter:invert(.7);"></a>
+        <a href="https://www.tiktok.com/@sonoherath?_t=ZN-8ytxhTIoOMo&_r=1" target="_blank" aria-label="TikTok"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tiktok.svg" alt="TikTok" style="height:32px;width:32px;filter:invert(.7);"></a>
+        <a href="https://www.snapchat.com/add/spotted.herath?share_id=vDkUFjQSegU&locale=it-IT" target="_blank" aria-label="Snapchat"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/snapchat.svg" alt="Snapchat" style="height:32px;width:32px;filter:invert(.7);"></a>
+        <a href="https://www.reddit.com/r/voli_con_herath/s/qvwK9kd1PX" target="_blank" aria-label="Reddit"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/reddit.svg" alt="Reddit" style="height:32px;width:32px;filter:invert(.7);"></a>
+        <a href="https://www.threads.com/@sonoherath" target="_blank" aria-label="Threads"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/threads.svg" alt="Threads" style="height:32px;width:32px;filter:invert(.7);"></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ... INCOLLA LE SEZIONI QUI ... -->
-<!-- PER BREVITÀ NON RIPORTO TUTTO IL CONTENUTO, 
-     MA NEL FILE REALE DEVI INCOLLARE TUTTO IL CODICE HTML DELLE SEZIONI COME NEL TUO index.html ORIGINALE. -->
+<!-- GALLERIA -->
+<section id="galleria" class="section bg-gradient-to-b from-[#274472] to-[#386fa4] text-white">
+  <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up" id="gallery-title">Galleria di Immagini</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 max-w-5xl mx-auto">
+    <div class="overflow-hidden rounded-2xl shadow-xl" data-aos="zoom-in" data-aos-duration="1200">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Aereo in volo" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+    </div>
+    <div class="overflow-hidden rounded-2xl shadow-xl" data-aos="zoom-in" data-aos-duration="1400">
+      <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=600&q=80" alt="Cockpit tra le nuvole" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+    </div>
+    <div class="overflow-hidden rounded-2xl shadow-xl" data-aos="zoom-in" data-aos-duration="1600">
+      <img src="https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=600&q=80" alt="Pista di decollo" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+    </div>
+  </div>
+</section>
 
-<!-- SCRIPTS -->
+<!-- BLOG SECTION -->
+<section id="blog" class="section bg-gradient-to-b from-[#b0d7ff] to-[#e9f6fb] text-[#21325e]">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up" id="blog-title">Blog di Aviazione</h2>
+    <p class="text-xs text-blue-900 text-center mb-8">Ultima modifica: 16 agosto 2025</p>
+    <!-- Blog Post 1 -->
+    <article class="flex flex-col md:flex-row items-center gap-8 mb-16 bg-white/60 p-8 rounded-3xl shadow-xl" data-aos="fade-right" data-aos-duration="1200">
+      <div class="flex-1">
+        <h3 class="text-2xl font-bold mb-2">Concorde: la tragedia di Gonesse</h3>
+        <p class="mb-4 text-base">
+          Il 25 luglio 2000 il Concorde si schiantò poco dopo il decollo a Gonesse, vicino Parigi, causando la morte di tutti a bordo e di quattro persone a terra.<br>
+          Un evento che segnò profondamente la storia dell’aviazione moderna e la fine di un’era supersonica.
+        </p>
+      </div>
+    </article>
+    <!-- Blog Post 2 -->
+    <article class="flex flex-col md:flex-row items-center gap-8 mb-16 bg-white/60 p-8 rounded-3xl shadow-xl" data-aos="fade-left" data-aos-duration="1200">
+      <div class="flex-1">
+        <h3 class="text-2xl font-bold mb-2">Il comandante Christian Marty</h3>
+        <p class="mb-4 text-base">
+          “This is Captain Christian Marty, the pilot in command of Air France Flight 4590.”<br>
+          Figura centrale nel volo Concorde AF 4590, il comandante Marty era un pilota esperto e rispettato nel settore.
+        </p>
+      </div>
+    </article>
+    <!-- Galleria immagini Concorde -->
+    <div class="mt-20">
+      <h3 class="text-2xl font-bold mb-6 text-center">Galleria Concorde</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="overflow-hidden rounded-2xl shadow-xl" data-aos="zoom-in" data-aos-duration="1200">
+          <img src="concorde_1.jpg" alt="Concorde 1" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+        </div>
+        <div class="overflow-hidden rounded-2xl shadow-xl" data-aos="zoom-in" data-aos-duration="1400">
+          <img src="concorde_2.jpg" alt="Concorde 2" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+        </div>
+        <div class="overflow-hidden rounded-2xl shadow-xl" data-aos="zoom-in" data-aos-duration="1600">
+          <img src="concorde_3.jpg" alt="Concorde 3" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="section text-white">
+  <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up" id="timeline-title">Pietre miliari dell’aviazione</h2>
+  <div class="timeline max-w-4xl mx-auto">
+    <div class="timeline-event" data-aos="fade-right" data-aos-duration="1200">
+      <h3 class="text-2xl font-semibold cursor-pointer hover:text-blue-400 transition relative" id="tl-1903-title" data-timeline="1903">
+        1903 - Il primo volo
+      </h3>
+      <p id="tl-1903-desc">I fratelli Wright realizzano il sogno di volare con il Flyer I.</p>
+      <div class="timeline-pop" id="pop-1903"></div>
+    </div>
+    <div class="timeline-event" data-aos="fade-left" data-aos-duration="1400">
+      <h3 class="text-2xl font-semibold cursor-pointer hover:text-blue-400 transition relative" id="tl-1947-title" data-timeline="1947">
+        1947 - Supersonico
+      </h3>
+      <p id="tl-1947-desc">Chuck Yeager supera la barriera del suono con il Bell X-1.</p>
+      <div class="timeline-pop" id="pop-1947"></div>
+    </div>
+    <div class="timeline-event" data-aos="fade-right" data-aos-duration="1600">
+      <h3 class="text-2xl font-semibold cursor-pointer hover:text-blue-400 transition relative" id="tl-2019-title" data-timeline="2019">
+        2019 - Volo elettrico
+      </h3>
+      <p id="tl-2019-desc">Il futuro decolla: il primo volo commerciale totalmente elettrico.</p>
+      <div class="timeline-pop" id="pop-2019"></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news" class="section bg-gradient-to-b from-[#386fa4] to-[#59a5d8] text-white">
+  <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up" id="news-title">Ultime Notizie</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 max-w-5xl mx-auto">
+    <div class="bg-blue-800/70 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-500" data-aos="flip-left" data-aos-duration="1200">
+      <h3 class="text-xl font-bold mb-2" id="news-card1-title">Nuove tecnologie</h3>
+      <p class="text-blue-100" id="news-card1-desc">Scopri le ultime innovazioni nel settore aeronautico.</p>
+    </div>
+    <!-- Google News Card -->
+    <div class="bg-blue-800/70 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 col-span-1 md:col-span-1" 
+         data-aos="flip-left" data-aos-duration="1400" id="news-google-card">
+      <h3 class="text-xl font-bold mb-2">Ultime notizie su mondo di aviazione</h3>
+      <ul id="news-google-list" class="text-blue-100 list-disc pl-4 text-sm space-y-1">
+        <li>Caricamento notizie...</li>
+      </ul>
+    </div>
+    <div class="bg-blue-800/70 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-500" data-aos="flip-left" data-aos-duration="1600">
+      <h3 class="text-xl font-bold mb-2" id="news-card3-title">Eventi e fiere</h3>
+      <p class="text-blue-100" id="news-card3-desc">Partecipazioni e appuntamenti imperdibili nel mondo dell'aviazione.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section id="contatti" class="section bg-gradient-to-b from-[#59a5d8] to-[#b0d7ff] text-[#21325e]">
+  <div class="max-w-2xl mx-auto text-center" data-aos="fade-up">
+    <h2 class="text-4xl font-bold mb-6" id="contact-title">Contattaci</h2>
+    <p class="mb-6 text-lg" id="contact-desc">Vuoi collaborare, proporre un evento o semplicemente saperne di più? Compila il form seguente!</p>
+    <div class="flex flex-col gap-8 justify-center">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScX-lfSR5Qq1UYBvRrY6cL2n4M1-F5zC5qM4b7QzE3F5XJqzA/viewform?embedded=true"
+              width="100%" height="760" frameborder="0" marginheight="0" marginwidth="0" style="background:#fff; border-radius:20px;">
+        Caricamento…
+      </iframe>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSee7ZV90nzymeUox7z7xOPu7mjC7W82WUOUNRT2CFO4t05MiA/viewform?embedded=true"
+              width="100%" height="760" frameborder="0" marginheight="0" marginwidth="0" style="background:#fff; border-radius:20px;">
+        Caricamento…
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-[#14213d] text-blue-100 text-center py-6 text-sm relative" id="footer">
+  <div class="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto px-4">
+    <div class="mb-2 md:mb-0 text-xs md:text-sm flex-1 text-left">
+      © 2025 Herath Kavindu • Voli con Herath • Tutti i diritti riservati
+    </div>
+    <div class="social-icons flex-1 flex justify-center md:justify-center text-xl">
+      <a href="https://www.instagram.com/sonoherath?igsh=ZnY2MDRvNXZjdWJr" target="_blank" aria-label="Instagram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" style="height:26px;width:26px;filter:invert(.7);"></a>
+      <a href="https://www.facebook.com/share/1C93DyWLAk/" target="_blank" aria-label="Facebook"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" alt="Facebook" style="height:26px;width:26px;filter:invert(.7);"></a>
+      <a href="https://whatsapp.com/channel/0029Vb4ms4t9Bb5yQrdafB42" target="_blank" aria-label="WhatsApp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/whatsapp.svg" alt="WhatsApp" style="height:26px;width:26px;filter:invert(.7);"></a>
+      <a href="https://x.com/thisisherath?t=6sRApN_35zu8FmfVookNsw&s=09" target="_blank" aria-label="X"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg" alt="X" style="height:26px;width:26px;filter:invert(.7);"></a>
+      <a href="https://www.tiktok.com/@sonoherath?_t=ZN-8ytxhTIoOMo&_r=1" target="_blank" aria-label="TikTok"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tiktok.svg" alt="TikTok" style="height:26px;width:26px;filter:invert(.7);"></a>
+      <a href="https://www.snapchat.com/add/spotted.herath?share_id=vDkUFjQSegU&locale=it-IT" target="_blank" aria-label="Snapchat"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/snapchat.svg" alt="Snapchat" style="height:26px;width:26px;filter:invert(.7);"></a>
+      <a href="https://www.reddit.com/r/voli_con_herath/s/qvwK9kd1PX" target="_blank" aria-label="Reddit"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/reddit.svg" alt="Reddit" style="height:26px;width:26px;filter:invert(.7);"></a>
+      <a href="https://www.threads.com/@sonoherath" target="_blank" aria-label="Threads"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/threads.svg" alt="Threads" style="height:26px;width:26px;filter:invert(.7);"></a>
+    </div>
+    <div class="flex-1 flex justify-end">
+      <a href="#" class="underline text-blue-300 hover:text-blue-200 ml-2 text-xs md:text-sm" id="privacy-link">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Privacy Policy Popup -->
+<div id="privacy-popup-bg">
+  <div id="privacy-popup-content">
+    <button class="privacy-close" id="privacy-close" aria-label="Chiudi">&times;</button>
+    <h2 class="text-2xl font-bold mb-3">Privacy Policy</h2>
+    <p>
+      In ottemperanza al Regolamento (UE) 2016/679 (GDPR) e alla normativa italiana (D.Lgs. 196/2003 e successive modifiche), i dati personali raccolti tramite questo sito e i moduli Google Forms saranno trattati esclusivamente per rispondere a richieste e non saranno divulgati a terzi senza consenso esplicito.<br><br>
+      <b>Diritti dell'utente:</b> L’utente potrà esercitare i diritti di accesso, rettifica, cancellazione e opposizione inviando richiesta via e-mail.<br>
+      <b>Cookie:</b> Questo sito non usa cookie di profilazione ma solo tecnici e di terze parti (es. Google News, Google Forms, servizi social).<br>
+      <b>Social Media:</b> I link ai social portano a piattaforme esterne soggette alle proprie privacy policy.<br><br>
+      <b>Divulgazione & Responsabilità:</b> I contenuti sono divulgativi a scopo informativo e non rappresentano testate giornalistiche. L’accesso e la navigazione implicano accettazione delle regole di utilizzo.<br><br>
+      Per approfondimenti consulta:<br>
+      <ul class="list-disc pl-6">
+        <li><a class="text-blue-700 underline" href="https://www.garanteprivacy.it/" target="_blank">Garante Privacy Italia</a></li>
+        <li><a class="text-blue-700 underline" href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank">Regolamento UE 2016/679 (GDPR)</a></li>
+        <li><a class="text-blue-700 underline" href="https://www.privacy.org/" target="_blank">Privacy.org (internazionale)</a></li>
+      </ul>
+    </p>
+  </div>
+</div>
+
 <script>
-/* --- NAV BAR SHOW/HIDE LOGIC --- */
+// --- Scroll-hide NAV --- //
 let lastScroll = 0;
 const nav = document.getElementById('main-nav');
-let hideNavTimeout = null;
-const navLinks = nav.querySelectorAll('.nav-link');
 function navCheck() {
   const sc = window.scrollY || document.documentElement.scrollTop;
-  // Nasconde navbar se scrolli giù, mostra se scrolli su o sei vicino in alto
   if (sc > 70 && sc > lastScroll) {
     nav.classList.remove('nav-shown');
     nav.classList.add('nav-hidden');
@@ -391,31 +467,7 @@ function navCheck() {
 }
 window.addEventListener('scroll', navCheck);
 
-// Nascondi navbar quando clicchi su un link di sezione (come se vai su una nuova pagina)
-navLinks.forEach(link => {
-  link.addEventListener('click', function(e) {
-    nav.classList.remove('nav-shown');
-    nav.classList.add('nav-hidden');
-    if(hideNavTimeout) clearTimeout(hideNavTimeout);
-    // Ri-mostra la navbar quando torni verso l'alto/scrolli dopo 400 ms
-    hideNavTimeout = setTimeout(() => {
-      nav.classList.remove('nav-hidden');
-      nav.classList.add('nav-shown');
-    }, 800);
-  });
-});
-
-// Se cambi hash (es: vai a una sezione da un link esterno), nascondi la navbar per un attimo e poi ri-mostra
-window.addEventListener('hashchange', function() {
-  nav.classList.remove('nav-shown');
-  nav.classList.add('nav-hidden');
-  setTimeout(() => {
-    nav.classList.remove('nav-hidden');
-    nav.classList.add('nav-shown');
-  }, 800);
-});
-
-/* --- PLANE ANIMATION --- */
+// --- Plane Animation under Title -- //
 function animatePlane() {
   const svg = document.getElementById('plane-svg-anim');
   if (!svg) return;
@@ -430,7 +482,7 @@ function animatePlane() {
 window.addEventListener('DOMContentLoaded', animatePlane);
 document.getElementById('brand-name').addEventListener('mouseenter', animatePlane);
 
-/* --- TIMELINE POPUP LOGIC --- */
+// --- Timeline Popover --- //
 const timelineData = {
   "1903": {
     desc: "Il 17 dicembre 1903, i fratelli Wright effettuarono il primo volo controllato e motorizzato della storia con il Flyer I a Kitty Hawk, segnando la nascita dell'aviazione moderna."
@@ -444,11 +496,13 @@ const timelineData = {
 };
 document.querySelectorAll('[data-timeline]').forEach(el=>{
   el.addEventListener('click', function(e){
+    // Chiudi tutti
     document.querySelectorAll('.timeline-pop').forEach(pop=>pop.classList.remove('active'));
     const key = this.getAttribute('data-timeline');
     const pop = document.getElementById('pop-'+key);
     pop.innerHTML = timelineData[key].desc;
     pop.classList.add('active');
+    // Chiudi se riclick
     document.addEventListener('click', function handleOut(ev){
       if(!pop.contains(ev.target) && ev.target!==el) {
         pop.classList.remove('active');
@@ -458,7 +512,60 @@ document.querySelectorAll('[data-timeline]').forEach(el=>{
   });
 });
 
-/* --- METEO/ORARI POPUP LOGIC --- */
+// --- Fusi orari con orologio rotondo ---
+const timeCities = [
+  { id: "rome", label: "Italia", city: "Roma", timezone: "Europe/Rome" },
+  { id: "wdc", label: "USA", city: "Washington DC", timezone: "America/New_York" },
+  { id: "colombo", label: "Sri Lanka", city: "Colombo", timezone: "Asia/Colombo" },
+  { id: "beijing", label: "Cina", city: "Pechino", timezone: "Asia/Shanghai" },
+  { id: "seoul", label: "Corea Sud", city: "Seoul", timezone: "Asia/Seoul" },
+  { id: "oslo", label: "Norvegia", city: "Oslo", timezone: "Europe/Oslo" }
+];
+function renderWorldTimes() {
+  let html = '';
+  for(const t of timeCities) {
+    html += `
+    <span id="world-block-${t.id}" class="flex items-center space-x-1">
+      <span class="inline-block align-middle" style="width:26px;height:26px;" id="clock-${t.id}"></span>
+      <span class="font-bold">${t.label}</span> 
+      <span id="time-${t.id}"></span>
+    </span>
+    `;
+  }
+  document.getElementById('world-times').innerHTML = html;
+}
+renderWorldTimes();
+function drawAnalogClock(canvasId, date) {
+  const h = date.getHours()%12;
+  const m = date.getMinutes();
+  const s = date.getSeconds();
+  const deg = (v, max) => (v/max)*360;
+  const hourAngle = deg(h + m/60, 12);
+  const minAngle = deg(m + s/60, 60);
+  const secAngle = deg(s, 60);
+  return `
+  <svg viewBox="0 0 26 26" width="26" height="26">
+    <circle cx="13" cy="13" r="12" fill="#21325e" stroke="#00d4ff" stroke-width="2"/>
+    <line x1="13" y1="13" x2="${13+7*Math.sin(Math.PI*hourAngle/180)}" y2="${13-7*Math.cos(Math.PI*hourAngle/180)}" stroke="#ffd700" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="13" y1="13" x2="${13+10*Math.sin(Math.PI*minAngle/180)}" y2="${13-10*Math.cos(Math.PI*minAngle/180)}" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="13" y1="13" x2="${13+11*Math.sin(Math.PI*secAngle/180)}" y2="${13-11*Math.cos(Math.PI*secAngle/180)}" stroke="#ff0080" stroke-width="1" stroke-linecap="round"/>
+    <circle cx="13" cy="13" r="1.5" fill="#00d4ff"/>
+  </svg>`;
+}
+function updateWorldTimes() {
+  for(const t of timeCities) {
+    const now = new Date();
+    const localeTime = new Date(now.toLocaleString('en-US', { timeZone: t.timezone }));
+    document.getElementById("time-"+t.id).textContent = localeTime.toTimeString().slice(0,8);
+    document.getElementById("clock-"+t.id).innerHTML = drawAnalogClock("clock-"+t.id, localeTime);
+  }
+  // About clocks
+  document.getElementById('about-clock-colombo').textContent = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })).toTimeString().slice(0,8);
+  document.getElementById('about-clock-rome').textContent = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Rome' })).toTimeString().slice(0,8);
+}
+setInterval(updateWorldTimes, 1000); updateWorldTimes();
+
+// --- Meteo con icona termometro ---
 const cityCoords = {
   "Napoli":      {lat:40.85, lon:14.27},
   "Roma":        {lat:41.89, lon:12.49},
@@ -469,85 +576,23 @@ const cityCoords = {
   "Seoul":       {lat:37.56, lon:126.97},
   "Oslo":        {lat:59.91, lon:10.75}
 };
-const timeCities = [
-  { id: "rome", label: "Italia", city: "Roma", timezone: "Europe/Rome" },
-  { id: "wdc", label: "USA", city: "Washington DC", timezone: "America/New_York" },
-  { id: "colombo", label: "Sri Lanka", city: "Colombo", timezone: "Asia/Colombo" },
-  { id: "beijing", label: "Cina", city: "Pechino", timezone: "Asia/Shanghai" },
-  { id: "seoul", label: "Corea Sud", city: "Seoul", timezone: "Asia/Seoul" },
-  { id: "oslo", label: "Norvegia", city: "Oslo", timezone: "Europe/Oslo" }
-];
-function drawAnalogClockPopup(date) {
-  const h = date.getHours()%12;
-  const m = date.getMinutes();
-  const s = date.getSeconds();
-  const deg = (v, max) => (v/max)*360;
-  const hourAngle = deg(h + m/60, 12);
-  const minAngle = deg(m + s/60, 60);
-  const secAngle = deg(s, 60);
-  return `
-  <svg viewBox="0 0 26 26" width="22" height="22">
-    <circle cx="13" cy="13" r="12" fill="#21325e" stroke="#00d4ff" stroke-width="2"/>
-    <line x1="13" y1="13" x2="${13+7*Math.sin(Math.PI*hourAngle/180)}" y2="${13-7*Math.cos(Math.PI*hourAngle/180)}" stroke="#ffd700" stroke-width="2.2" stroke-linecap="round"/>
-    <line x1="13" y1="13" x2="${13+10*Math.sin(Math.PI*minAngle/180)}" y2="${13-10*Math.cos(Math.PI*minAngle/180)}" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="13" y1="13" x2="${13+11*Math.sin(Math.PI*secAngle/180)}" y2="${13-11*Math.cos(Math.PI*secAngle/180)}" stroke="#ff0080" stroke-width="1" stroke-linecap="round"/>
-    <circle cx="13" cy="13" r="1.5" fill="#00d4ff"/>
-  </svg>`;
-}
-function updatePopupTimes() {
-  let html = '';
-  for(const t of timeCities) {
-    const now = new Date();
-    const localeTime = new Date(now.toLocaleString('en-US', { timeZone: t.timezone }));
-    html += `<span>
-      <span style="width:22px;display:inline-block;vertical-align:middle">${drawAnalogClockPopup(localeTime)}</span>
-      <span class="font-bold">${t.label}</span> 
-      <span>${localeTime.toTimeString().slice(0,8)}</span>
-    </span>`;
-  }
-  document.getElementById('weather-popup-times').innerHTML = html;
-}
-setInterval(updatePopupTimes, 1000); updatePopupTimes();
-
-async function updateWeatherPopup() {
-  const city = document.getElementById('weather-popup-location').value;
+async function updateWeather() {
+  const city = document.getElementById('weather-location').value;
   const {lat,lon} = cityCoords[city];
-  const out = document.getElementById('weather-popup-output');
-  out.textContent = "Caricamento...";
+  document.getElementById('weather-output').textContent = "Caricamento...";
   try {
     const resp = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&timezone=auto`);
     const data = await resp.json();
     const t = data.current.temperature_2m;
-    out.textContent = `${t}°C`;
+    document.getElementById('weather-output').textContent = `${city}: ${t}°C`;
   } catch(e) {
-    out.textContent = "Errore";
+    document.getElementById('weather-output').textContent = "Errore meteo";
   }
 }
-document.getElementById('weather-popup-location').addEventListener('change', updateWeatherPopup);
-updateWeatherPopup();
+document.getElementById('weather-location').addEventListener('change', updateWeather);
+updateWeather();
 
-const weatherBtn = document.getElementById('weather-btn');
-const weatherPopupBg = document.getElementById('weather-popup-bg');
-const weatherPopup = document.getElementById('weather-popup');
-const weatherPopupClose = document.getElementById('weather-popup-close');
-weatherBtn.onclick = function() {
-  weatherPopupBg.classList.add('active');
-  weatherPopup.classList.add('active');
-  updateWeatherPopup();
-  updatePopupTimes();
-};
-weatherPopupClose.onclick = function() {
-  weatherPopupBg.classList.remove('active');
-  weatherPopup.classList.remove('active');
-};
-weatherPopupBg.onclick = function(e) {
-  if(e.target === weatherPopupBg) {
-    weatherPopupBg.classList.remove('active');
-    weatherPopup.classList.remove('active');
-  }
-};
-
-/* --- NEWS GOOGLE --- */
+// Google News feed per "aviazione"
 async function loadAviationNews() {
   const url = "https://news.google.com/rss/search?q=aviazione+OR+aviation&hl=it&gl=IT&ceid=IT:it";
   try {
@@ -569,7 +614,7 @@ async function loadAviationNews() {
 }
 loadAviationNews();
 
-/* --- PRIVACY POPUP --- */
+// Privacy Policy popup
 document.getElementById('privacy-link').onclick = function(e){
   e.preventDefault();
   document.getElementById('privacy-popup-bg').style.display = 'block';
@@ -581,7 +626,7 @@ document.getElementById('privacy-popup-bg').onclick = function(e){
   if(e.target === this) this.style.display = 'none';
 };
 
-/* --- SKY CANVAS ANIMATION --- */
+// ANIMAZIONE CIELO
 const canvas = document.getElementById('skyCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -660,6 +705,7 @@ window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
+// AOS
 AOS.init();
 </script>
 </body>
