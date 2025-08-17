@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Voli con Herath</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <header>
@@ -58,6 +59,16 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter">
+    <h2>Iscriviti alla Newsletter</h2>
+    <form id="newsletter-form">
+      <input type="email" id="email" placeholder="Inserisci la tua email" required>
+      <button type="submit">Iscriviti</button>
+    </form>
+    <p id="newsletter-msg"></p>
   </section>
 
   <button id="backToTop">↑</button>
